@@ -1,0 +1,10 @@
+language: perl
+dist: jessie
+
+sudo: enabled
+
+script:
+- pwd
+- env
+- top -n 1 -b
+- df -k
