@@ -41,8 +41,6 @@ script:
 
 - cd $HOME
 - . $TRAVIS_BUILD_DIR/scripts/build_if_not_cached.sh
-- cd $BASEDIR
-- . $TRAVIS_BUILD_DIR/scripts/create_so_symlinks.sh
 - cd $RQG_HOME
 - perl $RQG_HOME/combinations.pl --new --config=$TRAVIS_BUILD_DIR/scripts/travis_combinations.cc --run-all-combinations-once --force --workdir=$HOME/logs --no-log || true
 - cd $HOME
