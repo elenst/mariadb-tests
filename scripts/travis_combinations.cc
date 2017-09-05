@@ -1,0 +1,117 @@
+#
+#  Copyright (c) 2017, MariaDB
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; version 2 of the License.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
+
+use strict;
+
+# Common options
+my @option_blocks= (
+  [
+      ' --no-mask'
+    . ' --seed=time'
+    . ' --threads=4'
+    . ' --queries=100M'
+    . ' --mysqld=--loose-max-statement-time=20'
+    . ' --mysqld=--loose-lock-wait-timeout=20'
+    . ' --mysqld=--loose-innodb-lock-wait-timeout=10'
+  ]
+);
+
+if (defined $ENV{TYPE}) {
+  my @type_options= ();
+  my @types= split ',', $ENV{TYPE};
+  foreach my $t (@types) {
+    $t= lc($t);
+    if ($t =~ /^(?:normal|upgrade|undo|recovery)/) {
+      push @type_options,
+          ' --grammar=conf/mariadb/oltp.yy'
+        . ' --gendata=conf/mariadb/innodb_upgrade.zz'
+        . ' --gendata-advanced'
+        . ' --mysqld=--server-id=111'
+        . ' --mysqld=--log-bin'
+        . ' --mysqld=--binlog-format=ROW'
+        . ' --upgrade-test='.$t
+      ;
+    }
+  }
+  push @option_blocks, \@type_options;
+}
+
+if (defined $ENV{ENCRYPTION}) {
+  my @encryption_options;
+  my @encryptions= split ',', $ENV{ENCRYPTION};
+  foreach my $e (@encryptions) {
+    $e= lc($e);
+    if ($e eq 'on') {
+        push @encryption_options,
+            ' --mysqld=--file-key-management'
+          . ' --mysqld=--file-key-management-filename='.$ENV{TRAVIS_BUILD_DIR}.'/data/keys.txt'
+          . ' --mysqld=--plugin-load-add=file_key_management.so'
+          . ' --mysqld=--innodb-encrypt-tables'
+          . ' --mysqld=--innodb-encrypt-log'
+          . ' --mysqld=--innodb-encryption-threads=4'
+          . ' --mysqld=--aria-encrypt-tables=1'
+          . ' --mysqld=--encrypt-tmp-disk-tables=1'
+          . ' --mysqld=--encrypt-binlog'
+        ;
+    }
+    elsif ($e eq 'off') {
+      push @encryption_options, '';
+    }
+    elsif ($e eq 'turn_on') {
+        push @encryption_options,
+            ' --mysqld2=--file-key-management'
+          . ' --mysqld2=--file-key-management-filename='.$ENV{TRAVIS_BUILD_DIR}.'/data/keys.txt'
+          . ' --mysqld2=--plugin-load-add=file_key_management.so'
+          . ' --mysqld2=--innodb-encrypt-tables'
+          . ' --mysqld2=--innodb-encrypt-log'
+          . ' --mysqld2=--innodb-encryption-threads=4'
+          . ' --mysqld2=--aria-encrypt-tables=1'
+          . ' --mysqld2=--encrypt-tmp-disk-tables=1'
+          . ' --mysqld2=--encrypt-binlog'
+        ;
+    }
+  }
+  push @option_blocks, \@encryption_options;
+}
+
+if (defined $ENV{PAGE_SIZE}) {
+  my @page_sizes;
+  if (lc($ENV{PAGE_SIZE}) eq 'all') {
+    @page_sizes= ('16K','8K','4K','32K','64K');
+  }
+  elsif (lc($ENV{PAGE_SIZE}) eq 'small') {
+    @page_sizes= ('16K','8K','4K');
+  }
+  else {
+    @page_sizes= split ',', $ENV{PAGE_SIZE};
+  }
+  my @page_size_options;
+  foreach my $s (@page_sizes) {
+    push @page_size_options, ' --mysqld=--innodb-page-size='.$s;
+  }
+  push @option_blocks, \@page_size_options;
+}
+
+if (defined $ENV{COMPRESSION}) {
+  my @compressions= split ',', $ENV{COMPRESSION};
+  my @compression_options;
+  foreach my $c (@compressions) {
+    push @compression_options, ' --mysqld=--innodb-compression-algorithm=',$c;
+  }
+  push @option_blocks, \@compression_options;
+}
+
+$combinations= \@option_blocks;
