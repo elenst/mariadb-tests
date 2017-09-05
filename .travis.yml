@@ -15,24 +15,50 @@ before_install:
 - sudo apt-get install libaio1 libaio-dev libjemalloc1 gdb
 
 env:
-- TYPE=recovery               PAGE_SIZE=small
-- TYPE=normal   OLD=10.0      PAGE_SIZE=small
-- TYPE=crash    OLD=10.0      PAGE_SIZE=small
-- TYPE=undo     OLD=10.0      PAGE_SIZE=small
-- TYPE=normal   OLD=10.0.14   PAGE_SIZE=small
-- TYPE=crash    OLD=10.0.14   PAGE_SIZE=small
-- TYPE=undo     OLD=10.0.18   PAGE_SIZE=small
-- TYPE=normal   OLD=mysql-5.6 PAGE_SIZE=small
-- TYPE=crash    OLD=mysql-5.6 PAGE_SIZE=small
-- TYPE=undo     OLD=mysql-5.6 PAGE_SIZE=small
+- TYPE=recovery ENCRYPTION=on                     COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=recovery                                   COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=normal   ENCRYPTION=on       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=normal                       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=crash    ENCRYPTION=on       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=crash                        OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=undo     ENCRYPTION=on       OLD=10.1      COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo                         OLD=10.1      COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo     ENCRYPTION=on       OLD=10.1      COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=undo                         OLD=10.1      COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=normal   ENCRYPTION=on       OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=normal                       OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=crash    ENCRYPTION=on       OLD=10.1.22   COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=crash                        OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=undo     ENCRYPTION=on       OLD=10.1.22   COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo                         OLD=10.1.10   COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo     ENCRYPTION=on       OLD=10.1.22   COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=undo                         OLD=10.1.10   COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=normal   ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
+- TYPE=normal                       OLD=10.0                             PAGE_SIZE=small   
+- TYPE=crash    ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
+- TYPE=crash                        OLD=10.0                             PAGE_SIZE=small
+- TYPE=undo     ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
+- TYPE=undo                         OLD=10.0                             PAGE_SIZE=small
+- TYPE=normal   ENCRYPTION=turn_on  OLD=10.0.14                          PAGE_SIZE=small
+- TYPE=normal                       OLD=10.0.14                          PAGE_SIZE=small
+- TYPE=crash    ENCRYPTION=turn_on  OLD=10.0.14                          PAGE_SIZE=small
+- TYPE=crash                        OLD=10.0.14                          PAGE_SIZE=small
+- TYPE=undo     ENCRYPTION=turn_on  OLD=10.0.14                          PAGE_SIZE=small
+- TYPE=undo                         OLD=10.0.14                          PAGE_SIZE=small
+- TYPE=normal   ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
+- TYPE=normal                       OLD=mysql-5.6                        PAGE_SIZE=small
+- TYPE=crash    ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
+- TYPE=crash                        OLD=mysql-5.6                        PAGE_SIZE=small
+- TYPE=undo     ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
+- TYPE=undo                         OLD=mysql-5.6                        PAGE_SIZE=small
 
 install:
 - cd $HOME
 - export BASEDIR=$HOME/server
 - export RQG_HOME=$HOME/rqg
-- export CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -DWITH_SPHINX_STORAGE_ENGINE=OFF -DWITH_TOKUDB_STORAGE_ENGINE=OFF -DWITH_MROONGA_STORAGE_ENGINE=OFF -DWITH_FEDERATED_STORAGE_ENGINE=OFF -DWITH_FEDERATEDX_STORAGE_ENGINE=OFF -DWITH_CONNECT_STORAGE_ENGINE=OFF -DWITH_SPIDER_STORAGE_ENGINE=OFF -DWITHOUT_SPHINX_STORAGE_ENGINE=ON -DWITHOUT_TOKUDB_STORAGE_ENGINE=ON -DWITHOUT_MROONGA_STORAGE_ENGINE=ON -DWITHOUT_FEDERATED_STORAGE_ENGINE=ON -DWITHOUT_FEDERATEDX_STORAGE_ENGINE=ON -DWITHOUT_CONNECT_STORAGE_ENGINE=ON -DWITHOUT_SPIDER_STORAGE_ENGINE=ON"
+- export CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -DPLUGIN_SPHINX=NO -DPLUGIN_TOKUDB=NO -DPLUGIN_ROCKSDB=NO -DPLUGIN_MROONGA=NO -DPLUGIN_FEDERATED=NO -DPLUGIN_FEDERATEDX=NO -DPLUGIN_CONNECT=NO -DPLUGIN_SPIDER=NO -DWITH_MARIABACKUP=OFF"
 # SERVER_BRANCH can be redefined in build variables
-- if [ -z "$SERVER_BRANCH" ] ; then SERVER=10.0 ; else SERVER=$SERVER_BRANCH ; fi
+- if [ -z "$SERVER_BRANCH" ] ; then SERVER=10.1 ; else SERVER=$SERVER_BRANCH ; fi
 - git clone https://github.com/elenst/rqg --branch experimental rqg
 - git clone https://github.com/MariaDB/server --depth=1 --branch $SERVER src
 - . $TRAVIS_BUILD_DIR/scripts/get_old_version.sh $OLD
