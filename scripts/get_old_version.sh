@@ -15,9 +15,8 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
 
-OLD=$1
 
-cd $TEST_HOME
+cd $HOME
 if [ -n "$OLD" ] ; then
   case $OLD in
     mysql-*)
@@ -47,8 +46,8 @@ if [ -n "$OLD" ] ; then
   dname=`ls`
   mv $dname/* ./
   rmdir $dname
-  cd $TEST_HOME
+  cd $HOME
 else
   echo "Old and new versions are the same"
-  ln -s $TEST_HOME/build $TEST_HOME/old
+  ln -s $HOME/server $HOME/old
 fi
