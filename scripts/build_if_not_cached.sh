@@ -21,7 +21,7 @@
 # $CMAKE_OPTIONS
 
 if [ -e $BASEDIR/revno ] ; then
-  CACHED_REVISION=`cat $HOME/server/revno`
+  CACHED_REVISION=`cat $BASEDIR/revno`
 fi
 
 cd $HOME/src
@@ -29,13 +29,12 @@ REVISION=`git log -1 | head -1 | sed -e 's/^commit \([a-f0-9]*\)/\1/'`
 
 if [ "$REVISION" != "$CACHED_REVISION" ] ; then 
   echo "Cached revision $CACHED_REVISION, new revision $REVISION, build is required"
-  rm -rf $BASEDIR
-  mkdir $BASEDIR
-  cd $BASEDIR
-  echo $REVISION > revno
-  cmake $HOME/src $CMAKE_OPTIONS -DCMAKE_INSTALL_PREFIX=$BASEDIR
+  rm -rf $BASEDIR && mkdir $BASEDIR
+  cd $HOME/src
+  cmake . $CMAKE_OPTIONS -DCMAKE_INSTALL_PREFIX=$BASEDIR
   make -j6
-  make install
+  make install > install.log
+  echo $REVISION > $BASEDIR/revno
 else
   echo "Revision $REVISION has already been cached, build is not needed"
 fi
