@@ -3,15 +3,47 @@ dist: jessie
 
 sudo: enabled
 
+cache:
+  directories:
+    - $HOME/server
+
 before_install:
 - cpanm -n DBI DBD::mysql
 - sudo apt-get install libaio1 libaio-dev libjemalloc1 gdb
 
+env:
+- TYPE=recovery               PAGE_SIZE=small
+- TYPE=normal   OLD=10.0      PAGE_SIZE=small
+- TYPE=crash    OLD=10.0      PAGE_SIZE=small
+- TYPE=undo     OLD=10.0      PAGE_SIZE=small
+- TYPE=normal   OLD=10.0.14   PAGE_SIZE=small
+- TYPE=crash    OLD=10.0.14   PAGE_SIZE=small
+- TYPE=undo     OLD=10.0.14   PAGE_SIZE=small
+- TYPE=normal   OLD=mysql-5.6 PAGE_SIZE=small
+- TYPE=crash    OLD=mysql-5.6 PAGE_SIZE=small
+- TYPE=undo     OLD=mysql-5.6 PAGE_SIZE=small
+
 install:
-- export TEST_HOME=`pwd`
+- cd $HOME
+- export BASEDIR=$HOME/server
+- export RQG_HOME=$HOME/rqg
+- export CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -DWITH_SPHINX_STORAGE_ENGINE=OFF -DWITH_TOKUDB_STORAGE_ENGINE=OFF -DWITH_MROONGA_STORAGE_ENGINE=OFF -DWITH_FEDERATED_STORAGE_ENGINE=OFF -DWITH_FEDERATEDX_STORAGE_ENGINE=OFF -DWITH_CONNECT_STORAGE_ENGINE=OFF -DWITH_SPIDER_STORAGE_ENGINE=OFF -DWITHOUT_SPHINX_STORAGE_ENGINE=ON -DWITHOUT_TOKUDB_STORAGE_ENGINE=ON -DWITHOUT_MROONGA_STORAGE_ENGINE=ON -DWITHOUT_FEDERATED_STORAGE_ENGINE=ON -DWITHOUT_FEDERATEDX_STORAGE_ENGINE=ON -DWITHOUT_CONNECT_STORAGE_ENGINE=ON -DWITHOUT_SPIDER_STORAGE_ENGINE=ON"
+# SERVER_BRANCH can be redefined in build variables
+- if [ -z "$SERVER_BRANCH" ] ; then SERVER=$NEW ; else SERVER=$SERVER_BRANCH ; fi
+- git clone https://github.com/elenst/rqg --branch experimental rqg
+- git clone https://github.com/MariaDB/server --depth=1 --branch $SERVER src
+- . $TEST_HOME/scripts/get_old_version.sh $OLD
 
 script:
-- pwd
-- env
-- top -n 1 -b
-- df -k 
+
+- cd $HOME
+- . $TRAVIS_BUILD_DIR/scripts/build_if_not_cached.sh
+- cd $BASEDIR
+- . $TRAVIS_BUILD_DIR/scripts/create_so_symlinks.sh
+- cd $RQG_HOME
+- perl $RQG_HOME/combinations.pl --new --config=$TRAVIS_BUILD_DIR/scripts/travis_combinations.cc --basedir=$BASEDIR --run-all-combinations-once --force --workdir=$HOME/logs --no-log || true
+- cd $HOME
+- . $TRAVIS_BUILD_DIR/scripts/collect_failure_info.sh $HOME/logs
+#- perl $TRAVIS_BUILD_DIR/scripts/parse_upgrade_logs.pl --mode=jira --nowarnings $HOME/logs/trial*
+#- perl $TRAVIS_BUILD_DIR/scripts/parse_upgrade_logs.pl --mode=kb --nowarnings $HOME/logs/trial*
+- perl $TRAVIS_BUILD_DIR/scripts/parse_upgrade_logs.pl --mode=text --nowarnings $HOME/logs/trial*
