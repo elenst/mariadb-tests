@@ -39,7 +39,7 @@ if (defined $ENV{TYPE}) {
   my @types= split ',', $ENV{TYPE};
   foreach my $t (@types) {
     $t= lc($t);
-    if ($t =~ /^(?:normal|upgrade|undo|recovery)/) {
+    if ($t =~ /^(?:normal|upgrade|undo|crash|recovery)/) {
       $duration= ($t =~ /undo/ ? 200 : 60);
       $basedirs= ($t =~ /recovery/ ? ' --basedir='.$ENV{BASEDIR} : ' --basedir1='.$ENV{HOME}.'/old --basedir2='.$ENV{BASEDIR});
       push @type_options,
