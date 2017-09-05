@@ -45,7 +45,7 @@ do
     if [ -e $dname/data_orig/core ] ; then
       coredump=$dname/data_orig/core
       # Since it's in the _orig dir, it is definitely from the old server
-      bname=$TEST_HOME/old
+      bname=$HOME/old
       if [ -e $bname/bin/mysqld ] ; then
         binary=$bname/bin/mysqld
       elif [ -e $bname/sql/mysqld ] ; then
@@ -73,11 +73,11 @@ do
       # the old server; otherwise it belongs to the new server
       
       if [ -e $dname/data_orig ] ; then
-        bname=$TEST_HOME/build
-      elif [ -e $TEST_HOME/old ] ; then
-        bname=$TEST_HOME/old
+        bname=$BASEDIR
+      elif [ -e $HOME/old ] ; then
+        bname=$HOME/old
       else
-        bname=$TEST_HOME/build
+        bname=$BASEDIR
       fi
       
       if [ -e $bname/bin/mysqld ] ; then

@@ -33,8 +33,9 @@ if [ "$REVISION" != "$CACHED_REVISION" ] ; then
   mkdir $BASEDIR
   cd $BASEDIR
   echo $REVISION > revno
-  cmake $HOME/src $CMAKE_OPTIONS
+  cmake $HOME/src $CMAKE_OPTIONS -DCMAKE_INSTALL_PREFIX=$BASEDIR
   make -j6
+  make install
 else
   echo "Revision $REVISION has already been cached, build is not needed"
 fi

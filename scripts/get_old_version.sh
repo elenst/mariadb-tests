@@ -17,7 +17,7 @@
 
 OLD=$1
 
-cd $TEST_HOME
+cd $HOME
 if [ -n "$OLD" ] ; then
   case $OLD in
     mysql-*)
@@ -47,8 +47,8 @@ if [ -n "$OLD" ] ; then
   dname=`ls`
   mv $dname/* ./
   rmdir $dname
-  cd $TEST_HOME
+  cd $HOME
 else
   echo "Old and new versions are the same"
-  ln -s $TEST_HOME/build $TEST_HOME/old
+  ln -s $BASEDIR $HOME/old
 fi
