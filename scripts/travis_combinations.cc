@@ -16,19 +16,20 @@
 
 use strict;
 
-# Common options
-my @option_blocks= (
-  [
-      ' --no-mask'
-    . ' --seed=time'
-    . ' --threads=4'
-    . ' --queries=100M'
-    . ' --duration=300'
-    . ' --mysqld=--loose-max-statement-time=20'
-    . ' --mysqld=--loose-lock-wait-timeout=20'
-    . ' --mysqld=--loose-innodb-lock-wait-timeout=10'
-  ]
-);
+# Options which can be adjusted
+my ($duration, $basedirs);
+
+my @option_blocks;
+
+my $common_options=
+    ' --no-mask'
+  . ' --seed=time'
+  . ' --threads=4'
+  . ' --queries=100M'
+  . ' --mysqld=--loose-max-statement-time=20'
+  . ' --mysqld=--loose-lock-wait-timeout=20'
+  . ' --mysqld=--loose-innodb-lock-wait-timeout=10'
+;
 
 if (defined $ENV{TYPE}) {
   my @type_options= ();
@@ -37,6 +38,7 @@ if (defined $ENV{TYPE}) {
     $t= lc($t);
     if ($t =~ /^(?:normal|upgrade|undo|recovery)/) {
       $duration= ($t =~ /undo/ ? 200 : 60);
+      $basedirs= ($t =~ /recovery/ ? ' --basedir='.$ENV{BASEDIR} : ' --basedir1='.$ENV{HOME}.'/old --basedir2='.$ENV{BASEDIR});
       push @type_options,
           ' --grammar=conf/mariadb/oltp.yy'
         . ' --gendata=conf/mariadb/innodb_upgrade.zz'
@@ -46,6 +48,7 @@ if (defined $ENV{TYPE}) {
         . ' --mysqld=--binlog-format=ROW'
         . ' --upgrade-test='.$t
         . ' --duration='.$duration
+        . $basedirs
       ;
     }
   }
@@ -116,5 +119,15 @@ if (defined $ENV{COMPRESSION}) {
   }
   push @option_blocks, \@compression_options;
 }
+
+if (not defined $duration) {
+  $common_options .= ' --duration=300';
+}
+
+if (not defined $basedirs) {
+  $common_options .= ' --basedir='.$ENV{BASEDIR};
+}
+
+push @option_blocks, [ $common_options ];
 
 $combinations= \@option_blocks;
