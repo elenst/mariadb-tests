@@ -17,6 +17,24 @@ before_install:
 env:
 - TYPE=recovery ENCRYPTION=on                     COMPRESSION=none,zlib  PAGE_SIZE=all
 - TYPE=recovery                                   COMPRESSION=none,zlib  PAGE_SIZE=all
+
+- TYPE=normal   ENCRYPTION=on       OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=normal                       OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=crash    ENCRYPTION=on       OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=crash                        OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=undo     ENCRYPTION=on       OLD=10.2      COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo                         OLD=10.2      COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo     ENCRYPTION=on       OLD=10.2      COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=undo                         OLD=10.2      COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=normal   ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=normal                       OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=crash    ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=crash                        OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=undo     ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo                         OLD=10.2.6    COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo     ENCRYPTION=on       OLD=10.2.6    COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=undo                         OLD=10.2.6    COMPRESSION=zlib       PAGE_SIZE=all
+
 - TYPE=normal   ENCRYPTION=on       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
 - TYPE=normal                       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
 - TYPE=crash    ENCRYPTION=on       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
@@ -33,6 +51,7 @@ env:
 - TYPE=undo                         OLD=10.1.10   COMPRESSION=none       PAGE_SIZE=all
 - TYPE=undo     ENCRYPTION=on       OLD=10.1.22   COMPRESSION=zlib       PAGE_SIZE=all
 - TYPE=undo                         OLD=10.1.10   COMPRESSION=zlib       PAGE_SIZE=all
+
 - TYPE=normal   ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
 - TYPE=normal                       OLD=10.0                             PAGE_SIZE=small   
 - TYPE=crash    ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
@@ -45,6 +64,14 @@ env:
 - TYPE=crash                        OLD=10.0.14                          PAGE_SIZE=small
 - TYPE=undo     ENCRYPTION=turn_on  OLD=10.0.14                          PAGE_SIZE=small
 - TYPE=undo                         OLD=10.0.14                          PAGE_SIZE=small
+
+- TYPE=normal   ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
+- TYPE=normal                       OLD=mysql-5.7                        PAGE_SIZE=all
+- TYPE=crash    ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
+- TYPE=crash                        OLD=mysql-5.7                        PAGE_SIZE=all
+- TYPE=undo     ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
+- TYPE=undo                         OLD=mysql-5.7                        PAGE_SIZE=all
+
 - TYPE=normal   ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
 - TYPE=normal                       OLD=mysql-5.6                        PAGE_SIZE=small
 - TYPE=crash    ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
@@ -58,7 +85,7 @@ install:
 - export RQG_HOME=$HOME/rqg
 - export CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -DPLUGIN_SPHINX=NO -DPLUGIN_TOKUDB=NO -DPLUGIN_ROCKSDB=NO -DPLUGIN_MROONGA=NO -DPLUGIN_FEDERATED=NO -DPLUGIN_FEDERATEDX=NO -DPLUGIN_CONNECT=NO -DPLUGIN_SPIDER=NO -DWITH_MARIABACKUP=OFF"
 # SERVER_BRANCH can be redefined in build variables
-- if [ -z "$SERVER_BRANCH" ] ; then SERVER=10.1 ; else SERVER=$SERVER_BRANCH ; fi
+- if [ -z "$SERVER_BRANCH" ] ; then SERVER=10.2 ; else SERVER=$SERVER_BRANCH ; fi
 - git clone https://github.com/elenst/rqg --branch experimental rqg
 - git clone https://github.com/MariaDB/server --depth=1 --branch $SERVER src
 - . $TRAVIS_BUILD_DIR/scripts/get_old_version.sh $OLD
