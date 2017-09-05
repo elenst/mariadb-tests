@@ -31,6 +31,9 @@ my $common_options=
   . ' --mysqld=--loose-innodb-lock-wait-timeout=10'
 ;
 
+#        . ' --mysqld=--log-bin'
+#        . ' --mysqld=--binlog-format=ROW'
+
 if (defined $ENV{TYPE}) {
   my @type_options= ();
   my @types= split ',', $ENV{TYPE};
@@ -44,8 +47,6 @@ if (defined $ENV{TYPE}) {
         . ' --gendata=conf/mariadb/innodb_upgrade.zz'
         . ' --gendata-advanced'
         . ' --mysqld=--server-id=111'
-        . ' --mysqld=--log-bin'
-        . ' --mysqld=--binlog-format=ROW'
         . ' --upgrade-test='.$t
         . ' --duration='.$duration
         . $basedirs
