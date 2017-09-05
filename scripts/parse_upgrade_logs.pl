@@ -23,7 +23,7 @@ my ($mode, $warnings, $help) = ('text', 1, undef);
 
 my $res = &GetOptions (
 	"mode=s" => \$mode,
-    "warnings!" => \$warnings,
+  "warnings!" => \$warnings,
 	"help" => \$help,
 );
 
@@ -46,6 +46,11 @@ foreach (@ARGV) {
    @names = ( @names, @expansion );
 }
 @ARGV = @names;
+
+if (not scalar(@ARGV)) {
+  print "Have not found any logs to parse\n";
+  exit 1;
+}
 
 my ($trialnum,$result,$type);
 my %output= ();
