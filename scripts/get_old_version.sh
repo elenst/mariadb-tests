@@ -40,6 +40,7 @@ if [ -n "$OLD" ] ; then
     *)
     ;;
   esac
+  rm -rf old
   mkdir old
   cd old
   tar zxf ../${fname}.tar.gz
