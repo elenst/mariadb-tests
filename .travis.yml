@@ -21,7 +21,7 @@ env:
 - TYPE=undo     OLD=10.0      PAGE_SIZE=small
 - TYPE=normal   OLD=10.0.14   PAGE_SIZE=small
 - TYPE=crash    OLD=10.0.14   PAGE_SIZE=small
-- TYPE=undo     OLD=10.0.14   PAGE_SIZE=small
+- TYPE=undo     OLD=10.0.18   PAGE_SIZE=small
 - TYPE=normal   OLD=mysql-5.6 PAGE_SIZE=small
 - TYPE=crash    OLD=mysql-5.6 PAGE_SIZE=small
 - TYPE=undo     OLD=mysql-5.6 PAGE_SIZE=small
