@@ -23,6 +23,7 @@ my @option_blocks= (
     . ' --seed=time'
     . ' --threads=4'
     . ' --queries=100M'
+    . ' --duration=300'
     . ' --mysqld=--loose-max-statement-time=20'
     . ' --mysqld=--loose-lock-wait-timeout=20'
     . ' --mysqld=--loose-innodb-lock-wait-timeout=10'
@@ -35,6 +36,7 @@ if (defined $ENV{TYPE}) {
   foreach my $t (@types) {
     $t= lc($t);
     if ($t =~ /^(?:normal|upgrade|undo|recovery)/) {
+      $duration= ($t =~ /undo/ ? 200 : 60);
       push @type_options,
           ' --grammar=conf/mariadb/oltp.yy'
         . ' --gendata=conf/mariadb/innodb_upgrade.zz'
@@ -43,6 +45,7 @@ if (defined $ENV{TYPE}) {
         . ' --mysqld=--log-bin'
         . ' --mysqld=--binlog-format=ROW'
         . ' --upgrade-test='.$t
+        . ' --duration='.$duration
       ;
     }
   }
