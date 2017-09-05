@@ -7,6 +7,9 @@ cache:
   directories:
     - $HOME/server
 
+before_cache:
+  rm -rf $HOME/server/mysql-test
+
 before_install:
 - cpanm -n DBI DBD::mysql
 - sudo apt-get install libaio1 libaio-dev libjemalloc1 gdb
