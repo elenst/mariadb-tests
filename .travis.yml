@@ -29,16 +29,16 @@ env:
 
 - TYPE=normal   ENCRYPTION=on       OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
 - TYPE=normal                       OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=crash    ENCRYPTION=on       OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=crash                        OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
+#- TYPE=crash    ENCRYPTION=on       OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
+#- TYPE=crash                        OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
 - TYPE=undo     ENCRYPTION=on       OLD=10.2      COMPRESSION=none       PAGE_SIZE=all
 - TYPE=undo                         OLD=10.2      COMPRESSION=none       PAGE_SIZE=all
 - TYPE=undo     ENCRYPTION=on       OLD=10.2      COMPRESSION=zlib       PAGE_SIZE=all
 - TYPE=undo                         OLD=10.2      COMPRESSION=zlib       PAGE_SIZE=all
 - TYPE=normal   ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
 - TYPE=normal                       OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=crash    ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=crash                        OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
+#- TYPE=crash    ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
+#- TYPE=crash                        OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
 - TYPE=undo     ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none       PAGE_SIZE=all
 - TYPE=undo                         OLD=10.2.6    COMPRESSION=none       PAGE_SIZE=all
 - TYPE=undo     ENCRYPTION=on       OLD=10.2.6    COMPRESSION=zlib       PAGE_SIZE=all
@@ -76,8 +76,8 @@ env:
 
 - TYPE=normal   ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
 - TYPE=normal                       OLD=mysql-5.7                        PAGE_SIZE=all
-- TYPE=crash    ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
-- TYPE=crash                        OLD=mysql-5.7                        PAGE_SIZE=all
+#- TYPE=crash    ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
+#- TYPE=crash                        OLD=mysql-5.7                        PAGE_SIZE=all
 - TYPE=undo     ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
 - TYPE=undo                         OLD=mysql-5.7                        PAGE_SIZE=all
 
