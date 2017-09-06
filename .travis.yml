@@ -41,6 +41,7 @@ install:
 - if [ -z "$SERVER_BRANCH" ] ; then SERVER=10.3 ; else SERVER=$SERVER_BRANCH ; fi
 - git clone https://github.com/elenst/rqg --branch experimental rqg
 - git clone https://github.com/MariaDB/server --depth=1 --branch $SERVER src
+- . $TRAVIS_BUILD_DIR/scripts/build_if_not_cached.sh
 - mkdir $HOME/logs
 
 script:
