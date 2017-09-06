@@ -116,7 +116,11 @@ if (defined $ENV{COMPRESSION}) {
   my @compressions= split ',', $ENV{COMPRESSION};
   my @compression_options;
   foreach my $c (@compressions) {
-    push @compression_options, ' --mysqld=--innodb-compression-algorithm='.$c;
+    push @compression_options,
+        ' --mysqld=--innodb-compression-algorithm='.$c
+      . ' --mysqld=--loose-innodb-file-format=Barracuda'
+      . ' --mysqld=--loose-innodb-file-per-table=1'
+    ;
   }
   push @option_blocks, \@compression_options;
 }
