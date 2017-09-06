@@ -3,15 +3,61 @@ dist: jessie
 
 sudo: enabled
 
+cache:
+  directories:
+    - $HOME/server
+
+before_cache:
+  rm -rf $HOME/server/mysql-test
+
 before_install:
 - cpanm -n DBI DBD::mysql
 - sudo apt-get install libaio1 libaio-dev libjemalloc1 gdb
 
+env:
+- RQG_OPTIONS="--validators=TransformerLight --grammar=conf/mariadb/optimizer.yy --gendata=conf/mariadb/optimizer.zz"
+- RQG_OPTIONS="--validators=TransformerLight --grammar=conf/mariadb/optimizer.yy --gendata"
+- RQG_OPTIONS="--validators=TransformerLight --grammar=conf/mariadb/optimizer.yy --gendata --notnull"
+- RQG_OPTIONS="--validators=TransformerLight --grammar=conf/mariadb/optimizer.yy --skip-gendata --mysqld=--init-file=\$RQG_HOME/conf/mariadb/world.sql"
+- RQG_OPTIONS="--validators=TransformerLight --grammar=conf/mariadb/optimizer.yy --skip-gendata --gendata-advanced"
+- RQG_OPTIONS="--validators=TransformerLight --grammar=conf/optimizer/optimizer_access_exp.yy"
+- RQG_OPTIONS="--validators=TransformerLight --grammar=conf/optimizer/optimizer_access_exp.yy --notnull"
+- RQG_OPTIONS="--validators=TransformerLight --grammar=conf/optimizer/optimizer_access_exp.yy --gendata=conf/optimizer/range_access.zz"
+- RQG_OPTIONS="--validators=TransformerLight --grammar=conf/optimizer/optimizer_access_exp.yy --skip-gendata --gendata-advanced"
+- RQG_OPTIONS="--validators=TransformerLight --grammar=conf/optimizer/optimizer_access_exp.yy --notnull --gendata"
+- RQG_OPTIONS="--validators=TransformerLight --grammar=conf/optimizer/optimizer_access_exp.yy --skip-gendata --mysqld=--init-file=\$RQG_HOME/conf/mariadb/world.sql"
+- RQG_OPTIONS="--validators=TransformerLight --grammar=conf/optimizer/range_access2.yy --gendata=conf/optimizer/range_access2.zz"
+- RQG_OPTIONS="--validators=TransformerLight --grammar=conf/optimizer/range_access.yy --gendata=conf/optimizer/range_access.zz"
+- RQG_OPTIONS="--validators=TransformerLight --grammar=conf/optimizer/outer_join.yy --gendata=conf/optimizer/outer_join.zz"
+- RQG_OPTIONS="--validators=TransformerNoComparator --grammar=conf/mariadb/multi_update.yy --gendata=conf/mariadb/multi_update.zz"
+- RQG_OPTIONS="--validators=TransformerNoComparator --grammar=conf/optimizer/updateable_views.yy --mysqld=--init-file=\$RQG_HOME/conf/optimizer/updateable_views.init"
+
 install:
-- export TEST_HOME=`pwd`
+- cd $HOME
+- export BASEDIR=$HOME/server
+- export RQG_HOME=$HOME/rqg
+- export CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -DPLUGIN_SPHINX=NO -DPLUGIN_TOKUDB=NO -DPLUGIN_ROCKSDB=NO -DPLUGIN_MROONGA=NO -DPLUGIN_FEDERATED=NO -DPLUGIN_FEDERATEDX=NO -DPLUGIN_CONNECT=NO -DPLUGIN_SPIDER=NO -DWITH_MARIABACKUP=OFF"
+# SERVER_BRANCH can be redefined in build variables
+- if [ -z "$SERVER_BRANCH" ] ; then SERVER=10.3 ; else SERVER=$SERVER_BRANCH ; fi
+- git clone https://github.com/elenst/rqg --branch experimental rqg
+- git clone https://github.com/MariaDB/server --depth=1 --branch $SERVER src
+- mkdir $HOME/logs
 
 script:
-- pwd
-- env
-- top -n 1 -b
-- df -k 
+- cd $RQG_HOME
+
+- export SEED=`perl -e 'print time()'`
+- echo $SEED
+- perl $RQG_HOME/runall-new.pl --mysqld=--max-statement-time=30 --seed=$SEED --threads=4 --duration=400 --queries=100M --reporters=QueryTimeout,Backtrace,ErrorLog,Deadlock --mtr-build-thread=72 --transformers=ExecuteAsIntersect,ExecuteAsExcept $RQG_OPTIONS --basedir1=$BASEDIR --vardir=$HOME/logs/vardir1_1 > $HOME/logs/test1.log
+
+- export SEED=`perl -e 'print time()'`
+- echo $SEED
+- perl $RQG_HOME/runall-new.pl --mysqld=--max-statement-time=30 --mysqld=--default-storage-engine=MyISAM --seed=$SEED --threads=4 --duration=400 --queries=100M --transformers=ExecuteAsIntersect,ExecuteAsExcept --reporters=QueryTimeout,Backtrace,ErrorLog,Deadlock  --mtr-build-thread=73 $RQG_OPTIONS --basedir1=$BASEDIR --vardir=$HOME/logs/vardir1_2 > $HOME/logs/test2.log
+
+- export SEED=`perl -e 'print time()'`
+- echo $SEED
+- perl $RQG_HOME/runall-new.pl --mysqld=--max-statement-time=30 --mysqld=--default-storage-engine=Aria --seed=$SEED --threads=4 --duration=400 --queries=100M --transformers=ExecuteAsIntersect,ExecuteAsExcept --reporters=QueryTimeout,Backtrace,ErrorLog,Deadlock  --mtr-build-thread=74 $RQG_OPTIONS --basedir1=$BASEDIR --vardir=$HOME/logs/vardir1_3 > $HOME/logs/test3.log
+
+- cd $HOME
+- . $TRAVIS_BUILD_DIR/scripts/collect_failure_info.sh $HOME/logs
+- perl $TRAVIS_BUILD_DIR/scripts/mismatch_filter.pl --nodiffs $HOME/logs/test*log
