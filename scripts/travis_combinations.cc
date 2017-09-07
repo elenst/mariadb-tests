@@ -116,10 +116,12 @@ if (defined $ENV{COMPRESSION}) {
   my @compressions= split ',', $ENV{COMPRESSION};
   my @compression_options;
   foreach my $c (@compressions) {
+    my $gendata = ($c eq 'none' ? 'conf/mariadb/innodb_upgrade.zz' : 'conf/mariadb/innodb_upgrade_compression.zz');
     push @compression_options,
         ' --mysqld=--innodb-compression-algorithm='.$c
       . ' --mysqld=--loose-innodb-file-format=Barracuda'
       . ' --mysqld=--loose-innodb-file-per-table=1'
+      . ' --gendata='.$gendata
     ;
   }
   push @option_blocks, \@compression_options;
