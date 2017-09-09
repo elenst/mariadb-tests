@@ -21,6 +21,8 @@ my ($duration, $basedirs);
 
 my @option_blocks;
 
+# Regarding innodb_log_compressed_pages, see MDEV-13247
+
 my $common_options=
     ' --no-mask'
   . ' --seed=time'
@@ -29,6 +31,7 @@ my $common_options=
   . ' --mysqld=--loose-max-statement-time=20'
   . ' --mysqld=--loose-lock-wait-timeout=20'
   . ' --mysqld=--loose-innodb-lock-wait-timeout=10'
+  . ' --mysqld=--loose-innodb_log_compressed_pages=on'
 ;
 
 #        . ' --mysqld=--log-bin'
