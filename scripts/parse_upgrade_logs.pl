@@ -251,14 +251,14 @@ sub fix_result {
                 $$res= 'UPGRADE_FAILURE';
             }
         }
-#        elsif ($jira == 13103) {
-#            $jira_subj= 'Assertion `flags & BUF_PAGE_PRINT_NO_CRASH\' failed in buf_page_print';
-#            if ($old_opts{encryption} eq 'on' and $new_opts{version} =~ /10\.[23]\.?/) {
-#                push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
-#            } else {
-#                $$res= 'UPGRADE_FAILURE';
-#            }
-#        }
+        elsif ($jira == 13103) {
+            $jira_subj= 'InnoDB crash recovery fails to decompress a page in buf_dblwr_process()';
+            if ($old_opts{encryption} eq 'on' and $new_opts{version} =~ /10\.[23]\.?/) {
+                push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
+            } else {
+                $$res= 'UPGRADE_FAILURE';
+            }
+        }
         elsif ($jira == 13101) {
             $jira_subj= 'Assertion `0 || offs == 0 + (38U + 36 + 2 * 10) + 0 ... 38U + 0 + 6` failed in recv_parse_or_apply_log_rec_body';
             if ($old_opts{encryption} eq 'on' and $old_opts{version} =~ /10\.[23]\.?/ and $new_opts{version} =~ /10\.[23]\.?/) {
