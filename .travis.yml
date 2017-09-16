@@ -15,77 +15,79 @@ before_install:
 - sudo apt-get install libaio1 libaio-dev libjemalloc1 gdb
 
 env:
-- TYPE=recovery ENCRYPTION=on                     COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=recovery                                   COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=recovery      ENCRYPTION=on                     COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=recovery                                        COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=undo-recovery ENCRYPTION=on                     COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=undo-recovery                                   COMPRESSION=none,zlib  PAGE_SIZE=all
 
-- TYPE=normal   ENCRYPTION=on       OLD=10.3      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=normal                       OLD=10.3      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=crash    ENCRYPTION=on       OLD=10.3      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=crash                        OLD=10.3      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo     ENCRYPTION=on       OLD=10.3      COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo                         OLD=10.3      COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo     ENCRYPTION=on       OLD=10.3      COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=undo                         OLD=10.3      COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=normal        ENCRYPTION=on       OLD=10.3      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=normal                            OLD=10.3      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=crash         ENCRYPTION=on       OLD=10.3      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=crash                             OLD=10.3      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=undo          ENCRYPTION=on       OLD=10.3      COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo                              OLD=10.3      COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo          ENCRYPTION=on       OLD=10.3      COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=undo                              OLD=10.3      COMPRESSION=zlib       PAGE_SIZE=all
 
-- TYPE=normal   ENCRYPTION=on       OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=normal                       OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash    ENCRYPTION=on       OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash                        OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo     ENCRYPTION=on       OLD=10.2      COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo                         OLD=10.2      COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo     ENCRYPTION=on       OLD=10.2      COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=undo                         OLD=10.2      COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=normal   ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=normal                       OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash    ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash                        OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo     ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo                         OLD=10.2.6    COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo     ENCRYPTION=on       OLD=10.2.6    COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=undo                         OLD=10.2.6    COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=normal        ENCRYPTION=on       OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=normal                            OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
+#- TYPE=crash         ENCRYPTION=on       OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
+#- TYPE=crash                             OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=undo          ENCRYPTION=on       OLD=10.2      COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo                              OLD=10.2      COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo          ENCRYPTION=on       OLD=10.2      COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=undo                              OLD=10.2      COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=normal        ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=normal                            OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
+#- TYPE=crash         ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
+#- TYPE=crash                             OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=undo          ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo                              OLD=10.2.6    COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo          ENCRYPTION=on       OLD=10.2.6    COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=undo                              OLD=10.2.6    COMPRESSION=zlib       PAGE_SIZE=all
 
-- TYPE=normal   ENCRYPTION=on       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=normal                       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash    ENCRYPTION=on       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash                        OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo     ENCRYPTION=on       OLD=10.1      COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo                         OLD=10.1      COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo     ENCRYPTION=on       OLD=10.1      COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=undo                         OLD=10.1      COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=normal   ENCRYPTION=on       OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=normal                       OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash    ENCRYPTION=on       OLD=10.1.22   COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash                        OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo     ENCRYPTION=on       OLD=10.1.22   COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo                         OLD=10.1.22   COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo     ENCRYPTION=on       OLD=10.1.22   COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=undo                         OLD=10.1.22   COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=normal   ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
-- TYPE=normal                       OLD=10.0                             PAGE_SIZE=small   
-#- TYPE=crash    ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
-#- TYPE=crash                        OLD=10.0                             PAGE_SIZE=small
-- TYPE=undo     ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
-- TYPE=undo                         OLD=10.0                             PAGE_SIZE=small
-- TYPE=normal   ENCRYPTION=turn_on  OLD=10.0.14                          PAGE_SIZE=small
-- TYPE=normal                       OLD=10.0.14                          PAGE_SIZE=small
-#- TYPE=crash    ENCRYPTION=turn_on  OLD=10.0.14                          PAGE_SIZE=small
-#- TYPE=crash                        OLD=10.0.14                          PAGE_SIZE=small
-- TYPE=undo     ENCRYPTION=turn_on  OLD=10.0.18                          PAGE_SIZE=small
-- TYPE=undo                         OLD=10.0.18                          PAGE_SIZE=small
+- TYPE=normal        ENCRYPTION=on       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=normal                            OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
+#- TYPE=crash         ENCRYPTION=on       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
+#- TYPE=crash                             OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=undo          ENCRYPTION=on       OLD=10.1      COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo                              OLD=10.1      COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo          ENCRYPTION=on       OLD=10.1      COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=undo                              OLD=10.1      COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=normal        ENCRYPTION=on       OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=normal                            OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
+#- TYPE=crash         ENCRYPTION=on       OLD=10.1.22   COMPRESSION=none,zlib  PAGE_SIZE=all
+#- TYPE=crash                             OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=undo          ENCRYPTION=on       OLD=10.1.22   COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo                              OLD=10.1.22   COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo          ENCRYPTION=on       OLD=10.1.22   COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=undo                              OLD=10.1.22   COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=normal        ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
+- TYPE=normal                            OLD=10.0                             PAGE_SIZE=small   
+#- TYPE=crash         ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
+#- TYPE=crash                             OLD=10.0                             PAGE_SIZE=small
+- TYPE=undo          ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
+- TYPE=undo                              OLD=10.0                             PAGE_SIZE=small
+- TYPE=normal        ENCRYPTION=turn_on  OLD=10.0.14                          PAGE_SIZE=small
+- TYPE=normal                            OLD=10.0.14                          PAGE_SIZE=small
+#- TYPE=crash         ENCRYPTION=turn_on  OLD=10.0.14                          PAGE_SIZE=small
+#- TYPE=crash                             OLD=10.0.14                          PAGE_SIZE=small
+- TYPE=undo          ENCRYPTION=turn_on  OLD=10.0.18                          PAGE_SIZE=small
+- TYPE=undo                              OLD=10.0.18                          PAGE_SIZE=small
 
-- TYPE=normal   ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
-- TYPE=normal                       OLD=mysql-5.7                        PAGE_SIZE=all
-#- TYPE=crash    ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
-#- TYPE=crash                        OLD=mysql-5.7                        PAGE_SIZE=all
-- TYPE=undo     ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
-- TYPE=undo                         OLD=mysql-5.7                        PAGE_SIZE=all
+- TYPE=normal        ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
+- TYPE=normal                            OLD=mysql-5.7                        PAGE_SIZE=all
+#- TYPE=crash         ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
+#- TYPE=crash                             OLD=mysql-5.7                        PAGE_SIZE=all
+- TYPE=undo          ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
+- TYPE=undo                              OLD=mysql-5.7                        PAGE_SIZE=all
 
-- TYPE=normal   ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
-- TYPE=normal                       OLD=mysql-5.6                        PAGE_SIZE=small
-#- TYPE=crash    ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
-#- TYPE=crash                        OLD=mysql-5.6                        PAGE_SIZE=small
-- TYPE=undo     ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
-- TYPE=undo                         OLD=mysql-5.6                        PAGE_SIZE=small
+- TYPE=normal        ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
+- TYPE=normal                            OLD=mysql-5.6                        PAGE_SIZE=small
+#- TYPE=crash         ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
+#- TYPE=crash                             OLD=mysql-5.6                        PAGE_SIZE=small
+- TYPE=undo          ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
+- TYPE=undo                              OLD=mysql-5.6                        PAGE_SIZE=small
 
 install:
 - cd $HOME
