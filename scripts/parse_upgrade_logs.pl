@@ -275,6 +275,14 @@ sub fix_result {
                 $$res= 'UPGRADE_FAILURE';
             }
         }
+        elsif ($jira == 13512) {
+            $jira_subj= 'InnoDB: Failing assertion: !memcmp(FIL_PAGE_TYPE + page, FIL_PAGE_TYPE + page_zip->data, PAGE_HEADER - FIL_PAGE_TYPE)';
+            if ($old_opts{encryption} eq 'on' and $new_opts{version} =~ /10\.[123]\.?/) {
+                push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
+            } else {
+                $$res= 'UPGRADE_FAILURE';
+            }
+        }
         else {
             # Something new?
             $$res= 'UPGRADE_FAILURE';
