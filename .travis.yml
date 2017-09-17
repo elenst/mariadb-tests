@@ -17,8 +17,10 @@ before_install:
 env:
 - TYPE=recovery      ENCRYPTION=on                     COMPRESSION=none,zlib  PAGE_SIZE=all
 - TYPE=recovery                                        COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo-recovery ENCRYPTION=on                     COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo-recovery                                   COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=undo-recovery ENCRYPTION=on                     COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo-recovery                                   COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo-recovery ENCRYPTION=on                     COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=undo-recovery                                   COMPRESSION=zlib       PAGE_SIZE=all
 - TYPE=normal        ENCRYPTION=on       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
 - TYPE=normal                            OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
 - TYPE=crash         ENCRYPTION=on       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
