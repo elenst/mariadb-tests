@@ -30,7 +30,7 @@ do
     echo
 
     # Quoting bootstrap log and error logs before and after upgrade (if exist)
-    for fname in $dname/mysql.err_orig $dname/mysql.err $dname/boot.log
+    for fname in $dname/mysql.err_orig* $dname/mysql.err $dname/boot.log
     do
       if [ -e $fname ] ; then
         echo
