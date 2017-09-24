@@ -36,7 +36,7 @@ env:
 install:
 - cd $HOME
 - export DURATION=400
---export THREAD=6
+- export THREADS=6
 - export BASEDIR=$HOME/server
 - export RQG_HOME=$HOME/rqg
 - export CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -DPLUGIN_SPHINX=NO -DPLUGIN_TOKUDB=NO -DPLUGIN_ROCKSDB=NO -DPLUGIN_MROONGA=NO -DPLUGIN_FEDERATED=NO -DPLUGIN_FEDERATEDX=NO -DPLUGIN_CONNECT=NO -DPLUGIN_SPIDER=NO -DWITH_MARIABACKUP=OFF"
@@ -44,7 +44,7 @@ install:
 - if [ -z "$SERVER_BRANCH" ] ; then SERVER=bb-10.3-marko ; else SERVER=$SERVER_BRANCH ; fi
 - git clone https://github.com/elenst/rqg --branch experimental rqg
 - git clone https://github.com/MariaDB/server --depth=1 --branch $SERVER src
-- if [ "$INSTANT_ALTER" == "on" ] ; then sed -i -e 's/if 0 \/\/ FIXME: enable instant ADD COLUMN/if 1 \/\/ FIXME: enable instant ADD COLUMN/' src/storage/innobase/handler/handler0alter.cc ; fi
+- if [ "$INSTANT_ALTER" == "on" ] ; then sed -i -e 's/if 0 \/\/ FIXME/if 1 \/\/ FIXME/' src/storage/innobase/handler/handler0alter.cc ; fi
 
 script:
 
