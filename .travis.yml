@@ -3,113 +3,58 @@ dist: jessie
 
 sudo: enabled
 
-cache:
-  directories:
-    - $HOME/server
-
-before_cache:
-  rm -rf $HOME/server/mysql-test
-
 before_install:
 - cpanm -n DBI DBD::mysql
 - sudo apt-get install libaio1 libaio-dev libjemalloc1 gdb
 
 env:
-- TYPE=recovery      ENCRYPTION=on                     COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=recovery                                        COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo-recovery ENCRYPTION=on                     COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo-recovery                                   COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo-recovery ENCRYPTION=on                     COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=undo-recovery                                   COMPRESSION=zlib       PAGE_SIZE=all
-
-- TYPE=normal        ENCRYPTION=on       OLD=10.3      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=normal                            OLD=10.3      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=crash         ENCRYPTION=on       OLD=10.3      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=crash                             OLD=10.3      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo          ENCRYPTION=on       OLD=10.3      COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo                              OLD=10.3      COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo          ENCRYPTION=on       OLD=10.3      COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=undo                              OLD=10.3      COMPRESSION=zlib       PAGE_SIZE=all
-
-- TYPE=normal        ENCRYPTION=on       OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=normal                            OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash         ENCRYPTION=on       OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash                             OLD=10.2      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo          ENCRYPTION=on       OLD=10.2      COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo                              OLD=10.2      COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo          ENCRYPTION=on       OLD=10.2      COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=undo                              OLD=10.2      COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=normal        ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=normal                            OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash         ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash                             OLD=10.2.6    COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo          ENCRYPTION=on       OLD=10.2.6    COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo                              OLD=10.2.6    COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo          ENCRYPTION=on       OLD=10.2.6    COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=undo                              OLD=10.2.6    COMPRESSION=zlib       PAGE_SIZE=all
-
-- TYPE=normal        ENCRYPTION=on       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=normal                            OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash         ENCRYPTION=on       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash                             OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo          ENCRYPTION=on       OLD=10.1      COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo                              OLD=10.1      COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo          ENCRYPTION=on       OLD=10.1      COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=undo                              OLD=10.1      COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=normal        ENCRYPTION=on       OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=normal                            OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash         ENCRYPTION=on       OLD=10.1.22   COMPRESSION=none,zlib  PAGE_SIZE=all
-#- TYPE=crash                             OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo          ENCRYPTION=on       OLD=10.1.22   COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo                              OLD=10.1.22   COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo          ENCRYPTION=on       OLD=10.1.22   COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=undo                              OLD=10.1.22   COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=normal        ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
-- TYPE=normal                            OLD=10.0                             PAGE_SIZE=small   
-#- TYPE=crash         ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
-#- TYPE=crash                             OLD=10.0                             PAGE_SIZE=small
-- TYPE=undo          ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
-- TYPE=undo                              OLD=10.0                             PAGE_SIZE=small
-- TYPE=normal        ENCRYPTION=turn_on  OLD=10.0.14                          PAGE_SIZE=small
-- TYPE=normal                            OLD=10.0.14                          PAGE_SIZE=small
-#- TYPE=crash         ENCRYPTION=turn_on  OLD=10.0.14                          PAGE_SIZE=small
-#- TYPE=crash                             OLD=10.0.14                          PAGE_SIZE=small
-- TYPE=undo          ENCRYPTION=turn_on  OLD=10.0.18                          PAGE_SIZE=small
-- TYPE=undo                              OLD=10.0.18                          PAGE_SIZE=small
-
-- TYPE=normal        ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
-- TYPE=normal                            OLD=mysql-5.7                        PAGE_SIZE=all
-#- TYPE=crash         ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
-#- TYPE=crash                             OLD=mysql-5.7                        PAGE_SIZE=all
-- TYPE=undo          ENCRYPTION=turn_on  OLD=mysql-5.7                        PAGE_SIZE=all
-- TYPE=undo                              OLD=mysql-5.7                        PAGE_SIZE=all
-
-- TYPE=normal        ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
-- TYPE=normal                            OLD=mysql-5.6                        PAGE_SIZE=small
-#- TYPE=crash         ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
-#- TYPE=crash                             OLD=mysql-5.6                        PAGE_SIZE=small
-- TYPE=undo          ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
-- TYPE=undo                              OLD=mysql-5.6                        PAGE_SIZE=small
+- INSTANT_ALTER=on GRAMMAR_OPTIONS="--grammar=conf/runtime/metadata_stability.yy --gendata=conf/runtime/metadata_stability.zz"
+- INSTANT_ALTER=off GRAMMAR_OPTIONS="--grammar=conf/runtime/metadata_stability.yy --gendata=conf/runtime/metadata_stability.zz"
+- INSTANT_ALTER=on GRAMMAR_OPTIONS="--grammar=conf/runtime/performance_schema.yy"
+- INSTANT_ALTER=off GRAMMAR_OPTIONS="--grammar=conf/runtime/performance_schema.yy"
+- INSTANT_ALTER=on GRAMMAR_OPTIONS="--grammar=conf/runtime/information_schema.yy"
+- INSTANT_ALTER=off GRAMMAR_OPTIONS="--grammar=conf/runtime/information_schema.yy"
+- INSTANT_ALTER=on GRAMMAR_OPTIONS="--grammar=conf/engines/many_indexes.yy --gendata=conf/engines/many_indexes.zz"
+- INSTANT_ALTER=off GRAMMAR_OPTIONS="--grammar=conf/engines/many_indexes.yy --gendata=conf/engines/many_indexes.zz"
+- INSTANT_ALTER=on GRAMMAR_OPTIONS="--grammar=conf/engines/engine_stress.yy --gendata=conf/engines/engine_stress.zz"
+- INSTANT_ALTER=off GRAMMAR_OPTIONS="--grammar=conf/engines/engine_stress.yy --gendata=conf/engines/engine_stress.zz"
+- INSTANT_ALTER=on GRAMMAR_OPTIONS="--grammar=conf/partitioning/partitions.yy"
+- INSTANT_ALTER=off GRAMMAR_OPTIONS="--grammar=conf/partitioning/partitions.yy"
+- INSTANT_ALTER=on GRAMMAR_OPTIONS="--grammar=conf/partitioning/partition_pruning.yy --gendata=conf/partitioning/partition_pruning.zz"
+- INSTANT_ALTER=off GRAMMAR_OPTIONS="--grammar=conf/partitioning/partition_pruning.yy --gendata=conf/partitioning/partition_pruning.zz"
+- INSTANT_ALTER=on GRAMMAR_OPTIONS="--grammar=conf/replication/replication.yy --gendata=conf/replication/replication-5.1.zz"
+- INSTANT_ALTER=off GRAMMAR_OPTIONS="--grammar=conf/replication/replication.yy --gendata=conf/replication/replication-5.1.zz"
+- INSTANT_ALTER=on GRAMMAR_OPTIONS="--grammar=conf/replication/replication-ddl_sql.yy --gendata=conf/replication/replication-ddl_data.zz"
+- INSTANT_ALTER=off GRAMMAR_OPTIONS="--grammar=conf/replication/replication-ddl_sql.yy --gendata=conf/replication/replication-ddl_data.zz"
+- INSTANT_ALTER=on GRAMMAR_OPTIONS="--grammar=conf/replication/replication-dml_sql.yy --gendata=conf/replication/replication-dml_data.zz"
+- INSTANT_ALTER=off GRAMMAR_OPTIONS="--grammar=conf/replication/replication-dml_sql.yy --gendata=conf/replication/replication-dml_data.zz"
+- INSTANT_ALTER=on GRAMMAR_OPTIONS="--grammar=conf/runtime/connect_kill_sql.yy --gendata=conf/runtime/connect_kill_data.zz"
+- INSTANT_ALTER=off GRAMMAR_OPTIONS="--grammar=conf/runtime/connect_kill_sql.yy --gendata=conf/runtime/connect_kill_data.zz"
+- INSTANT_ALTER=on GRAMMAR_OPTIONS="--grammar=conf/runtime/WL5004_sql.yy --gendata=conf/runtime/WL5004_data.zz"
+- INSTANT_ALTER=off GRAMMAR_OPTIONS="--grammar=conf/runtime/WL5004_sql.yy --gendata=conf/runtime/WL5004_data.zz"
 
 install:
 - cd $HOME
+- export DURATION=400
+--export THREAD=6
 - export BASEDIR=$HOME/server
 - export RQG_HOME=$HOME/rqg
 - export CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -DPLUGIN_SPHINX=NO -DPLUGIN_TOKUDB=NO -DPLUGIN_ROCKSDB=NO -DPLUGIN_MROONGA=NO -DPLUGIN_FEDERATED=NO -DPLUGIN_FEDERATEDX=NO -DPLUGIN_CONNECT=NO -DPLUGIN_SPIDER=NO -DWITH_MARIABACKUP=OFF"
 # SERVER_BRANCH can be redefined in build variables
-- if [ -z "$SERVER_BRANCH" ] ; then SERVER=10.3 ; else SERVER=$SERVER_BRANCH ; fi
+- if [ -z "$SERVER_BRANCH" ] ; then SERVER=bb-10.3-marko ; else SERVER=$SERVER_BRANCH ; fi
 - git clone https://github.com/elenst/rqg --branch experimental rqg
 - git clone https://github.com/MariaDB/server --depth=1 --branch $SERVER src
-- . $TRAVIS_BUILD_DIR/scripts/get_old_version.sh $OLD
+- if [ "$INSTANT_ALTER" == "on" ] ; then sed -i -e 's/if 0 \/\/ FIXME: enable instant ADD COLUMN/if 1 \/\/ FIXME: enable instant ADD COLUMN/' src/storage/innobase/handler/handler0alter.cc ; fi
 
 script:
 
 - cd $HOME
 - . $TRAVIS_BUILD_DIR/scripts/build_if_not_cached.sh
 - cd $RQG_HOME
-- perl $RQG_HOME/combinations.pl --new --config=$TRAVIS_BUILD_DIR/scripts/travis_combinations.cc --run-all-combinations-once --force --workdir=$HOME/logs || true
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=conf/mariadb/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --mysqld=--innodb-page-size=16K --seed=time --vardir=$HOME/logs/vardir1_1 2>&1 | tee $HOME/logs/trial1.log || true
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=conf/mariadb/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --mysqld=--innodb-page-size=8K --seed=time --vardir=$HOME/logs/vardir1_2 2>&1 | tee $HOME/logs/trial2.log || true
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=conf/mariadb/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --mysqld=--innodb-page-size=4K --seed=time --vardir=$HOME/logs/vardir1_3 2>&1 | tee $HOME/logs/trial3.log || true
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=conf/mariadb/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --mysqld=--innodb-page-size=32K --seed=time --vardir=$HOME/logs/vardir1_4 2>&1 | tee $HOME/logs/trial4.log || true
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=conf/mariadb/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --mysqld=--innodb-page-size=64K --seed=time --vardir=$HOME/logs/vardir1_5 2>&1 | tee $HOME/logs/trial5.log || true
 - cd $HOME
 - . $TRAVIS_BUILD_DIR/scripts/collect_failure_info.sh $HOME/logs
-#- perl $TRAVIS_BUILD_DIR/scripts/parse_upgrade_logs.pl --mode=jira --nowarnings $HOME/logs/trial*
-#- perl $TRAVIS_BUILD_DIR/scripts/parse_upgrade_logs.pl --mode=kb --nowarnings $HOME/logs/trial*
-- perl $TRAVIS_BUILD_DIR/scripts/parse_upgrade_logs.pl --mode=text --nowarnings $HOME/logs/trial*
