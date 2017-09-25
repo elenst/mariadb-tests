@@ -36,6 +36,9 @@ if [ "$REVISION" != "$CACHED_REVISION" ] ; then
   make install > /dev/null
   echo $REVISION > $BASEDIR/revno
   rm -rf $HOME/out-of-source
+elif [ "$SKIP_OLD_SERVER" == "ON" ] || [ "$SKIP_OLD_SERVER" == "on" ] || [ "$SKIP_OLD_SERVER" == "YES" ] || [ "$SKIP_OLD_SERVER" == "yes" ] ; then
+  echo "SKIP_OLD_SERVER is set to $SKIP_OLD_SERVER, skipping the tests"
+  exit 0
 else
   echo "Revision $REVISION has already been cached, build is not needed"
 fi
