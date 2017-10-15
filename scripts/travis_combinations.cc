@@ -40,17 +40,25 @@ my $common_options=
 if (defined $ENV{TYPE}) {
   my @type_options= ();
   my @types= split ',', $ENV{TYPE};
+  my $scenario;
   foreach my $t (@types) {
     $t= lc($t);
     if ($t =~ /^(?:normal|upgrade|undo|crash|recovery|undo-recovery)/) {
       $duration= ($t =~ /undo/ ? 200 : 60);
       $basedirs= ($t =~ /recovery/ ? ' --basedir='.$ENV{BASEDIR} : ' --basedir1='.$ENV{HOME}.'/old --basedir2='.$ENV{BASEDIR});
+      if ($t eq 'normal' or $t eq 'upgrade') {
+        $scenario= 'Upgrade';
+      } elsif ($t eq 'crash' or $t eq 'recovery') {
+        $scenario= 'CrashUpgrade';
+      } else {
+        $scenario= 'UndoLogUpgrade';
+      }
       push @type_options,
           ' --grammar=conf/mariadb/oltp.yy'
         . ' --gendata=conf/mariadb/innodb_upgrade.zz'
         . ' --gendata-advanced'
         . ' --mysqld=--server-id=111'
-        . ' --upgrade-test='.$t
+        . ' --scenario='.$scenario
         . ' --duration='.$duration
         . $basedirs
       ;
