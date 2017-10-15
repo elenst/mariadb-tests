@@ -236,7 +236,7 @@ sub fix_result {
             $occurrences= $2;
         }
         if ($jira == 13094) {
-            $jira_subj= '(Wrong AUTO_INCREMENT value on the table after server restart)';
+            $jira_subj= 'Wrong AUTO_INCREMENT value on the table after server restart';
             if ($new_opts{version} =~ /10\.[23]\.?/) {
                 push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
             } else {
