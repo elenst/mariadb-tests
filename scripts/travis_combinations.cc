@@ -55,6 +55,7 @@ if (defined $ENV{TYPE}) {
       }
       push @type_options,
           ' --grammar=conf/mariadb/oltp.yy'
+        . ' --grammar2=conf/mariadb/oltp_and_ddl.yy'
         . ' --gendata=conf/mariadb/innodb_upgrade.zz'
         . ' --gendata-advanced'
         . ' --mysqld=--server-id=111'
