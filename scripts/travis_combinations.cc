@@ -44,7 +44,7 @@ if (defined $ENV{TYPE}) {
   foreach my $t (@types) {
     $t= lc($t);
     if ($t =~ /^(?:normal|upgrade|undo|crash|recovery|undo-recovery)/) {
-      $duration= ($t =~ /undo/ ? 200 : 60);
+      $duration= ($t =~ /undo/ ? 200 : 90);
       $basedirs= ($t =~ /recovery/ ? ' --basedir='.$ENV{BASEDIR} : ' --basedir1='.$ENV{HOME}.'/old --basedir2='.$ENV{BASEDIR});
       if ($t eq 'normal' or $t eq 'upgrade') {
         $scenario= 'Upgrade';
