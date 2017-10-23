@@ -25,20 +25,25 @@ install:
 # SERVER_BRANCH can be redefined in build variables
 - if [ -z "$SERVER_BRANCH" ] ; then SERVER=10.3 ; else SERVER=$SERVER_BRANCH ; fi
 - git clone https://github.com/elenst/rqg --branch scenarios rqg
-- git clone https://github.com/MariaDB/server --depth=1 --branch $SERVER src
+#- git clone https://github.com/MariaDB/server --depth=1 --branch $SERVER src
 
 script:
 
 - cd $HOME
-- . $TRAVIS_BUILD_DIR/scripts/build_if_not_cached.sh
+#- . $TRAVIS_BUILD_DIR/scripts/build_if_not_cached.sh
 - cd $RQG_HOME
 
 - perl /home/travis/rqg//runall-new.pl --grammar=$TRAVIS_BUILD_DIR/data/mdev13820-0.yy --gendata-advanced --mysqld=--server-id=111 --duration=200 --basedir=/home/travis/server --mysqld=--innodb-page-size=4K --mysqld=--innodb-compression-algorithm=none --mysqld=--loose-innodb-file-format=Barracuda --mysqld=--loose-innodb-file-per-table=1 --gendata=conf/mariadb/innodb_upgrade.zz --no-mask --seed=1508721187 --threads=4 --queries=100M --mysqld=--loose-max-statement-time=20 --mysqld=--loose-lock-wait-timeout=20 --mysqld=--loose-innodb-lock-wait-timeout=10 --mysqld=--loose-innodb_log_compressed_pages=on --mtr-build-thread=300 --vardir1=/home/travis/logs/vardir1 || cat /home/travis/logs/vardir1/mysql.log
 
-- perl /home/travis/rqg//runall-new.pl --grammar=$TRAVIS_BUILD_DIR/data/mdev13820-1.yy --gendata-advanced --mysqld=--server-id=111 --duration=200 --basedir=/home/travis/server --mysqld=--innodb-page-size=4K --mysqld=--innodb-compression-algorithm=none --mysqld=--loose-innodb-file-format=Barracuda --mysqld=--loose-innodb-file-per-table=1 --gendata=conf/mariadb/innodb_upgrade.zz --no-mask --seed=1508721187 --threads=4 --queries=100M --mysqld=--loose-max-statement-time=20 --mysqld=--loose-lock-wait-timeout=20 --mysqld=--loose-innodb-lock-wait-timeout=10 --mysqld=--loose-innodb_log_compressed_pages=on --mtr-build-thread=300 --vardir1=/home/travis/logs/vardir2 || cat /home/travis/logs/vardir2/mysql.log
+- perl /home/travis/rqg//runall-new.pl --grammar=$TRAVIS_BUILD_DIR/data/mdev13820-0.yy --gendata-advanced --mysqld=--server-id=111 --duration=200 --basedir=/home/travis/server --mysqld=--innodb-page-size=16K --mysqld=--innodb-compression-algorithm=none --mysqld=--loose-innodb-file-format=Barracuda --mysqld=--loose-innodb-file-per-table=1 --gendata=conf/mariadb/innodb_upgrade.zz --no-mask --seed=1508721187 --threads=4 --queries=100M --mysqld=--loose-max-statement-time=20 --mysqld=--loose-lock-wait-timeout=20 --mysqld=--loose-innodb-lock-wait-timeout=10 --mysqld=--loose-innodb_log_compressed_pages=on --mtr-build-thread=300 --vardir1=/home/travis/logs/vardir2 || cat /home/travis/logs/vardir2/mysql.log
 
-- perl /home/travis/rqg//runall-new.pl --grammar=$TRAVIS_BUILD_DIR/data/mdev13820-2.yy --gendata-advanced --mysqld=--server-id=111 --duration=200 --basedir=/home/travis/server --mysqld=--innodb-page-size=4K --mysqld=--innodb-compression-algorithm=none --mysqld=--loose-innodb-file-format=Barracuda --mysqld=--loose-innodb-file-per-table=1 --gendata=conf/mariadb/innodb_upgrade.zz --no-mask --seed=1508721187 --threads=4 --queries=100M --mysqld=--loose-max-statement-time=20 --mysqld=--loose-lock-wait-timeout=20 --mysqld=--loose-innodb-lock-wait-timeout=10 --mysqld=--loose-innodb_log_compressed_pages=on --mtr-build-thread=300 --vardir1=/home/travis/logs/vardir3 || cat /home/travis/logs/vardir3/mysql.log
+- perl /home/travis/rqg//runall-new.pl --grammar=$TRAVIS_BUILD_DIR/data/mdev13820-0.yy --gendata-advanced --skip-gendata --mysqld=--server-id=111 --duration=200 --basedir=/home/travis/server --mysqld=--innodb-page-size=16K --mysqld=--innodb-compression-algorithm=none --no-mask --seed=1508721187 --threads=4 --queries=100M --mysqld=--loose-max-statement-time=20 --mysqld=--loose-lock-wait-timeout=20 --mysqld=--loose-innodb-lock-wait-timeout=10 --mysqld=--loose-innodb_log_compressed_pages=on --mtr-build-thread=300 --vardir1=/home/travis/logs/vardir3 || cat /home/travis/logs/vardir3/mysql.log
 
+- perl /home/travis/rqg//runall-new.pl --grammar=$TRAVIS_BUILD_DIR/data/mdev13820-0.yy --gendata-advanced --skip-gendata --mysqld=--server-id=111 --duration=200 --basedir=/home/travis/server --mysqld=--innodb-page-size=16K --mysqld=--innodb-compression-algorithm=none --no-mask --seed=1508721187 --threads=3 --queries=100M --mysqld=--loose-max-statement-time=20 --mysqld=--loose-lock-wait-timeout=20 --mysqld=--loose-innodb-lock-wait-timeout=10 --mysqld=--loose-innodb_log_compressed_pages=on --mtr-build-thread=300 --vardir1=/home/travis/logs/vardir4 || cat /home/travis/logs/vardir4/mysql.log
+
+- perl /home/travis/rqg//runall-new.pl --grammar=$TRAVIS_BUILD_DIR/data/mdev13820-0.yy --gendata-advanced --skip-gendata --mysqld=--server-id=111 --duration=200 --basedir=/home/travis/server --mysqld=--innodb-page-size=16K --mysqld=--innodb-compression-algorithm=none --no-mask --seed=1508721187 --threads=2 --queries=100M --mysqld=--loose-max-statement-time=20 --mysqld=--loose-lock-wait-timeout=20 --mysqld=--loose-innodb-lock-wait-timeout=10 --mysqld=--loose-innodb_log_compressed_pages=on --mtr-build-thread=300 --vardir1=/home/travis/logs/vardir5 || cat /home/travis/logs/vardir5/mysql.log
+
+- perl /home/travis/rqg//runall-new.pl --grammar=$TRAVIS_BUILD_DIR/data/mdev13820-0.yy --gendata-advanced --skip-gendata --mysqld=--server-id=111 --duration=200 --basedir=/home/travis/server --mysqld=--innodb-page-size=16K --mysqld=--innodb-compression-algorithm=none --no-mask --seed=1508721187 --threads=1 --queries=100M --mysqld=--loose-max-statement-time=20 --mysqld=--loose-lock-wait-timeout=20 --mysqld=--loose-innodb-lock-wait-timeout=10 --mysqld=--loose-innodb_log_compressed_pages=on --mtr-build-thread=300 --vardir1=/home/travis/logs/vardir6 || cat /home/travis/logs/vardir6/mysql.log
 
 - cd $HOME
 #- . $TRAVIS_BUILD_DIR/scripts/collect_failure_info.sh $HOME/logs
