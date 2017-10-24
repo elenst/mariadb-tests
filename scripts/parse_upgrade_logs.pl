@@ -236,7 +236,7 @@ sub fix_result {
             $occurrences= $2;
         }
         if ($jira == 13094) {
-            $jira_subj= '(Wrong AUTO_INCREMENT value on the table after server restart)';
+            $jira_subj= 'Wrong AUTO_INCREMENT value on the table after server restart';
             if ($new_opts{version} =~ /10\.[23]\.?/) {
                 push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
             } else {
@@ -283,6 +283,22 @@ sub fix_result {
                 $$res= 'UPGRADE_FAILURE';
             }
         }
+        elsif ($jira == 13820) {
+            $jira_subj= 'Assertion `id == 0 || id > trx_id` failed in trx_id_check(const void*, trx_id_t)';
+            if ($new_opts{version} =~ /10\.3\.?/) {
+                push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
+            } else {
+                $$res= 'UPGRADE_FAILURE';
+            }
+        }
+#        elsif ($jira == 14022) {
+#            $jira_subj= 'Upgrade from 10.0/10.1 fails on assertion `!is_user_rec || !leaf || index->is_dummy || dict_index_is_ibuf(index) || n == n_fields || (n >= index->n_core_fields && n <= index->n_fields)';
+#            if ($old_opts{version} =~ /10\.[01]\.?/ and $new_opts{version} =~ /10\.3\.?/) {
+#                push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
+#            } else {
+#                $$res= 'UPGRADE_FAILURE';
+#            }
+#        }
         else {
             # Something new?
             $$res= 'UPGRADE_FAILURE';
