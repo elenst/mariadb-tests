@@ -261,7 +261,7 @@ column_list:
 ;
 
 temporary:
-  | | | | TEMPORARY
+#  | | | | TEMPORARY
 ;
 
 flush:
