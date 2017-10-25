@@ -27,7 +27,7 @@ env:
 
 install:
 - cd $HOME
-- export DURATION=400
+- export DURATION=600
 - export THREADS=6
 - export BASEDIR=$HOME/server
 - export RQG_HOME=$HOME/rqg
@@ -42,10 +42,11 @@ script:
 - cd $HOME
 - . $TRAVIS_BUILD_DIR/scripts/build_if_not_cached.sh
 - cd $RQG_HOME
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$TRAVIS_BUILD_DIR/data/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --mysqld=--innodb-page-size=16K --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_1 2>&1 | tee $HOME/logs/trial1.log
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$TRAVIS_BUILD_DIR/data/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --mysqld=--innodb-page-size=8K --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_2 2>&1 | tee $HOME/logs/trial2.log 
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$TRAVIS_BUILD_DIR/data/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --mysqld=--innodb-page-size=4K --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_3 2>&1 | tee $HOME/logs/trial3.log
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$TRAVIS_BUILD_DIR/data/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --mysqld=--innodb-page-size=32K --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_4 2>&1 | tee $HOME/logs/trial4.log
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$TRAVIS_BUILD_DIR/data/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --mysqld=--innodb-page-size=64K --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_5 2>&1 | tee $HOME/logs/trial5.log
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$TRAVIS_BUILD_DIR/data/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_1 2>&1 | tee $HOME/logs/trial1.log
+
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$TRAVIS_BUILD_DIR/data/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock,Restart --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_2 2>&1 | tee $HOME/logs/trial2.log
+
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$TRAVIS_BUILD_DIR/data/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock,CrashRestart --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_3 2>&1 | tee $HOME/logs/trial3.log
+
 - cd $HOME
 - . $TRAVIS_BUILD_DIR/scripts/collect_failure_info.sh $HOME/logs
