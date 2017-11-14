@@ -42,11 +42,11 @@ script:
 - cd $HOME
 - . $TRAVIS_BUILD_DIR/scripts/build_if_not_cached.sh
 - cd $RQG_HOME
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_1 2>&1 | tee $HOME/logs/trial1.log
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_1 2>&1 | tee $HOME/logs/trial1.log
 
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --scenario=Restart --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_2 2>&1 | tee $HOME/logs/trial2.log
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --scenario=Restart --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_2 2>&1 | tee $HOME/logs/trial2.log
 
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_alter.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --scenario=Restart --scenario-type=crash --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_3 2>&1 | tee $HOME/logs/trial3.log
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --scenario=Restart --scenario-type=crash --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_3 2>&1 | tee $HOME/logs/trial3.log
 
 - cd $HOME
 - . $TRAVIS_BUILD_DIR/scripts/collect_failure_info.sh $HOME/logs
