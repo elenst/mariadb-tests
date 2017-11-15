@@ -36,7 +36,7 @@ do
         echo
         echo "------------------------- $fname -----------------------------"
         echo
-        cat $fname | grep -v "\[Note\]" | grep -v "^$"
+        cat $fname | grep -v "\[Note\]" | grep -v "^$" | cut -c 1-4096
         echo "--------------------------------------------------------------"
       fi
     done
@@ -99,7 +99,7 @@ do
       if [ -e $triallog ] ; then
         echo "------------------------- $triallog --------------------------"
         echo
-        cat $triallog
+        cat $triallog | cut -c 1-4096
         echo
         echo "--------------------------------------------------------------"
         echo
