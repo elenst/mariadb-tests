@@ -27,6 +27,7 @@ env:
 
 install:
 - cd $HOME
+- export SKIP_OLD_SERVER=no
 - export DURATION=400
 - export THREADS=6
 - export BASEDIR=$HOME/server
