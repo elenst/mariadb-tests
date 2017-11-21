@@ -27,7 +27,7 @@ env:
 
 install:
 - cd $HOME
-- export DURATION=600
+- export DURATION=400
 - export THREADS=6
 - export BASEDIR=$HOME/server
 - export RQG_HOME=$HOME/rqg
@@ -36,17 +36,21 @@ install:
 - if [ -z "$SERVER_BRANCH" ] ; then SERVER=10.3 ; else SERVER=$SERVER_BRANCH ; fi
 - git clone https://github.com/elenst/rqg --branch experimental rqg
 - git clone https://github.com/MariaDB/server --depth=1 --branch $SERVER src
+- cd rqg && git log -1
 
 script:
 
 - cd $HOME
 - . $TRAVIS_BUILD_DIR/scripts/build_if_not_cached.sh
 - cd $RQG_HOME
+- mkdir $HOME/logs
 - perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_1 2>&1 | tee $HOME/logs/trial1.log
 
 - perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --scenario=Restart --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_2 2>&1 | tee $HOME/logs/trial2.log
 
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --scenario=Restart --scenario-type=crash --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_3 2>&1 | tee $HOME/logs/trial3.log
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --rpl-mode=mixed --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --scenario=Restart --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_3 2>&1 | tee $HOME/logs/trial3.log
+
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --rpl-mode=mixed --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --mysqld=--slave-parallel-threads=6 --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_4 2>&1 | tee $HOME/logs/trial4.log
 
 - cd $HOME
 - . $TRAVIS_BUILD_DIR/scripts/collect_failure_info.sh $HOME/logs
