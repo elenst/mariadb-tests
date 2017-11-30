@@ -47,9 +47,9 @@ script:
 - mkdir $HOME/logs
 - perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_1 2>&1 | tee $HOME/logs/trial1.log
 
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --scenario=Restart --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_2 2>&1 | tee $HOME/logs/trial2.log
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --scenario=Restart --engine=InnoDB --mysqld=--innodb_stats_persistent=0 --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_2 2>&1 | tee $HOME/logs/trial2.log
 
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --rpl-mode=mixed --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --scenario=Restart --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_3 2>&1 | tee $HOME/logs/trial3.log
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --rpl-mode=mixed --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --scenario=Restart --engine=InnoDB --mysqld=--innodb_stats_persistent=0 --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_3 2>&1 | tee $HOME/logs/trial3.log
 
 - perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --rpl-mode=mixed --threads=$THREADS --queries=100M --redefine=$RQG_HOME/conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --mysqld=--slave-parallel-threads=6 --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_4 2>&1 | tee $HOME/logs/trial4.log
 
