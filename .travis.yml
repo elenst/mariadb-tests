@@ -9,7 +9,7 @@ cache:
 
 before_install:
 - cpanm -n DBI DBD::mysql
-- sudo apt-get install libaio1 libaio-dev libjemalloc1 gdb
+- sudo apt-get install libaio1 libaio-dev libjemalloc1 gdb libnuma1
 
 env:
 - GRAMMAR_OPTIONS="--grammar=conf/runtime/metadata_stability.yy --gendata=conf/runtime/metadata_stability.zz"
