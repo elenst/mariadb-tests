@@ -12,7 +12,7 @@ before_cache:
 
 before_install:
 - cpanm -n DBI DBD::mysql
-- sudo apt-get install libaio1 libaio-dev libjemalloc1 gdb
+- sudo apt-get install libaio1 libaio-dev libjemalloc1 gdb libnuma1
 
 env:
 - TYPE=recovery      ENCRYPTION=on                     COMPRESSION=none,zlib  PAGE_SIZE=all
