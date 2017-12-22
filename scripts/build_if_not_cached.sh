@@ -47,3 +47,5 @@ elif [ -n "$RERUN_OLD_SERVER" ]
 else
   echo "Revision $REVISION has already been cached, build is not needed, but there is no stored test result, so tests will be run"
 fi
+
+set +x
