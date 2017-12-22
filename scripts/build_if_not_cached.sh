@@ -20,6 +20,8 @@
 # $BASEDIR
 # $CMAKE_OPTIONS
 
+set -x
+
 if [ -e $BASEDIR/revno ] ; then
   CACHED_REVISION=`cat $BASEDIR/revno`
 fi
@@ -36,9 +38,12 @@ if [ "$REVISION" != "$CACHED_REVISION" ] ; then
   make install > /dev/null
   echo $REVISION > $BASEDIR/revno
   rm -rf $HOME/out-of-source
-elif [ "$SKIP_OLD_SERVER" == "ON" ] || [ "$SKIP_OLD_SERVER" == "on" ] || [ "$SKIP_OLD_SERVER" == "YES" ] || [ "$SKIP_OLD_SERVER" == "yes" ] ; then
-  echo "SKIP_OLD_SERVER is set to $SKIP_OLD_SERVER, skipping the tests"
-  exit 0
+elif [ -z "$RERUN_OLD_SERVER" ] && [ -e $BASEDIR/test_result ] ; then
+  echo "Test result for revision $REVISION has already been cached, tests will be skipped"
+  echo "For details of the test run, check logs of previous releases"
+  exit `cat $BASEDIR/test_result`
+elif [ -n "$RERUN_OLD_SERVER" ]
+  echo "Revision $REVISION has already been cached, build is not needed, tests will be re-run as requested"
 else
-  echo "Revision $REVISION has already been cached, build is not needed"
+  echo "Revision $REVISION has already been cached, build is not needed, but there is no stored test result, so tests will be run"
 fi
