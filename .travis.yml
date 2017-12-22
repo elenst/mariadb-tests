@@ -5,7 +5,7 @@ sudo: enabled
 
 before_install:
 - cpanm -n DBI DBD::mysql
-- sudo apt-get install libaio1 libaio-dev libjemalloc1 gdb
+- sudo apt-get install libaio1 libaio-dev libjemalloc1 gdb libnuma1
 
 install:
 - export TEST_HOME=`pwd`
