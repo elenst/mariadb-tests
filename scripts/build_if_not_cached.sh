@@ -20,8 +20,6 @@
 # $BASEDIR
 # $CMAKE_OPTIONS
 
-set -x
-
 if [ -e $BASEDIR/revno ] ; then
   CACHED_REVISION=`cat $BASEDIR/revno`
 fi
@@ -42,8 +40,9 @@ elif [ -z "$RERUN_OLD_SERVER" ] && [ -e $BASEDIR/test_result ] ; then
   echo "Test result for revision $REVISION has already been cached, tests will be skipped"
   echo "For details of the test run, check logs of previous releases"
   exit `cat $BASEDIR/test_result`
-elif [ -n "$RERUN_OLD_SERVER" ]
+elif [ -n "$RERUN_OLD_SERVER" ] ; then
   echo "Revision $REVISION has already been cached, build is not needed, tests will be re-run as requested"
 else
   echo "Revision $REVISION has already been cached, build is not needed, but there is no stored test result, so tests will be run"
 fi
+
