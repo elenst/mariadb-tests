@@ -12,28 +12,35 @@ before_install:
 - sudo apt-get install libaio1 libaio-dev libjemalloc1 gdb libnuma1
 
 env:
-- GRAMMAR_OPTIONS="--grammar=conf/runtime/metadata_stability.yy --gendata=conf/runtime/metadata_stability.zz"
-- GRAMMAR_OPTIONS="--grammar=conf/runtime/performance_schema.yy"
-- GRAMMAR_OPTIONS="--grammar=conf/runtime/information_schema.yy"
-- GRAMMAR_OPTIONS="--grammar=conf/engines/many_indexes.yy --gendata=conf/engines/many_indexes.zz"
-- GRAMMAR_OPTIONS="--grammar=conf/engines/engine_stress.yy --gendata=conf/engines/engine_stress.zz"
-- GRAMMAR_OPTIONS="--grammar=conf/partitioning/partitions.yy"
-- GRAMMAR_OPTIONS="--grammar=conf/partitioning/partition_pruning.yy --gendata=conf/partitioning/partition_pruning.zz"
-- GRAMMAR_OPTIONS="--grammar=conf/replication/replication.yy --gendata=conf/replication/replication-5.1.zz"
-- GRAMMAR_OPTIONS="--grammar=conf/replication/replication-ddl_sql.yy --gendata=conf/replication/replication-ddl_data.zz"
-- GRAMMAR_OPTIONS="--grammar=conf/replication/replication-dml_sql.yy --gendata=conf/replication/replication-dml_data.zz"
-- GRAMMAR_OPTIONS="--grammar=conf/runtime/connect_kill_sql.yy --gendata=conf/runtime/connect_kill_data.zz"
-- GRAMMAR_OPTIONS="--grammar=conf/runtime/WL5004_sql.yy --gendata=conf/runtime/WL5004_data.zz"
+- TEST_OPTIONS="--grammar=conf/runtime/metadata_stability.yy --gendata=conf/runtime/metadata_stability.zz"
+- TEST_OPTIONS="--grammar=conf/runtime/performance_schema.yy  --mysqld=--performance-schema"
+- TEST_OPTIONS="--grammar=conf/runtime/information_schema.yy"
+- TEST_OPTIONS="--grammar=conf/engines/many_indexes.yy --gendata=conf/engines/many_indexes.zz"
+- TEST_OPTIONS="--grammar=conf/engines/engine_stress.yy --gendata=conf/engines/engine_stress.zz"
+- TEST_OPTIONS="--grammar=conf/partitioning/partitions.yy"
+- TEST_OPTIONS="--grammar=conf/partitioning/partition_pruning.yy --gendata=conf/partitioning/partition_pruning.zz"
+- TEST_OPTIONS="--grammar=conf/replication/replication.yy --gendata=conf/replication/replication-5.1.zz"
+- TEST_OPTIONS="--grammar=conf/replication/replication-ddl_sql.yy --gendata=conf/replication/replication-ddl_data.zz"
+- TEST_OPTIONS="--grammar=conf/replication/replication-dml_sql.yy --gendata=conf/replication/replication-dml_data.zz"
+- TEST_OPTIONS="--grammar=conf/runtime/connect_kill_sql.yy --gendata=conf/runtime/connect_kill_data.zz"
+- TEST_OPTIONS="--grammar=conf/runtime/WL5004_sql.yy --gendata=conf/runtime/WL5004_data.zz"
+- TEST_OPTIONS="--grammar=conf/mariadb/optimizer.yy --gendata-advanced --skip-gendata"
+- TEST_OPTIONS="--grammar=conf/mariadb/optimizer.yy --gendata"
+- TEST_OPTIONS="--grammar=conf/optimizer/updateable_views.yy --mysqld=--init-file=\$RQG_HOME/conf/optimizer/updateable_views.init"
+- TEST_OPTIONS="--grammar=conf/mariadb/oltp-transactional.yy --gendata=conf/mariadb/oltp.zz"
+- TEST_OPTIONS="--grammar=conf/mariadb/oltp.yy --gendata=conf/mariadb/oltp.zz"
+- TEST_OPTIONS="--grammar=conf/mariadb/functions.yy"
+- TEST_OPTIONS="--grammar=conf/runtime/alter_online.yy --gendata=conf/runtime/alter_online.zz"
+- TEST_OPTIONS="--grammar=conf/optimizer/range_access.yy --gendata=conf/optimizer/range_access.zz"
 
 install:
 - cd $HOME
-- export DURATION=400
-- export THREADS=6
+- export RERUN_OLD_SERVER=yes
+- export COMMON_RQG_OPTIONS="--duration=400 --threads=6 --reporters=Backtrace,ErrorLog,Deadlock --validators=TransformerNoComparator --transformers=ConvertSubqueriesToViews,ConvertTablesToDerived,ConvertTablesToViews,Count,DisableIndexes,DisableOptimizations,Distinct,EnableOptimizations,ExecuteAsCTE,ExecuteAsDeleteReturning,ExecuteAsDerived,ExecuteAsExcept,ExecuteAsExecuteImmediate,ExecuteAsInsertSelect,ExecuteAsIntersect,ExecuteAsSelectItem,ExecuteAsUnion,ExecuteAsUpdateDelete,ExecuteAsView,ExecuteAsWhereSubquery,Having,InlineSubqueries,InlineVirtualColumns,LimitRowsExamined,OrderBy,StraightJoin,ExecuteAsPreparedTwice,ExecuteAsTrigger,ExecuteAsSPTwice,ExecuteAsFunctionTwice --redefine=conf/mariadb/general-workarounds.yy --mysqld=--log_output=FILE --mysqld=--log_bin_trust_function_creators=1 --mysqld=--slave-skip-errors=1049,1305,1539,1505,1317 --rpl_mode=mixed-nosync --mysqld=--max-statement-time=30 --views --redefine=conf/mariadb/versioning.yy --basedir=\$BASEDIR"
 - export BASEDIR=$HOME/server
 - export RQG_HOME=$HOME/rqg
 - export CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -DPLUGIN_SPHINX=NO -DPLUGIN_TOKUDB=NO -DPLUGIN_ROCKSDB=NO -DPLUGIN_MROONGA=NO -DPLUGIN_FEDERATED=NO -DPLUGIN_FEDERATEDX=NO -DPLUGIN_CONNECT=NO -DPLUGIN_SPIDER=NO -DWITH_MARIABACKUP=OFF"
-# SERVER_BRANCH can be redefined in build variables
-- if [ -z "$SERVER_BRANCH" ] ; then SERVER=10.3 ; else SERVER=$SERVER_BRANCH ; fi
+- if [ -z "$SERVER_BRANCH" ] ; then SERVER=bb-10.3-temporal ; else SERVER=$SERVER_BRANCH ; fi
 - git clone https://github.com/elenst/rqg --branch experimental rqg
 - git clone https://github.com/MariaDB/server --depth=1 --branch $SERVER src
 - cd rqg && git log -1
@@ -44,13 +51,10 @@ script:
 - . $TRAVIS_BUILD_DIR/scripts/build_if_not_cached.sh
 - cd $RQG_HOME
 - mkdir $HOME/logs
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_1 2>&1 | tee $HOME/logs/trial1.log
-
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --threads=$THREADS --queries=100M --redefine=conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --scenario=Restart --engine=InnoDB --mysqld=--innodb_stats_persistent=0 --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_2 2>&1 | tee $HOME/logs/trial2.log
-
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --rpl-mode=mixed --threads=$THREADS --queries=100M --redefine=conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --scenario=Restart --engine=InnoDB --mysqld=--innodb_stats_persistent=0 --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_3 2>&1 | tee $HOME/logs/trial3.log
-
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS --duration=$DURATION --rpl-mode=mixed --threads=$THREADS --queries=100M --redefine=conf/mariadb/instant_add.yy --mysqld=--max-statement-time=30 --reporters=Backtrace,ErrorLog,Deadlock --mysqld=--slave-parallel-threads=6 --engine=InnoDB --seed=time --basedir=$BASEDIR --vardir=$HOME/logs/vardir1_4 2>&1 | tee $HOME/logs/trial4.log
+- perl $RQG_HOME/runall-new.pl $COMMON_RQG_OPTIONS $TEST_OPTIONS --vardir=$HOME/logs/vardir1_1 2>&1 | tee $HOME/logs/trial1.log
+- perl $RQG_HOME/runall-new.pl $COMMON_RQG_OPTIONS $TEST_OPTIONS --engine=InnoDB --vardir=$HOME/logs/vardir1_2 2>&1 | tee $HOME/logs/trial2.log
+- perl $RQG_HOME/runall-new.pl $COMMON_RQG_OPTIONS $TEST_OPTIONS --engine=MyISAM --mysqld=--default-storage-engine=MyISAM --vardir=$HOME/logs/vardir1_3 2>&1 | tee $HOME/logs/trial3.log
+- perl $RQG_HOME/runall-new.pl $COMMON_RQG_OPTIONS $TEST_OPTIONS --engine=Aria --mysqld=--default-storage-engine=Aria --vardir=$HOME/logs/vardir1_4 2>&1 | tee $HOME/logs/trial4.log
 
 - cd $HOME
 - . $TRAVIS_BUILD_DIR/scripts/collect_failure_info.sh $HOME/logs
