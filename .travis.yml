@@ -100,7 +100,9 @@ script:
 - cd $RQG_HOME
 - perl $RQG_HOME/combinations.pl --new --config=$TRAVIS_BUILD_DIR/scripts/travis_combinations.cc --run-all-combinations-once --force --workdir=$HOME/logs || true
 - cd $HOME
-- . $TRAVIS_BUILD_DIR/scripts/collect_failure_info.sh $HOME/logs
+- . $TRAVIS_BUILD_DIR/scripts/collect_failure_info.sh $HOME/logs || true
 #- perl $TRAVIS_BUILD_DIR/scripts/parse_upgrade_logs.pl --mode=jira --nowarnings $HOME/logs/trial*
-#- perl $TRAVIS_BUILD_DIR/scripts/parse_upgrade_logs.pl --mode=kb --nowarnings $HOME/logs/trial*
+- perl $TRAVIS_BUILD_DIR/scripts/parse_upgrade_logs.pl --mode=kb --nowarnings $HOME/logs/trial*
 - perl $TRAVIS_BUILD_DIR/scripts/parse_upgrade_logs.pl --mode=text --nowarnings $HOME/logs/trial*
+- echo $? > $BASEDIR/test_result
+- exit `cat $BASEDIR/test_result`
