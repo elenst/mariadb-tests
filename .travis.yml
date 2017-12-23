@@ -54,4 +54,4 @@ script:
 
 - cd $HOME
 - . $TRAVIS_BUILD_DIR/scripts/collect_failure_info.sh $HOME/logs
-- echo $? > $BASEDIR/test_result
+- if ! -e $BASEDIR/test_result ; then echo $? > $BASEDIR/test_result ; fi
