@@ -27,6 +27,15 @@ fi
 cd $HOME/src
 REVISION=`git log -1 | head -1 | sed -e 's/^commit \([a-f0-9]*\)/\1/'`
 
+if [ "$REVISION" == "$CACHED_REVISION" ] && [ -z "$RERUN_OLD_SERVER" ] && [ -e $BASEDIR/test_result ] ; then
+  echo "Test result for revision $REVISION has already been cached, re-run is not requested, tests will be skipped with the previous stored error code"
+  echo "For details of the test run, check logs of previous builds"
+  exit `cat $BASEDIR/test_result`
+fi
+
+# In all other cases, we want to rewrite the old result, so we are removing it
+rm -f $BASEDIR/test_result
+
 if [ "$REVISION" != "$CACHED_REVISION" ] ; then 
   echo "Cached revision $CACHED_REVISION, new revision $REVISION, build is required"
   rm -rf $BASEDIR && mkdir $BASEDIR
@@ -36,10 +45,6 @@ if [ "$REVISION" != "$CACHED_REVISION" ] ; then
   make install > /dev/null
   echo $REVISION > $BASEDIR/revno
   rm -rf $HOME/out-of-source
-elif [ -z "$RERUN_OLD_SERVER" ] && [ -e $BASEDIR/test_result ] ; then
-  echo "Test result for revision $REVISION has already been cached, tests will be skipped"
-  echo "For details of the test run, check logs of previous releases"
-  exit `cat $BASEDIR/test_result`
 elif [ -n "$RERUN_OLD_SERVER" ] ; then
   echo "Revision $REVISION has already been cached, build is not needed, tests will be re-run as requested"
 else
