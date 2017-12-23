@@ -77,8 +77,19 @@ while (<>)
     elsif ($line =~/ Detected possible appearance of known bugs: (.*)/) {
         @known_bugs= split / /, $1;
     }
-    elsif ($line =~ /\#\s+--upgrade[-_]test=(\w+)/) {
-        $type= lc($1);
+    elsif ($line =~ /\#\s+--scenario=(\w+)/) {
+      if ($1 =~ /^Upgrade$/) {
+        $type= 'normal';
+      }
+      elsif ($1 =~ /^CrashUpgrade$/) {
+        $type= 'crash';
+      }
+      elsif ($1 =~ /^UndoLogUpgrade$/) {
+        $type= 'undo';
+      }
+      else {
+        $type= 'unknown';
+      }
     }
     elsif ($line =~ /-- Old server info: --/) {
         while ($line = <> and $line !~ /-- New server info: --/) {
@@ -179,7 +190,7 @@ if ($mode eq 'jira') {
     print "|| trial || type || pagesize || OLD version || file format || encrypted || compressed || || NEW version || file format || encrypted || compressed || readonly || result || notes ||\n";
 } elsif ($mode eq 'kb') {
     print "=== Tested revision\n";
-    print "//add revision link here//\n";
+    print "$ENV{REVISION}\n";
     print "=== Test date\n";
     print "$teststart\n";
     print "=== Summary\n";
@@ -187,7 +198,7 @@ if ($mode eq 'jira') {
     print "=== Details\n";
     print '<<style class="darkheader-nospace-borders centered">>'."\n";
 
-    print "|= # |= type |= pagesize |= OLD version |= file format |= encrypted |= compressed |= |= NEW version |= file format |= encrypted |= compressed |= readonly |= result |= notes |\n";
+    print "|= type |= pagesize |= OLD version |= file format |= encrypted |= compressed |= |= NEW version |= file format |= encrypted |= compressed |= readonly |= result |= notes |\n";
 } elsif ($mode eq 'text') {
     print "Test date: $teststart\n";
     print "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
@@ -199,7 +210,7 @@ foreach my $k (sort {$a <=> $b} keys %output) {
         print "| $k | " . join( ' | ', @{$output{$k}}) ." |\n";
     }
     elsif ($mode eq 'kb') {
-        print "| $k | " . join( ' | ', @{$output{$k}}) ." |\n";
+        print "| " . join( ' | ', @{$output{$k}}) ." |\n";
     } elsif ($mode eq 'text') {
         print "| ".sprintf("%5d",$k)." | ". join( ' | ', @{$output{$k}}) ." |\n";
     }

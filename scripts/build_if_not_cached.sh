@@ -25,7 +25,7 @@ if [ -e $BASEDIR/revno ] ; then
 fi
 
 cd $HOME/src
-REVISION=`git log -1 | head -1 | sed -e 's/^commit \([a-f0-9]*\)/\1/'`
+export REVISION=`git log -1 | head -1 | sed -e 's/^commit \([a-f0-9]*\)/\1/'`
 
 if [ "$REVISION" == "$CACHED_REVISION" ] && [ -z "$RERUN_OLD_SERVER" ] && [ -e $BASEDIR/test_result ] ; then
   echo "Test result for revision $REVISION has already been cached, re-run is not requested, tests will be skipped with the previous stored error code"
