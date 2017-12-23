@@ -49,4 +49,4 @@ script:
 #- perl $TRAVIS_BUILD_DIR/scripts/parse_upgrade_logs.pl --mode=jira --nowarnings $HOME/logs/trial*
 - perl $TRAVIS_BUILD_DIR/scripts/parse_upgrade_logs.pl --mode=kb --nowarnings $HOME/logs/trial*
 - perl $TRAVIS_BUILD_DIR/scripts/parse_upgrade_logs.pl --mode=text --nowarnings $HOME/logs/trial*
-- if ! -e $BASEDIR/test_result ; then echo $? > $BASEDIR/test_result ; fi
+- if [ ! -e $BASEDIR/test_result ] ; then echo $? > $BASEDIR/test_result ; fi
