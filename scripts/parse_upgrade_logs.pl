@@ -68,7 +68,7 @@ while (<>)
 {  
     my $line= $_;
     chomp $line;
-    if ($line =~ /^\#\s+(\S+).*?Copyright\s\(c\)/) {
+    if ($line =~ /^\#\s+(\S+).*?Final\s+command\s+line/) {
         $trialstart= $1;
     }
     elsif ($line =~ /will exit with exit status STATUS_(\w+)/) {
@@ -77,14 +77,20 @@ while (<>)
     elsif ($line =~/ Detected possible appearance of known bugs: (.*)/) {
         @known_bugs= split / /, $1;
     }
-    elsif ($line =~ /\#\s+--scenario=(\w+)/) {
-      if ($1 =~ /^Upgrade$/) {
+    elsif ($line =~ /===\s+(.*)\s+scenario\s+===$/) {
+      if ($1 =~ /^Normal upgrade$/) {
         $type= 'normal';
       }
-      elsif ($1 =~ /^CrashUpgrade$/) {
+      elsif ($1 =~ /^Crash upgrade$/) {
         $type= 'crash';
       }
-      elsif ($1 =~ /^UndoLogUpgrade$/) {
+      elsif ($1 =~ /^Crash recovery$/) {
+        $type= 'recovery';
+      }
+      elsif ($1 =~ /^Undo log recovery$/) {
+        $type= 'undo-recovery';
+      }
+      elsif ($1 =~ /^Undo log upgrade$/) {
         $type= 'undo';
       }
       else {

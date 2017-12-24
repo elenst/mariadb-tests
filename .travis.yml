@@ -15,46 +15,40 @@ before_install:
 - sudo apt-get install libaio1 libaio-dev libjemalloc1 gdb libnuma1
 
 env:
-- TYPE=recovery      ENCRYPTION=on                     COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=recovery                                        COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo-recovery ENCRYPTION=on                     COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo-recovery                                   COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo-recovery ENCRYPTION=on                     COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=undo-recovery                                   COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=normal        ENCRYPTION=on       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=normal                            OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=crash         ENCRYPTION=on       OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=crash                             OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo          ENCRYPTION=on       OLD=10.1      COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo                              OLD=10.1      COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo          ENCRYPTION=on       OLD=10.1      COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=undo                              OLD=10.1      COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=normal        ENCRYPTION=on       OLD=10.1.13   COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=normal                            OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=crash         ENCRYPTION=on       OLD=10.1.22   COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=crash                             OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
-- TYPE=undo          ENCRYPTION=on       OLD=10.1.22   COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo                              OLD=10.1.22   COMPRESSION=none       PAGE_SIZE=all
-- TYPE=undo          ENCRYPTION=on       OLD=10.1.22   COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=undo                              OLD=10.1.22   COMPRESSION=zlib       PAGE_SIZE=all
-- TYPE=normal        ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
-- TYPE=normal                            OLD=10.0                             PAGE_SIZE=small   
-- TYPE=crash         ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
-- TYPE=crash                             OLD=10.0                             PAGE_SIZE=small
-- TYPE=undo          ENCRYPTION=turn_on  OLD=10.0                             PAGE_SIZE=small
-- TYPE=undo                              OLD=10.0                             PAGE_SIZE=small
-- TYPE=normal        ENCRYPTION=turn_on  OLD=10.0.14                          PAGE_SIZE=small
-- TYPE=normal                            OLD=10.0.14                          PAGE_SIZE=small
-- TYPE=crash         ENCRYPTION=turn_on  OLD=10.0.14                          PAGE_SIZE=small
-- TYPE=crash                             OLD=10.0.14                          PAGE_SIZE=small
-- TYPE=undo          ENCRYPTION=turn_on  OLD=10.0.18                          PAGE_SIZE=small
-- TYPE=undo                              OLD=10.0.18                          PAGE_SIZE=small
-- TYPE=normal        ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
-- TYPE=normal                            OLD=mysql-5.6                        PAGE_SIZE=small
-- TYPE=crash         ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
-- TYPE=crash                             OLD=mysql-5.6                        PAGE_SIZE=small
-- TYPE=undo          ENCRYPTION=turn_on  OLD=mysql-5.6                        PAGE_SIZE=small
-- TYPE=undo                              OLD=mysql-5.6                        PAGE_SIZE=small
+- TYPE=recovery      ENCRYPTION=on                         COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=recovery                                            COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=undo-recovery ENCRYPTION=on                         COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo-recovery                                       COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo-recovery ENCRYPTION=on                         COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=undo-recovery                                       COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=normal        ENCRYPTION=on           OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=normal                                OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=crash         ENCRYPTION=on           OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=crash                                 OLD=10.1      COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=undo          ENCRYPTION=on           OLD=10.1      COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo                                  OLD=10.1      COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo          ENCRYPTION=on           OLD=10.1      COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=undo                                  OLD=10.1      COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=normal        ENCRYPTION=on           OLD=10.1.13   COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=normal                                OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=crash         ENCRYPTION=on           OLD=10.1.22   COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=crash                                 OLD=10.1.10   COMPRESSION=none,zlib  PAGE_SIZE=all
+- TYPE=undo          ENCRYPTION=on           OLD=10.1.22   COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo                                  OLD=10.1.22   COMPRESSION=none       PAGE_SIZE=all
+- TYPE=undo          ENCRYPTION=on           OLD=10.1.22   COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=undo                                  OLD=10.1.22   COMPRESSION=zlib       PAGE_SIZE=all
+- TYPE=normal        ENCRYPTION=turn_on,off  OLD=10.0                             PAGE_SIZE=small
+- TYPE=crash         ENCRYPTION=turn_on,off  OLD=10.0                             PAGE_SIZE=small
+- TYPE=undo          ENCRYPTION=turn_on      OLD=10.0                             PAGE_SIZE=small
+- TYPE=undo                                  OLD=10.0                             PAGE_SIZE=small
+- TYPE=normal        ENCRYPTION=turn_on,off  OLD=10.0.14                          PAGE_SIZE=small
+- TYPE=crash         ENCRYPTION=turn_on,off  OLD=10.0.14                          PAGE_SIZE=small
+- TYPE=undo          ENCRYPTION=turn_on      OLD=10.0.18                          PAGE_SIZE=small
+- TYPE=undo                                  OLD=10.0.18                          PAGE_SIZE=small
+- TYPE=normal        ENCRYPTION=turn_on,off  OLD=mysql-5.6                        PAGE_SIZE=small
+- TYPE=crash         ENCRYPTION=turn_on,off  OLD=mysql-5.6                        PAGE_SIZE=small
+- TYPE=undo          ENCRYPTION=turn_on      OLD=mysql-5.6                        PAGE_SIZE=small
+- TYPE=undo                                  OLD=mysql-5.6                        PAGE_SIZE=small
 
 install:
 - cd $HOME
@@ -65,6 +59,8 @@ install:
 - git clone https://github.com/elenst/rqg --branch experimental rqg
 - git clone https://github.com/MariaDB/server --depth=1 --branch $SERVER src
 - . $TRAVIS_BUILD_DIR/scripts/get_old_version.sh $OLD
+- cd $RQG_HOME
+- git log -1
 
 script:
 
