@@ -45,8 +45,8 @@ script:
 - cd $RQG_HOME
 - mkdir $HOME/logs
 - perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS $RQG_COMMON_OPTIONS --vardir=$HOME/logs/vardir1_1 2>&1 | tee $HOME/logs/trial1.log
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS $RQG_COMMON_OPTIONS --scenario=Restart --mysqld=--innodb_stats_persistent=0 --vardir=$HOME/logs/vardir1_2 2>&1 | tee $HOME/logs/trial2.log
-- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS $RQG_COMMON_OPTIONS --rpl-mode=mixed --scenario=Restart --mysqld=--innodb_stats_persistent=0 --vardir=$HOME/logs/vardir1_3 2>&1 | tee $HOME/logs/trial3.log
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS $RQG_COMMON_OPTIONS --scenario=Restart --vardir=$HOME/logs/vardir1_2 2>&1 | tee $HOME/logs/trial2.log
+- perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS $RQG_COMMON_OPTIONS --rpl-mode=mixed --scenario=Restart --vardir=$HOME/logs/vardir1_3 2>&1 | tee $HOME/logs/trial3.log
 - perl $RQG_HOME/runall-new.pl $GRAMMAR_OPTIONS $RQG_COMMON_OPTIONS --rpl-mode=mixed --mysqld=--slave-parallel-threads=6 --vardir=$HOME/logs/vardir1_4 2>&1 | tee $HOME/logs/trial4.log
 
 - cd $HOME
