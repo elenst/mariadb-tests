@@ -27,11 +27,11 @@ env:
 
 install:
 - cd $HOME
-- export THREADS=6
+- export RERUN_OLD_SERVER=yes
 - export BASEDIR=$HOME/server
 - export RQG_HOME=$HOME/rqg
 - export CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -DPLUGIN_SPHINX=NO -DPLUGIN_TOKUDB=NO -DPLUGIN_ROCKSDB=NO -DPLUGIN_MROONGA=NO -DPLUGIN_FEDERATED=NO -DPLUGIN_FEDERATEDX=NO -DPLUGIN_CONNECT=NO -DPLUGIN_SPIDER=NO -DWITH_MARIABACKUP=OFF"
-- export RQG_COMMON_OPTIONS="--duration=400 --threads=6 --redefine=conf/mariadb/instant_add.yy --reporters=Backtrace,ErrorLog,Deadlock --engine=InnoDB -seed=time --basedir=$BASEDIR --mysqld=--max-statement-time=30 --mysqld=--loose-debug_assert_on_not_freed_memory=0"
+- export RQG_COMMON_OPTIONS="--duration=400 --threads=6 --redefine=conf/mariadb/instant_add.yy --reporters=Backtrace,ErrorLog,Deadlock --validators=TransformerNoComparator --transformers=ConvertSubqueriesToViews,ConvertTablesToDerived,Count,DisableIndexes,DisableOptimizations,Distinct,EnableOptimizations,ExecuteAsCTE,ExecuteAsDeleteReturning,ExecuteAsDerived,ExecuteAsExcept,ExecuteAsExecuteImmediate,ExecuteAsInsertSelect,ExecuteAsIntersect,ExecuteAsSelectItem,ExecuteAsUnion,ExecuteAsUpdateDelete,ExecuteAsView,ExecuteAsWhereSubquery,Having,InlineSubqueries,InlineVirtualColumns,LimitRowsExamined,OrderBy,StraightJoin,ExecuteAsPreparedTwice,ExecuteAsTrigger,ExecuteAsSPTwice,ExecuteAsFunctionTwice --engine=InnoDB -seed=time --basedir=$BASEDIR --mysqld=--max-statement-time=30 --mysqld=--loose-debug_assert_on_not_freed_memory=0"
 # SERVER_BRANCH can be redefined in build variables
 - if [ -z "$SERVER_BRANCH" ] ; then SERVER=10.3 ; else SERVER=$SERVER_BRANCH ; fi
 - git clone https://github.com/elenst/rqg --branch experimental rqg
