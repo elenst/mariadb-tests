@@ -34,6 +34,8 @@ my $common_options=
   . ' --mysqld=--loose-innodb_log_compressed_pages=on'
 ;
 
+my $test_data_dir=($ENV{SCRIPT_DIR} ? "$ENV{SCRIPT_DIR}/../data" : "$ENV{TRAVIS_BUILD_DIR}/data");
+
 #        . ' --mysqld=--log-bin'
 #        . ' --mysqld=--binlog-format=ROW'
 
@@ -76,7 +78,7 @@ if (defined $ENV{ENCRYPTION}) {
     if ($e eq 'on') {
         push @encryption_options,
             ' --mysqld=--file-key-management'
-          . ' --mysqld=--file-key-management-filename='.$ENV{TRAVIS_BUILD_DIR}.'/data/keys.txt'
+          . ' --mysqld=--file-key-management-filename='.$test_data_dir.'/keys.txt'
           . ' --mysqld=--plugin-load-add=file_key_management.so'
           . ' --mysqld=--innodb-encrypt-tables'
           . ' --mysqld=--innodb-encrypt-log'
@@ -92,7 +94,7 @@ if (defined $ENV{ENCRYPTION}) {
     elsif ($e eq 'turn_on') {
         push @encryption_options,
             ' --mysqld2=--file-key-management'
-          . ' --mysqld2=--file-key-management-filename='.$ENV{TRAVIS_BUILD_DIR}.'/data/keys.txt'
+          . ' --mysqld2=--file-key-management-filename='.$test_data_dir.'/keys.txt'
           . ' --mysqld2=--plugin-load-add=file_key_management.so'
           . ' --mysqld2=--innodb-encrypt-tables'
           . ' --mysqld2=--innodb-encrypt-log'
