@@ -262,7 +262,7 @@ sub fix_result {
         }
         elsif ($jira == 13112) {
             $jira_subj= 'InnoDB: Corruption: Page is marked as compressed but uncompress failed with error';
-            if ($new_opts{version} =~ /10\.1\.?/ and $old_opts{version} =~ /10\.1\.?/) {
+            if ($new_opts{version} =~ /10\.[123]\.?/ and $old_opts{version} =~ /10\.[123]\.?/) {
                 push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
             } else {
                 $$res= 'UPGRADE_FAILURE';
