@@ -45,12 +45,20 @@ if (defined $ENV{TYPE}) {
   my $scenario;
   foreach my $t (@types) {
     $t= lc($t);
-    if ($t =~ /^(?:normal|upgrade|undo|crash|recovery|undo-recovery)/) {
+    if ($t =~ /^(?:normal|upgrade|undo|crash|recovery|undo-recovery|downgrade)/) {
       $duration= ($t =~ /undo/ ? 200 : 90);
-      $basedirs= ($t =~ /recovery/ ? ' --basedir='.$ENV{BASEDIR} : ' --basedir1='.$ENV{HOME}.'/old --basedir2='.$ENV{BASEDIR});
-      if ($t eq 'normal' or $t eq 'upgrade') {
+      if ($t =~ /recovery/) {
+        $basedirs= ' --basedir='.$ENV{BASEDIR};
+      }
+      elsif ($t =~ /downgrade/) {
+        $basedirs= ' --basedir2='.$ENV{HOME}.'/old --basedir1='.$ENV{BASEDIR};
+      }
+      else {
+        $basedirs= ' --basedir1='.$ENV{HOME}.'/old --basedir2='.$ENV{BASEDIR};
+      }
+      if ($t eq 'normal' or $t eq 'upgrade' or $t eq 'downgrade') {
         $scenario= 'Upgrade';
-      } elsif ($t eq 'crash' or $t eq 'recovery') {
+      } elsif ($t eq 'crash' or $t eq 'recovery' or $t eq 'crash-downgrade') {
         $scenario= 'CrashUpgrade';
       } else {
         $scenario= 'UndoLogUpgrade';
