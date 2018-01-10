@@ -276,38 +276,38 @@ sub fix_result {
                 $$res= 'UPGRADE_FAILURE';
             }
         }
-        elsif ($jira == 13101) {
-            $jira_subj= 'Assertion `0 || offs == 0 + (38U + 36 + 2 * 10) + 0 ... 38U + 0 + 6` failed in recv_parse_or_apply_log_rec_body';
-            if ($old_opts{encryption} eq 'on' and $old_opts{version} =~ /10\.[23]\.?/ and $new_opts{version} =~ /10\.[23]\.?/) {
-                push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
-            } else {
-                $$res= 'UPGRADE_FAILURE';
-            }
-        }
-        elsif ($jira == 13247) {
-            $jira_subj= 'innodb_log_compressed_pages=OFF breaks crash recovery of ROW_FORMAT=COMPRESSED tables';
-            if ($old_opts{version} =~ /10\.1\.(\d+)/ and $1 >= 2 and $1 <= 25) {
-                push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
-            } else {
-                $$res= 'UPGRADE_FAILURE';
-            }
-        }
-        elsif ($jira == 13512) {
-            $jira_subj= 'InnoDB: Failing assertion: !memcmp(FIL_PAGE_TYPE + page, FIL_PAGE_TYPE + page_zip->data, PAGE_HEADER - FIL_PAGE_TYPE)';
-            if ($old_opts{encryption} eq 'on' and $new_opts{version} =~ /10\.[123]\.?/) {
-                push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
-            } else {
-                $$res= 'UPGRADE_FAILURE';
-            }
-        }
-        elsif ($jira == 13820) {
-            $jira_subj= 'Assertion `id == 0 || id > trx_id` failed in trx_id_check(const void*, trx_id_t)';
-            if ($new_opts{version} =~ /10\.3\.?/) {
-                push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
-            } else {
-                $$res= 'UPGRADE_FAILURE';
-            }
-        }
+#        elsif ($jira == 13101) {
+#            $jira_subj= 'Assertion `0 || offs == 0 + (38U + 36 + 2 * 10) + 0 ... 38U + 0 + 6` failed in recv_parse_or_apply_log_rec_body';
+#            if ($old_opts{encryption} eq 'on' and $old_opts{version} =~ /10\.[23]\.?/ and $new_opts{version} =~ /10\.[23]\.?/) {
+#                push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
+#            } else {
+#                $$res= 'UPGRADE_FAILURE';
+#            }
+#        }
+#        elsif ($jira == 13247) {
+#            $jira_subj= 'innodb_log_compressed_pages=OFF breaks crash recovery of ROW_FORMAT=COMPRESSED tables';
+#            if ($old_opts{version} =~ /10\.1\.(\d+)/ and $1 >= 2 and $1 <= 25) {
+#                push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
+#            } else {
+#                $$res= 'UPGRADE_FAILURE';
+#            }
+#        }
+#        elsif ($jira == 13512) {
+#            $jira_subj= 'InnoDB: Failing assertion: !memcmp(FIL_PAGE_TYPE + page, FIL_PAGE_TYPE + page_zip->data, PAGE_HEADER - FIL_PAGE_TYPE)';
+#            if ($old_opts{encryption} eq 'on' and $new_opts{version} =~ /10\.[123]\.?/) {
+#                push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
+#            } else {
+#                $$res= 'UPGRADE_FAILURE';
+#            }
+#        }
+#        elsif ($jira == 13820) {
+#            $jira_subj= 'Assertion `id == 0 || id > trx_id` failed in trx_id_check(const void*, trx_id_t)';
+#            if ($new_opts{version} =~ /10\.3\.?/) {
+#                push @warnings, sprintf($warning_pattern, $$trial, $occurrences, $jira, $jira_subj);
+#            } else {
+#                $$res= 'UPGRADE_FAILURE';
+#            }
+#        }
 #        elsif ($jira == 14022) {
 #            $jira_subj= 'Upgrade from 10.0/10.1 fails on assertion `!is_user_rec || !leaf || index->is_dummy || dict_index_is_ibuf(index) || n == n_fields || (n >= index->n_core_fields && n <= index->n_fields)';
 #            if ($old_opts{version} =~ /10\.[01]\.?/ and $new_opts{version} =~ /10\.3\.?/) {
