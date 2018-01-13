@@ -78,10 +78,10 @@ while (<>)
         @known_bugs= split / /, $1;
     }
     elsif ($line =~ /===\s+(.*)\s+scenario\s+===$/) {
-      if ($1 =~ /^Normal upgrade$/) {
+      if ($1 =~ /^Normal upgrade(\/downgrade)?$/) {
         $type= 'normal';
       }
-      elsif ($1 =~ /^Crash upgrade$/) {
+      elsif ($1 =~ /^Crash upgrade(\/downgrade)?$/) {
         $type= 'crash';
       }
       elsif ($1 =~ /^Crash recovery$/) {
@@ -127,6 +127,7 @@ while (<>)
         fix_encryption(\%old_opts);
         fix_encryption(\%new_opts);
         fix_readonly(\%new_opts);
+        fix_type(\$type, \%old_opts, \%new_opts);
         fix_result(\$result, \@known_bugs, \$trialnum, \%new_opts, \%old_opts);
         
         $exit_code= 1 if ($result ne 'OK' and $result ne 'KNOWN_BUGS');
@@ -361,6 +362,16 @@ sub fix_readonly {
     } else {
         $opts->{innodb_read_only}= 'on';
     }
+}
+
+# If new version is lower than old version, it's a downgrade
+sub fix_type {
+  my ($typeref, $old_opts, $new_opts)= @_;
+  my ($old1, $old2, $old3)= ($old_opts->{version} =~ /(\d+)\.(\d+)\.(\d+)/);
+  my ($new1, $new2, $new3)= ($new_opts->{version} =~ /(\d+)\.(\d+)\.(\d+)/);
+  if ($old1 > $new1 or ($old1 == $new1 and ($old2 > $new2 or $old2 == $new2 and $old3 > $new3))) {
+    $$typeref = ( $$typeref eq 'normal' ? 'downgrade' : $$typeref.'-downgrade' );
+  }
 }
 
 sub process_line {
