@@ -28,7 +28,7 @@ do
 
   trial=`echo $triallog | sed -e 's/.*trial\([0-9]*\).*/\1/'`
   status=`grep 'will exit with exit status' $triallog | sed -e 's/.*will exit with exit status STATUS_\([A-Z_]*\).*/\1/'`
-  cmd=`grep 'Final command line:' $triallog`
+  cmd=`grep -A 1 'Final command line:' $triallog`
 
   echo "=================== Trial $trial ==================="
   echo
