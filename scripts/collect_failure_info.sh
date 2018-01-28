@@ -38,6 +38,10 @@ do
   if [[ "$status" == "OK" ]] ; then
     continue
   fi
+  
+  grep -f $HOME/mariadb-tests/data/known_bugs -h -o $LOGDIR/vardir*_$trial/mysql.err $LOGDIR/trial${trial}.log > /tmp/matches
+  grep -f /tmp/matches -A 2 $HOME/mariadb-tests/data/known_bugs | grep -A 1 MDEV | sed -e 's/MDEV/https:\/\/jira.mariadb.org\/browse\/MDEV/g'
+  echo
 
   echo $cmd
   echo

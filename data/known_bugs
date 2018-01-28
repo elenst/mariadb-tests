@@ -1,0 +1,43 @@
+in mysql_prepare_create_table
+MDEV-14864
+Server crashes in mysql_prepare_create_table 
+
+trx->error_state == DB_SUCCESS
+MDEV-14833
+[Draft] Failing assertion: trx->error_state == DB_SUCCESS in file /home/travis/src/storage/innobase/que/que0que.cc line 1214
+
+protocol.cc:587: void Protocol::end_statement
+MDEV-14829
+Assertion `0' failed in Protocol::end_statement upon concurrent UPDATE
+
+sql_error.cc:335: void Diagnostics_area::set_ok_status
+MDEV-15036
+Assertion `!is_set() || (m_status == DA_OK_BULK && is_bulk_op())' in Diagnostics_area::set_ok_status or unexpected ER_RANGE_NOT_INCREASING_ERROR
+
+n < m_size
+MDEV-14695
+Assertion `n < m_size' failed in Bounds_checked_array<Element_type>::operator
+
+== new_field->field_name.length
+MDEV-13699
+Assertion `!new_field->field_name.str || strlen(new_field->field_name.str) == new_field->field_name.length' failed in create_tmp_table on 2nd execution of PS with semijoin
+
+virtual ha_rows ha_partition::part_records
+MDEV-15103
+Assertion `bitmap_is_set(&(m_part_info->read_partitions), part_id)' failed in ha_partition::part_records
+
+table->read_set, field_index
+MDEV-14715
+[FIXED!] Assertion `!table || (!table->read_set || bitmap_is_set(table->read_set, field_index))' failed in Field_num::val_decimal
+
+in ha_partition::update_create_info
+MDEV-14995
+[Draft] Server crashes in ha_partition::update_create_info
+
+in ha_partition::update_create_info
+MDEV-14932
+AddressSanitizer: heap-use-after-free in maria_status or Transaction not registered for MariaDB 2PC, but transaction is active
+
+has_stronger_or_equal_type
+MDEV-14762
+Server crashes in in MDL_ticket::has_stronger_or_equal_type upon inserting into temporary sequence
