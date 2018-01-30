@@ -53,3 +53,11 @@ MDEV-14825
 join->best_read < double
 MDEV-14994
 Assertion `join->best_read < double(1.79...15e+308L)' or server crash in JOIN::fix_all_splittings_in_plan
+
+table->s->null_bytes == 0
+MDEV-15130
+Assertion `table->s->null_bytes == 0' failed in table_setup_timers::read_row_values under 'test_completely_invisible'
+
+in is_temporary_table
+MDEV-15117
+Server crashes in in open_and_process_table or ASAN heap-use-after-free in is_temporary_table upon creating/flushing sequences
