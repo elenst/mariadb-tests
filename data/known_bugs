@@ -41,3 +41,15 @@ AddressSanitizer: heap-use-after-free in maria_status or Transaction not registe
 has_stronger_or_equal_type
 MDEV-14762
 Server crashes in in MDL_ticket::has_stronger_or_equal_type upon inserting into temporary sequence
+
+share->in_trans == 0
+MDEV-10130
+Assertion `share->in_trans == 0' failed in storage/maria/ma_close.c
+
+col->ord_part
+MDEV-14825
+[Draft] Assertion `col->ord_part' failed in row_build_index_entry_low
+
+join->best_read < double
+MDEV-14994
+Assertion `join->best_read < double(1.79...15e+308L)' or server crash in JOIN::fix_all_splittings_in_plan
