@@ -36,8 +36,8 @@ fi
 # In all other cases, we want to rewrite the old result, so we are removing it
 rm -f $BASEDIR/test_result
 
-if [ "$REVISION" != "$CACHED_REVISION" ] ; then 
-  echo "Cached revision $CACHED_REVISION, new revision $REVISION, build is required"
+if [ "$REVISION" != "$CACHED_REVISION" ] || [ -n "$REBUILD_OLD_SERVER" ] ; then 
+  echo "Cached revision $CACHED_REVISION, new revision $REVISION, build is required or requested"
   rm -rf $BASEDIR && mkdir $BASEDIR
   rm -rf $HOME/out-of-source && mkdir $HOME/out-of-source && cd $HOME/out-of-source
   cmake $HOME/src $CMAKE_OPTIONS -DCMAKE_INSTALL_PREFIX=$BASEDIR
