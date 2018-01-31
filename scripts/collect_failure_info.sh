@@ -39,10 +39,9 @@ do
     continue
   fi
   
-  grep -f $HOME/mariadb-tests/data/known_bugs -h -o $LOGDIR/vardir*_$trial/mysql.err $LOGDIR/trial${trial}.log > /tmp/matches
-  grep -f /tmp/matches -A 2 $HOME/mariadb-tests/data/known_bugs | grep -A 1 MDEV | sed -e 's/MDEV/https:\/\/jira.mariadb.org\/browse\/MDEV/g'
-  echo
+  perl $HOME/mariadb-tests/scripts/check_for_known_bugs.pl $LOGDIR/vardir*_$trial/mysql.err $LOGDIR/trial${trial}.log
 
+  echo
   echo $cmd
   echo
   
