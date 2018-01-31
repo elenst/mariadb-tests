@@ -17,7 +17,9 @@ while (<DATA>) {
     my $summary= `cat /tmp/$mdev.summary`;
     $summary=~ s/.*\"summary\":\"?([^\"\}]+)\"?.*/$1/;
     my $resolution= `cat /tmp/$mdev.resolution`;
-    $resolution=~ s/.*\"resolution\":\"?([^\"\}]+)\"?.*/$1/;
+    unless ($resolution=~ s/.*\"name\":\"([^\"]+)\".*/$1/) {
+      $resolution= 'Unresolved';
+    }
     print "$mdev: $summary\n";
     print "RESOLUTION: $resolution\n";
   }
