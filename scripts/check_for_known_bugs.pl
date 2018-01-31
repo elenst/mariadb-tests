@@ -48,3 +48,4 @@ MDEV-15117: in is_temporary_table
 MDEV-15149: table_share->tmp_table != NO_TMP_TABLE
 MDEV-15149: table->in_use == _current_thd
 MDEV-15149: tables->table->pos_in_table_list == tables
+MDEV-14407: trx_undo_rec_copy
