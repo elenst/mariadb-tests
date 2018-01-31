@@ -43,3 +43,6 @@ MDEV-14825: col->ord_part
 MDEV-14994: join->best_read < double
 MDEV-15130: table->s->null_bytes == 0
 MDEV-15117: in is_temporary_table
+MDEV-15149: table_share->tmp_table != NO_TMP_TABLE
+MDEV-15149: table->in_use == _current_thd
+MDEV-15149: tables->table->pos_in_table_list == tables
