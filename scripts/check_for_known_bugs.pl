@@ -49,6 +49,7 @@ MDEV-14905: purge_sys->state == PURGE_STATE_INIT
 MDEV-14932: in ha_partition::update_create_info
 MDEV-14994: join->best_read < double
 MDEV-14995: in ha_partition::update_create_info
+MDEV-14998: find_field_in_table_ref
 MDEV-15036: sql_error.cc:335: void Diagnostics_area::set_ok_status
 MDEV-15103: virtual ha_rows ha_partition::part_records
 MDEV-15130: table->s->null_bytes == 0
@@ -58,4 +59,5 @@ MDEV-15117: in is_temporary_table
 MDEV-15149: table_share->tmp_table != NO_TMP_TABLE
 MDEV-15149: table->in_use == _current_thd
 MDEV-15149: tables->table->pos_in_table_list == tables
+MDEV-15161: in get_addon_fields
 MDEV-15167: in THD::binlog_write_row
