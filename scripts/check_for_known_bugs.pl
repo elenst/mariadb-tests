@@ -35,6 +35,7 @@ MDEV-13103: fil0pagecompress.cc:[0-9]+: void fil_decompress_page
 MDEV-13553: Open_tables_state::BACKUPS_AVAIL
 MDEV-13699: == new_field->field_name.length
 MDEV-14407: trx_undo_rec_copy
+MDEV-14472: is_current_stmt_binlog_format_row
 MDEV-14695: n < m_size
 MDEV-14697: in TABLE::mark_default_fields_for_write
 MDEV-14715: table->read_set, field_index
