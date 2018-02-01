@@ -44,14 +44,17 @@ MDEV-14825: col->ord_part
 MDEV-14829: protocol.cc:587: void Protocol::end_statement
 MDEV-14831: Can't find record in 'seq[0-9]
 MDEV-14833: [Draft] Failing assertion: trx->error_state == DB_SUCCESS in file /home/travis/src/storage/innobase/que/que0que.cc line [0-9]+
+MDEV-14836: m_status == DA_ERROR
 MDEV-14862: in add_key_equal_fields
 MDEV-14864: in mysql_prepare_create_table
 MDEV-14905: purge_sys->state == PURGE_STATE_INIT
+MDEV-14906: index->is_instant
 MDEV-14932: in ha_partition::update_create_info
 MDEV-14994: join->best_read < double
 MDEV-14995: in ha_partition::update_create_info
 MDEV-14998: find_field_in_table_ref
 MDEV-15036: sql_error.cc:335: void Diagnostics_area::set_ok_status
+MDEV-15060: row_log_table_apply_op
 MDEV-15103: virtual ha_rows ha_partition::part_records
 MDEV-15130: table->s->null_bytes == 0
 MDEV-15130: static void PFS_engine_table::set_field_char_utf8
