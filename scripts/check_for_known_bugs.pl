@@ -15,7 +15,7 @@ while (<DATA>) {
       system("wget https://jira.mariadb.org//rest/api/2/issue/$mdev?fields=summary -O /tmp/$mdev.summary -o /dev/null");
     }
     my $summary= `cat /tmp/$mdev.summary`;
-    if $summary =~ (/\{\"summary\":\"(.*?)\"\}/) {
+    if ($summary =~ /\{\"summary\":\"(.*?)\"\}/) {
       $summary= $1;
     }
     my $resolution= `cat /tmp/$mdev.resolution`;
