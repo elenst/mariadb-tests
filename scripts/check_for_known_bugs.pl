@@ -15,7 +15,9 @@ while (<DATA>) {
       system("wget https://jira.mariadb.org//rest/api/2/issue/$mdev?fields=summary -O /tmp/$mdev.summary -o /dev/null");
     }
     my $summary= `cat /tmp/$mdev.summary`;
-    $summary=~ s/.*\"summary\":\"?([^\"\}]+)\"?.*/$1/;
+    if $summary =~ (/\{\"summary\":\"(.*?)\"\}/) {
+      $summary= $1;
+    }
     my $resolution= `cat /tmp/$mdev.resolution`;
     unless ($resolution=~ s/.*\"name\":\"([^\"]+)\".*/$1/) {
       $resolution= 'Unresolved';
@@ -29,6 +31,7 @@ while (<DATA>) {
 __DATA__
 
 MDEV-5791:  in Field::is_real_null
+MDEV-6453:  int handler::ha_rnd_init
 MDEV-10130: share->in_trans == 0
 MDEV-12466: Open_tables_state::BACKUPS_AVAIL
 MDEV-13024: in multi_delete::send_data
@@ -36,6 +39,7 @@ MDEV-13103: fil0pagecompress.cc:[0-9]+: void fil_decompress_page
 MDEV-13553: Open_tables_state::BACKUPS_AVAIL
 MDEV-13699: == new_field->field_name.length
 MDEV-14040: in Field::is_real_null
+MDEV-14041: in String::length
 MDEV-14407: trx_undo_rec_copy
 MDEV-14472: is_current_stmt_binlog_format_row
 MDEV-14695: n < m_size
