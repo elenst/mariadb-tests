@@ -28,12 +28,14 @@ while (<DATA>) {
 
 __DATA__
 
+MDEV-5791:  in Field::is_real_null
 MDEV-10130: share->in_trans == 0
 MDEV-12466: Open_tables_state::BACKUPS_AVAIL
 MDEV-13024: in multi_delete::send_data
 MDEV-13103: fil0pagecompress.cc:[0-9]+: void fil_decompress_page
 MDEV-13553: Open_tables_state::BACKUPS_AVAIL
 MDEV-13699: == new_field->field_name.length
+MDEV-14040: in Field::is_real_null
 MDEV-14407: trx_undo_rec_copy
 MDEV-14472: is_current_stmt_binlog_format_row
 MDEV-14695: n < m_size
@@ -65,3 +67,4 @@ MDEV-15149: table->in_use == _current_thd
 MDEV-15149: tables->table->pos_in_table_list == tables
 MDEV-15161: in get_addon_fields
 MDEV-15167: in THD::binlog_write_row
+MDEV-15175: Item_temporal_hybrid_func::val_str_ascii
