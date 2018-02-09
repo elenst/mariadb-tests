@@ -42,12 +42,14 @@ MDEV-13553: Open_tables_state::BACKUPS_AVAIL
 MDEV-13699: == new_field->field_name.length
 MDEV-14040: in Field::is_real_null
 MDEV-14041: in String::length
+MDEV-14134: dberr_t row_upd_sec_index_entry
 MDEV-14407: trx_undo_rec_copy
 MDEV-14472: is_current_stmt_binlog_format_row
 MDEV-14695: n < m_size
 MDEV-14697: in TABLE::mark_default_fields_for_write
 MDEV-14715: table->read_set, field_index
 MDEV-14762: has_stronger_or_equal_type
+MDEV-14743: Item_func_match::init_search
 MDEV-14825: col->ord_part
 MDEV-14829: protocol.cc:587: void Protocol::end_statement
 MDEV-14831: Can't find record in 'seq[0-9]
@@ -76,3 +78,7 @@ MDEV-15149: in open_and_process_table
 MDEV-15161: in get_addon_fields
 MDEV-15167: in THD::binlog_write_row
 MDEV-15175: Item_temporal_hybrid_func::val_str_ascii
+MDEV-15216: m_can_overwrite_status
+MDEV-15217: transaction.xid_state.xid.is_null
+MDEV-15255: m_lock_type == 2
+
