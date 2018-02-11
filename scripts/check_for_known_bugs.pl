@@ -76,9 +76,11 @@ MDEV-15149: table->in_use == _current_thd
 MDEV-15149: tables->table->pos_in_table_list == tables
 MDEV-15149: in open_and_process_table
 MDEV-15161: in get_addon_fields
+MDEV-15164: ikey_.type == kTypeValue
 MDEV-15167: in THD::binlog_write_row
 MDEV-15175: Item_temporal_hybrid_func::val_str_ascii
 MDEV-15216: m_can_overwrite_status
 MDEV-15217: transaction.xid_state.xid.is_null
+MDEV-15226: Could not get index information for Index Number
+MDEV-15245: myrocks::ha_rocksdb::position
 MDEV-15255: m_lock_type == 2
-
