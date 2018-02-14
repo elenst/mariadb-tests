@@ -52,7 +52,7 @@ MDEV-14715: table->read_set, field_index
 MDEV-14762: has_stronger_or_equal_type
 MDEV-14743: Item_func_match::init_search
 MDEV-14825: col->ord_part
-MDEV-14829: protocol.cc:587: void Protocol::end_statement
+MDEV-14829: protocol.cc:588: void Protocol::end_statement
 MDEV-14831: Can't find record in 'seq[0-9]
 MDEV-14833: [Draft] Failing assertion: trx->error_state == DB_SUCCESS in file /home/travis/src/storage/innobase/que/que0que.cc line [0-9]+
 MDEV-14836: m_status == DA_ERROR
@@ -66,6 +66,7 @@ MDEV-14995: in ha_partition::update_create_info
 MDEV-14996: int ha_maria::external_lock
 MDEV-14998: find_field_in_table_ref
 MDEV-15036: sql_error.cc:335: void Diagnostics_area::set_ok_status
+MDEV-15056: sql_error.cc:335: void Diagnostics_area::set_ok_status
 MDEV-15060: row_log_table_apply_op
 MDEV-15103: virtual ha_rows ha_partition::part_records
 MDEV-15130: table->s->null_bytes == 0
