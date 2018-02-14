@@ -45,6 +45,7 @@ MDEV-14041: in String::length
 MDEV-14134: dberr_t row_upd_sec_index_entry
 MDEV-14407: trx_undo_rec_copy
 MDEV-14472: is_current_stmt_binlog_format_row
+MDEV-14693: clust_index->online_log
 MDEV-14695: n < m_size
 MDEV-14697: in TABLE::mark_default_fields_for_write
 MDEV-14715: table->read_set, field_index
@@ -84,3 +85,4 @@ MDEV-15217: transaction.xid_state.xid.is_null
 MDEV-15226: Could not get index information for Index Number
 MDEV-15245: myrocks::ha_rocksdb::position
 MDEV-15255: m_lock_type == 2
+MDEV-15319: myrocks::ha_rocksdb::convert_record_from_storage_format
