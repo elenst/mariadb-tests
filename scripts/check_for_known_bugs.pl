@@ -58,6 +58,7 @@ MDEV-14833: [Draft] Failing assertion: trx->error_state == DB_SUCCESS in file /h
 MDEV-14836: m_status == DA_ERROR
 MDEV-14862: in add_key_equal_fields
 MDEV-14864: in mysql_prepare_create_table
+MDEV-14864: in mysql_prepare_alter_table
 MDEV-14905: purge_sys->state == PURGE_STATE_INIT
 MDEV-14906: index->is_instant
 MDEV-14932: in ha_partition::update_create_info
@@ -73,6 +74,7 @@ MDEV-15130: table->s->null_bytes == 0
 MDEV-15130: static void PFS_engine_table::set_field_char_utf8
 MDEV-15115: dict_tf2_is_valid
 MDEV-15117: in is_temporary_table
+MDEV-15141: in Item::val_temporal_packed
 MDEV-15149: table_share->tmp_table != NO_TMP_TABLE
 MDEV-15149: table->in_use == _current_thd
 MDEV-15149: tables->table->pos_in_table_list == tables
@@ -86,4 +88,8 @@ MDEV-15217: transaction.xid_state.xid.is_null
 MDEV-15226: Could not get index information for Index Number
 MDEV-15245: myrocks::ha_rocksdb::position
 MDEV-15255: m_lock_type == 2
+MDEV-15308: ha_alter_info->alter_info->drop_list.elements > 0
 MDEV-15319: myrocks::ha_rocksdb::convert_record_from_storage_format
+MDEV-15330: table->insert_values
+MDEV-15336: ha_partition::print_error
+MDEV-15338: table->read_set, field_index
