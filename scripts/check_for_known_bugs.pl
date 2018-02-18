@@ -38,6 +38,7 @@ MDEV-11539: mi_open.c:67: test_if_reopen
 MDEV-12466: Open_tables_state::BACKUPS_AVAIL
 MDEV-13024: in multi_delete::send_data
 MDEV-13103: fil0pagecompress.cc:[0-9]+: void fil_decompress_page
+MDEV-13231: in _ma_unique_hash
 MDEV-13553: Open_tables_state::BACKUPS_AVAIL
 MDEV-13699: == new_field->field_name.length
 MDEV-14040: in Field::is_real_null
@@ -45,6 +46,7 @@ MDEV-14041: in String::length
 MDEV-14134: dberr_t row_upd_sec_index_entry
 MDEV-14407: trx_undo_rec_copy
 MDEV-14472: is_current_stmt_binlog_format_row
+MDEV-14669: file->trn == trn
 MDEV-14693: clust_index->online_log
 MDEV-14695: n < m_size
 MDEV-14697: in TABLE::mark_default_fields_for_write
