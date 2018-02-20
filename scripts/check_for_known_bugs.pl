@@ -50,6 +50,7 @@ MDEV-14669: file->trn == trn
 MDEV-14693: clust_index->online_log
 MDEV-14695: n < m_size
 MDEV-14697: in TABLE::mark_default_fields_for_write
+MDEV-14711: fix_block->page.file_page_was_freed
 MDEV-14715: table->read_set, field_index
 MDEV-14762: has_stronger_or_equal_type
 MDEV-14743: Item_func_match::init_search
