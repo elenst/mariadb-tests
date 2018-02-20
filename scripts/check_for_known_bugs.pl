@@ -96,3 +96,4 @@ MDEV-15319: myrocks::ha_rocksdb::convert_record_from_storage_format
 MDEV-15330: table->insert_values
 MDEV-15336: ha_partition::print_error
 MDEV-15338: table->read_set, field_index
+MDEV-14347: in fill_schema_table_by_open
