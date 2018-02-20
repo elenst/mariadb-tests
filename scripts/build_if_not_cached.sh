@@ -41,13 +41,8 @@ if [ "$REVISION" != "$CACHED_REVISION" ] || [ -n "$REBUILD_OLD_SERVER" ] ; then
   rm -rf $BASEDIR && mkdir $BASEDIR
   rm -rf $HOME/out-of-source && mkdir $HOME/out-of-source && cd $HOME/out-of-source
   cmake $HOME/src $CMAKE_OPTIONS -DCMAKE_INSTALL_PREFIX=$BASEDIR
-  make -j6 > ./build.log
-  if [ "$?" -ne "0" ] ; then
-    cat ./build.log
-  else
-    rm ./build.log
-    make install > /dev/null
-  fi
+  make -j6
+  make install > /dev/null
   echo $REVISION > $BASEDIR/revno
   rm -rf $HOME/out-of-source
 elif [ -n "$RERUN_OLD_SERVER" ] ; then
