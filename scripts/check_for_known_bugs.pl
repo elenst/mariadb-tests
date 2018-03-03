@@ -14,16 +14,33 @@ while (<DATA>) {
     unless (-e "/tmp/$mdev.summary") {
       system("wget https://jira.mariadb.org//rest/api/2/issue/$mdev?fields=summary -O /tmp/$mdev.summary -o /dev/null");
     }
+    unless (-e "/tmp/$mdev.fixVersions") {
+      system("wget https://jira.mariadb.org//rest/api/2/issue/$mdev?fields=fixVersions -O /tmp/$mdev.fixVersions -o /dev/null");
+    }
+
     my $summary= `cat /tmp/$mdev.summary`;
     if ($summary =~ /\{\"summary\":\"(.*?)\"\}/) {
       $summary= $1;
     }
     my $resolution= `cat /tmp/$mdev.resolution`;
-    unless ($resolution=~ s/.*\"name\":\"([^\"]+)\".*/$1/) {
+    my $resolutiondate;
+    if ($resolution=~ s/.*\"name\":\"([^\"]+)\".*/$1/) {
+      unless (-e "/tmp/$mdev.resolutiondate") {
+        system("wget https://jira.mariadb.org//rest/api/2/issue/$mdev?fields=resolutiondate -O /tmp/$mdev.resolutiondate -o /dev/null");
+      }
+      $resolutiondate= `cat /tmp/$mdev.resolutiondate`;
+      unless ($resolutiondate=~ s/.*\"resolutiondate\":\"(\d\d\d\d-\d\d-\d\d).*/$1/) {
+        $resolutiondate= '';
+      }
+    } else {
       $resolution= 'Unresolved';
     }
+    my $fixVersions= `cat /tmp/$mdev.fixVersions`;
+    my @versions = ($fixVersions =~ /\"name\":\"(.*?)\"/g);
+    
     print "$mdev: $summary\n";
-    print "RESOLUTION: $resolution\n";
+    print "RESOLUTION: $resolution". ($resolutiondate ? " ($resolutiondate)" : "") . "\n";
+    print "Fix versions: @versions\n";
   }
 }
 
@@ -46,6 +63,7 @@ MDEV-14041: in String::length
 MDEV-14134: dberr_t row_upd_sec_index_entry
 MDEV-14407: trx_undo_rec_copy
 MDEV-14472: is_current_stmt_binlog_format_row
+MDEV-14642: table->s->db_create_options == part_table->s->db_create_options
 MDEV-14669: file->trn == trn
 MDEV-14693: clust_index->online_log
 MDEV-14695: n < m_size
@@ -81,7 +99,6 @@ MDEV-15141: in Item::val_temporal_packed
 MDEV-15149: table_share->tmp_table != NO_TMP_TABLE
 MDEV-15149: table->in_use == _current_thd
 MDEV-15149: tables->table->pos_in_table_list == tables
-MDEV-15149: in open_and_process_table
 MDEV-15161: in get_addon_fields
 MDEV-15164: ikey_.type == kTypeValue
 MDEV-15167: in THD::binlog_write_row
@@ -97,3 +114,5 @@ MDEV-15330: table->insert_values
 MDEV-15336: ha_partition::print_error
 MDEV-15338: table->read_set, field_index
 MDEV-14347: in fill_schema_table_by_open
+MDEV-15456: in get_part_name_from_elem
+MDEV-15456: in ha_partition::create_handler_file
