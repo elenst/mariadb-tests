@@ -52,6 +52,7 @@ MDEV-6453:  int handler::ha_rnd_init
 MDEV-10130: share->in_trans == 0
 MDEV-11071: thd->transaction.stmt.is_empty
 MDEV-11539: mi_open.c:67: test_if_reopen
+MDEV-11779: void Diagnostics_area::set_ok_status
 MDEV-12466: Open_tables_state::BACKUPS_AVAIL
 MDEV-13024: in multi_delete::send_data
 MDEV-13103: fil0pagecompress.cc:[0-9]+: void fil_decompress_page
@@ -63,6 +64,7 @@ MDEV-14041: in String::length
 MDEV-14134: dberr_t row_upd_sec_index_entry
 MDEV-14407: trx_undo_rec_copy
 MDEV-14472: is_current_stmt_binlog_format_row
+MDEV-14551: Can't find record in
 MDEV-14642: table->s->db_create_options == part_table->s->db_create_options
 MDEV-14669: file->trn == trn
 MDEV-14693: clust_index->online_log
@@ -74,7 +76,7 @@ MDEV-14762: has_stronger_or_equal_type
 MDEV-14743: Item_func_match::init_search
 MDEV-14825: col->ord_part
 MDEV-14829: protocol.cc:588: void Protocol::end_statement
-MDEV-14831: Can't find record in 'seq[0-9]
+MDEV-14831: Can't find record in
 MDEV-14833: [Draft] Failing assertion: trx->error_state == DB_SUCCESS in file /home/travis/src/storage/innobase/que/que0que.cc line [0-9]+
 MDEV-14836: m_status == DA_ERROR
 MDEV-14862: in add_key_equal_fields
@@ -87,18 +89,18 @@ MDEV-14994: join->best_read < double
 MDEV-14995: in ha_partition::update_create_info
 MDEV-14996: int ha_maria::external_lock
 MDEV-14998: find_field_in_table_ref
-MDEV-15036: sql_error.cc:335: void Diagnostics_area::set_ok_status
-MDEV-15056: sql_error.cc:335: void Diagnostics_area::set_ok_status
 MDEV-15060: row_log_table_apply_op
 MDEV-15103: virtual ha_rows ha_partition::part_records
 MDEV-15130: table->s->null_bytes == 0
 MDEV-15130: static void PFS_engine_table::set_field_char_utf8
 MDEV-15115: dict_tf2_is_valid
+MDEV-15117: sequence_insert
 MDEV-15117: in is_temporary_table
 MDEV-15141: in Item::val_temporal_packed
 MDEV-15149: table_share->tmp_table != NO_TMP_TABLE
 MDEV-15149: table->in_use == _current_thd
 MDEV-15149: tables->table->pos_in_table_list == tables
+MDEV-15149: sequence_insert
 MDEV-15161: in get_addon_fields
 MDEV-15164: ikey_.type == kTypeValue
 MDEV-15167: in THD::binlog_write_row
@@ -108,6 +110,7 @@ MDEV-15217: transaction.xid_state.xid.is_null
 MDEV-15226: Could not get index information for Index Number
 MDEV-15245: myrocks::ha_rocksdb::position
 MDEV-15255: m_lock_type == 2
+MDEV-15255: sequence_insert
 MDEV-15308: ha_alter_info->alter_info->drop_list.elements > 0
 MDEV-15319: myrocks::ha_rocksdb::convert_record_from_storage_format
 MDEV-15330: table->insert_values
