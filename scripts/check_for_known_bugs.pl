@@ -116,6 +116,13 @@ MDEV-15319: myrocks::ha_rocksdb::convert_record_from_storage_format
 MDEV-15330: table->insert_values
 MDEV-15336: ha_partition::print_error
 MDEV-15338: table->read_set, field_index
-MDEV-14347: in fill_schema_table_by_open
+MDEV-15347: in fill_schema_table_by_open
+MDEV-15380: is corrupt; try to repair it
 MDEV-15456: in get_part_name_from_elem
 MDEV-15456: in ha_partition::create_handler_file
+MDEV-15464: in TrxUndoRsegsIterator::set_next
+MDEV-15465: Item_func_match::cleanup
+MDEV-15468: table_events_waits_common::make_row 
+MDEV-15470: TABLE::mark_columns_used_by_index_no_reset
+MDEV-15471: new_clustered == ctx->need_rebuild
+MDEV-15472: void Diagnostics_area::set_ok_status
