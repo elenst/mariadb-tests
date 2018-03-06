@@ -108,11 +108,13 @@ MDEV-15175: Item_temporal_hybrid_func::val_str_ascii
 MDEV-15216: m_can_overwrite_status
 MDEV-15217: transaction.xid_state.xid.is_null
 MDEV-15226: Could not get index information for Index Number
+MDEV-15243: in Field_blob::pack
 MDEV-15245: myrocks::ha_rocksdb::position
 MDEV-15255: m_lock_type == 2
 MDEV-15255: sequence_insert
 MDEV-15308: ha_alter_info->alter_info->drop_list.elements > 0
 MDEV-15319: myrocks::ha_rocksdb::convert_record_from_storage_format
+MDEV-15329: in dict_table_check_for_dup_indexes
 MDEV-15330: table->insert_values
 MDEV-15336: ha_partition::print_error
 MDEV-15338: table->read_set, field_index
@@ -126,3 +128,7 @@ MDEV-15468: table_events_waits_common::make_row
 MDEV-15470: TABLE::mark_columns_used_by_index_no_reset
 MDEV-15471: new_clustered == ctx->need_rebuild
 MDEV-15472: void Diagnostics_area::set_ok_status
+MDEV-15481: I_P_List_null_counter, I_P_List_fast_push_back
+MDEV-15482: Type_std_attributes::set
+MDEV-15484: element->m_flush_tickets.is_empty
+MDEV-15486: String::needs_conversion
