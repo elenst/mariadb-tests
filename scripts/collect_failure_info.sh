@@ -116,8 +116,8 @@ do
 
       cp $binary $dname/
     fi
-    tarname=$dname.`date "+%s"`.tar.gz
-    tar zcvf $tarname $dname
+    tarname=vardir.`date "+%s"`.tar.gz
+    tar zcf $tarname $dname
     echo "-------------------"
     echo "Uploading $tarname to FTP"
     ls -l $tarname
