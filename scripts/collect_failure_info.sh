@@ -121,9 +121,11 @@ do
     echo "user anonymous foo" > ftp_vardir
     echo "put $tarname private/travis/$tarname" >> ftp_vardir
     cat ftp_vardir | ftp -ni ftp.askmonty.org
-    rm $tarname
-    echo "Uploaded $tarname to FTP"
     echo "-------------------"
+    echo "Uploaded $tarname to FTP"
+    ls -l $tarname
+    echo "-------------------"
+    rm $tarname
   done
 done
 
