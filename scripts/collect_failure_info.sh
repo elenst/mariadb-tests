@@ -116,7 +116,7 @@ do
 
       cp $binary $dname/
     fi
-    tarname=vardir.`date "+%s"`.tar.gz
+    tarname="var-${TRAVIS_BUILD_ID}-${TRAVIS_BUILD_NUMBER}-${trial}".`date "+%s"`.tar.gz
     tar zcf $tarname $dname
     echo "-------------------"
     echo "Uploading $tarname to FTP"
