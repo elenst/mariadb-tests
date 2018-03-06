@@ -118,12 +118,12 @@ do
     fi
     tarname=$dname.`date "+%s"`.tar.gz
     tar zcvf $tarname $dname
+    echo "-------------------"
+    echo "Uploading $tarname to FTP"
+    ls -l $tarname
     echo "user anonymous foo" > ftp_vardir
     echo "put $tarname private/travis/$tarname" >> ftp_vardir
-    cat ftp_vardir | ftp -ni ftp.askmonty.org
-    echo "-------------------"
-    echo "Uploaded $tarname to FTP"
-    ls -l $tarname
+    cat ftp_vardir | ftp -nip ftp.askmonty.org
     echo "-------------------"
     rm $tarname
   done
