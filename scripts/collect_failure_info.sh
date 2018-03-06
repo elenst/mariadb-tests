@@ -113,7 +113,17 @@ do
       echo
       echo "-------------------"
       echo
+
+      cp $binary $dname/
     fi
+    tarname=$dname.`date "+%s"`.tar.gz
+    tar zcvf $tarname $dname
+    echo "user anonymous foo" > ftp_vardir
+    echo "put $tarname private/travis/$tarname" >> ftp_vardir
+    cat ftp_vardir | ftp -ni ftp.askmonty.org
+    rm $tarname
+    echo "Uploaded $tarname to FTP"
+    echo "-------------------"
   done
 done
 
