@@ -59,6 +59,7 @@ MDEV-13103: fil0pagecompress.cc:[0-9]+: void fil_decompress_page
 MDEV-13231: in _ma_unique_hash
 MDEV-13553: Open_tables_state::BACKUPS_AVAIL
 MDEV-13699: == new_field->field_name.length
+MDEV-13828: in handler::ha_index_or_rnd_end
 MDEV-14040: in Field::is_real_null
 MDEV-14041: in String::length
 MDEV-14134: dberr_t row_upd_sec_index_entry
@@ -132,3 +133,4 @@ MDEV-15481: I_P_List_null_counter, I_P_List_fast_push_back
 MDEV-15482: Type_std_attributes::set
 MDEV-15484: element->m_flush_tickets.is_empty
 MDEV-15486: String::needs_conversion
+MDEV-15490: in trx_update_mod_tables_timestamp
