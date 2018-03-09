@@ -49,8 +49,10 @@ __DATA__
 
 MDEV-5791:  in Field::is_real_null
 MDEV-6453:  int handler::ha_rnd_init
+MDEV-8203:  rgi->tables_to_lock
 MDEV-10130: share->in_trans == 0
 MDEV-11071: thd->transaction.stmt.is_empty
+MDEV-11071: mark_tmp_table_as_free_for_reuse
 MDEV-11539: mi_open.c:67: test_if_reopen
 MDEV-11779: void Diagnostics_area::set_ok_status
 MDEV-12466: Open_tables_state::BACKUPS_AVAIL
@@ -64,6 +66,7 @@ MDEV-14040: in Field::is_real_null
 MDEV-14041: in String::length
 MDEV-14134: dberr_t row_upd_sec_index_entry
 MDEV-14407: trx_undo_rec_copy
+MDEV-14410: table->pos_in_locked_tables->table == table
 MDEV-14472: is_current_stmt_binlog_format_row
 MDEV-14551: Can't find record in
 MDEV-14642: table->s->db_create_options == part_table->s->db_create_options
@@ -83,6 +86,8 @@ MDEV-14836: m_status == DA_ERROR
 MDEV-14862: in add_key_equal_fields
 MDEV-14864: in mysql_prepare_create_table
 MDEV-14864: in mysql_prepare_alter_table
+MDEV-14894: tdc_remove_table
+MDEV-14894: table->in_use == thd
 MDEV-14905: purge_sys->state == PURGE_STATE_INIT
 MDEV-14906: index->is_instant
 MDEV-14932: in ha_partition::update_create_info
@@ -132,5 +137,6 @@ MDEV-15472: void Diagnostics_area::set_ok_status
 MDEV-15481: I_P_List_null_counter, I_P_List_fast_push_back
 MDEV-15482: Type_std_attributes::set
 MDEV-15484: element->m_flush_tickets.is_empty
+MDEV-15485: read_sep_field
 MDEV-15486: String::needs_conversion
 MDEV-15490: in trx_update_mod_tables_timestamp
