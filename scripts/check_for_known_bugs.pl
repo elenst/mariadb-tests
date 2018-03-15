@@ -58,6 +58,7 @@ MDEV-11779: void Diagnostics_area::set_ok_status
 MDEV-12466: Open_tables_state::BACKUPS_AVAIL
 MDEV-13024: in multi_delete::send_data
 MDEV-13103: fil0pagecompress.cc:[0-9]+: void fil_decompress_page
+MDEV-13202: ltime->neg == 0
 MDEV-13231: in _ma_unique_hash
 MDEV-13553: Open_tables_state::BACKUPS_AVAIL
 MDEV-13699: == new_field->field_name.length
@@ -125,6 +126,7 @@ MDEV-15330: table->insert_values
 MDEV-15336: ha_partition::print_error
 MDEV-15338: table->read_set, field_index
 MDEV-15347: in fill_schema_table_by_open
+MDEV-15374: trx_undo_rec_copy
 MDEV-15380: is corrupt; try to repair it
 MDEV-15456: in get_part_name_from_elem
 MDEV-15456: in ha_partition::create_handler_file
