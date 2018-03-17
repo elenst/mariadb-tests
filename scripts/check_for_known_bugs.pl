@@ -128,6 +128,7 @@ MDEV-15338: table->read_set, field_index
 MDEV-15347: in fill_schema_table_by_open
 MDEV-15374: trx_undo_rec_copy
 MDEV-15380: is corrupt; try to repair it
+MDEV-15391: join->best_read < double
 MDEV-15456: in get_part_name_from_elem
 MDEV-15456: in ha_partition::create_handler_file
 MDEV-15464: in TrxUndoRsegsIterator::set_next
