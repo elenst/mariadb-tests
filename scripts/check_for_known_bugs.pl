@@ -70,6 +70,7 @@ MDEV-14407: trx_undo_rec_copy
 MDEV-14410: table->pos_in_locked_tables->table == table
 MDEV-14472: is_current_stmt_binlog_format_row
 MDEV-14551: Can't find record in
+MDEV-14557: m_sp == __null
 MDEV-14642: table->s->db_create_options == part_table->s->db_create_options
 MDEV-14669: file->trn == trn
 MDEV-14693: clust_index->online_log
@@ -129,6 +130,7 @@ MDEV-15347: in fill_schema_table_by_open
 MDEV-15374: trx_undo_rec_copy
 MDEV-15380: is corrupt; try to repair it
 MDEV-15391: join->best_read < double
+MDEV-15401: Item_direct_view_ref::used_tables
 MDEV-15456: in get_part_name_from_elem
 MDEV-15456: in ha_partition::create_handler_file
 MDEV-15464: in TrxUndoRsegsIterator::set_next
@@ -143,3 +145,4 @@ MDEV-15484: element->m_flush_tickets.is_empty
 MDEV-15485: read_sep_field
 MDEV-15486: String::needs_conversion
 MDEV-15490: in trx_update_mod_tables_timestamp
+MDEV-15537: in mysql_prepare_alter_table
