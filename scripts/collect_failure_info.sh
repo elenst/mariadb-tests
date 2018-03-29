@@ -123,7 +123,16 @@ do
     ls -l $tarname
     echo "user anonymous foo" > ftp_vardir
     echo "put $tarname private/travis/$tarname" >> ftp_vardir
-    cat ftp_vardir | ftp -nip ftp.askmonty.org
+    for i in 1 2 3 ; do
+      echo "Attempt $i..."
+      cat ftp_vardir | ftp -nip ftp.askmonty.org
+      if [ "$?" == "0" ] ; then
+        echo "   succeeded."
+        break
+      else
+        echo "   failed."
+      fi
+    done
     echo "-------------------"
     rm $tarname
   done
