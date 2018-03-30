@@ -61,6 +61,7 @@ MDEV-13103: fil0pagecompress.cc:[0-9]+: void fil_decompress_page
 MDEV-13202: ltime->neg == 0
 MDEV-13231: in _ma_unique_hash
 MDEV-13553: Open_tables_state::BACKUPS_AVAIL
+MDEV-13644: prev != 0 && next != 0
 MDEV-13699: == new_field->field_name.length
 MDEV-13828: in handler::ha_index_or_rnd_end
 MDEV-14040: in Field::is_real_null
