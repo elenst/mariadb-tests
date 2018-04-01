@@ -94,6 +94,7 @@ MDEV-14894: table->in_use == thd
 MDEV-14905: purge_sys->state == PURGE_STATE_INIT
 MDEV-14906: index->is_instant
 MDEV-14932: in ha_partition::update_create_info
+MDEV-14943: type == PAGECACHE_LSN_PAGE
 MDEV-14994: join->best_read < double
 MDEV-14995: in ha_partition::update_create_info
 MDEV-14996: int ha_maria::external_lock
@@ -147,3 +148,6 @@ MDEV-15485: read_sep_field
 MDEV-15486: String::needs_conversion
 MDEV-15490: in trx_update_mod_tables_timestamp
 MDEV-15537: in mysql_prepare_alter_table
+MDEV-15729: in Field::make_field
+MDEV-15744: derived->table
+MDEV-15742: m_lock_type == 1
