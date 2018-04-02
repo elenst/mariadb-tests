@@ -47,6 +47,7 @@ while (<DATA>) {
 
 __DATA__
 
+MDEV-654: share->now_transactional
 MDEV-5791:  in Field::is_real_null
 MDEV-6453:  int handler::ha_rnd_init
 MDEV-8203:  rgi->tables_to_lock
@@ -147,7 +148,10 @@ MDEV-15484: element->m_flush_tickets.is_empty
 MDEV-15485: read_sep_field
 MDEV-15486: String::needs_conversion
 MDEV-15490: in trx_update_mod_tables_timestamp
+MDEV-15533: log->blobs
 MDEV-15537: in mysql_prepare_alter_table
+MDEV-15551: share->last_version
 MDEV-15729: in Field::make_field
+MDEV-15738: in my_strcasecmp_utf8
 MDEV-15744: derived->table
 MDEV-15742: m_lock_type == 1
