@@ -17,6 +17,9 @@ while (<DATA>) {
     unless (-e "/tmp/$mdev.fixVersions") {
       system("wget https://jira.mariadb.org//rest/api/2/issue/$mdev?fields=fixVersions -O /tmp/$mdev.fixVersions -o /dev/null");
     }
+    unless (-e "/tmp/$mdev.affectsVersions") {
+      system("wget https://jira.mariadb.org//rest/api/2/issue/$mdev?fields=versions -O /tmp/$mdev.affectsVersions -o /dev/null");
+    }
 
     my $summary= `cat /tmp/$mdev.summary`;
     if ($summary =~ /\{\"summary\":\"(.*?)\"\}/) {
@@ -37,9 +40,13 @@ while (<DATA>) {
     }
     my $fixVersions= `cat /tmp/$mdev.fixVersions`;
     my @versions = ($fixVersions =~ /\"name\":\"(.*?)\"/g);
+
+    my $affectsVersions= `cat /tmp/$mdev.affectsVersions`;
+    my @affected = ($affectsVersions =~ /\"name\":\"(.*?)\"/g);
     
     print "$mdev: $summary\n";
     print "RESOLUTION: $resolution". ($resolutiondate ? " ($resolutiondate)" : "") . "\n";
+    print "Affects versions: @affected\n";
     print "Fix versions: @versions\n";
   }
 }
@@ -155,3 +162,4 @@ MDEV-15729: in Field::make_field
 MDEV-15738: in my_strcasecmp_utf8
 MDEV-15744: derived->table
 MDEV-15742: m_lock_type == 1
+MDEV-15754: in fill_record_n_invoke_before_triggers
