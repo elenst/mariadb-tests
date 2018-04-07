@@ -118,7 +118,7 @@ do
     fi
     tarname="var-${TRAVIS_JOB_NUMBER}-${trial}".`date "+%s"`.tar.gz
 #    tar zcf $tarname $dname
-    tar zcf $tarname $dname/*/mysql.log
+    tar zcf $tarname $dname/mysql.log
     echo "-------------------"
     echo "Uploading $tarname to FTP"
     ls -l $tarname
