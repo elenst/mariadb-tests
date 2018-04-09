@@ -107,6 +107,7 @@ MDEV-14994: join->best_read < double
 MDEV-14995: in ha_partition::update_create_info
 MDEV-14996: int ha_maria::external_lock
 MDEV-14998: find_field_in_table_ref
+MDEV-15013: trx->state == TRX_STATE_NOT_STARTED
 MDEV-15060: row_log_table_apply_op
 MDEV-15103: virtual ha_rows ha_partition::part_records
 MDEV-15130: table->s->null_bytes == 0
@@ -155,10 +156,14 @@ MDEV-15484: element->m_flush_tickets.is_empty
 MDEV-15485: read_sep_field
 MDEV-15486: String::needs_conversion
 MDEV-15490: in trx_update_mod_tables_timestamp
+MDEV-15493: lock_trx_table_locks_remove
 MDEV-15533: log->blobs
 MDEV-15537: in mysql_prepare_alter_table
 MDEV-15551: share->last_version
+MDEV-15576: item->null_value
+MDEV-15626: old_part_id == m_last_part
 MDEV-15729: in Field::make_field
+MDEV-15729: Field::make_send_field
 MDEV-15738: in my_strcasecmp_utf8
 MDEV-15744: derived->table
 MDEV-15742: m_lock_type == 1
