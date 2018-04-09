@@ -121,6 +121,7 @@ do
     tar zcf $tarname $dname/mysql.log
     echo "-------------------"
     echo "Uploading $tarname to FTP"
+    set -o pipefail
     ls -l $tarname
     echo "user anonymous foo" > ftp_vardir
     echo "put $tarname private/travis/$tarname" >> ftp_vardir
