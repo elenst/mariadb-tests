@@ -127,7 +127,7 @@ do
     echo "put $tarname private/travis/$tarname" >> ftp_vardir
     for i in 1 2 3 ; do
       echo "Attempt $i..."
-      cat ftp_vardir | ftp -nip ftp.askmonty.org
+      cat ftp_vardir | ftp -vnip ftp.askmonty.org
       if [ "$?" == "0" ] ; then
         echo "   succeeded."
         break
