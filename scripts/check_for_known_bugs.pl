@@ -94,6 +94,8 @@ MDEV-14829: protocol.cc:588: void Protocol::end_statement
 MDEV-14831: Can't find record in
 MDEV-14833: [Draft] Failing assertion: trx->error_state == DB_SUCCESS in file /home/travis/src/storage/innobase/que/que0que.cc line [0-9]+
 MDEV-14836: m_status == DA_ERROR
+MDEV-14846: prebuilt->trx, TRX_STATE_ACTIVE
+MDEV-14846: state == TRX_STATE_FORCED_ROLLBACK
 MDEV-14862: in add_key_equal_fields
 MDEV-14864: in mysql_prepare_create_table
 MDEV-14864: in mysql_prepare_alter_table
@@ -168,3 +170,6 @@ MDEV-15738: in my_strcasecmp_utf8
 MDEV-15744: derived->table
 MDEV-15742: m_lock_type == 1
 MDEV-15754: in fill_record_n_invoke_before_triggers
+MDEV-15797: thd->killed != 0
+MDEV-15816: m_lock_rows == RDB_LOCK_WRITE
+MDEV-15828: num_fts_index <= 1
