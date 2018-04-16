@@ -171,5 +171,6 @@ MDEV-15744: derived->table
 MDEV-15742: m_lock_type == 1
 MDEV-15754: in fill_record_n_invoke_before_triggers
 MDEV-15797: thd->killed != 0
+MDEV-15812: virtual handler::~handler
 MDEV-15816: m_lock_rows == RDB_LOCK_WRITE
 MDEV-15828: num_fts_index <= 1
