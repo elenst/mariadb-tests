@@ -19,10 +19,10 @@
 LOGDIR=$1
 res=0
 
-echo "Test for IP/FTP situation"
-for i in 1 2 3 4 5 ; do
-  curl http://hasky.askmonty.org/PID=$$ > /dev/null
-done
+#echo "Test for IP/FTP situation"
+#for i in 1 2 3 4 5 ; do
+#  curl http://hasky.askmonty.org/PID=$$ > /dev/null
+#done
 
 for triallog in `ls -tr $LOGDIR/trial*.log`
 do
