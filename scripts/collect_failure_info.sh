@@ -121,27 +121,27 @@ do
 
       cp $binary $dname/
     fi
-    tarname="var-${TRAVIS_JOB_NUMBER}-${trial}".`date "+%s"`.tar.gz
-#    tar zcf $tarname $dname
-    tar zcf $tarname $dname/mysql.log
-    echo "-------------------"
-    echo "Uploading $tarname to FTP"
-    set -o pipefail
-    ls -l $tarname
-    echo "user anonymous foo" > ftp_vardir
-    echo "put $tarname private/travis/$tarname" >> ftp_vardir
-    for i in 1 2 3 ; do
-      echo "Attempt $i..."
-      cat ftp_vardir | ftp -vnip ftp.askmonty.org
-      if [ "$?" == "0" ] ; then
-        echo "   succeeded."
-        break
-      else
-        echo "   failed."
-      fi
-    done
-    echo "-------------------"
-    rm $tarname
+#    tarname="var-${TRAVIS_JOB_NUMBER}-${trial}".`date "+%s"`.tar.gz
+##    tar zcf $tarname $dname
+#    tar zcf $tarname $dname/mysql.log
+#    echo "-------------------"
+#    echo "Uploading $tarname to FTP"
+#    set -o pipefail
+#    ls -l $tarname
+#    echo "user anonymous foo" > ftp_vardir
+#    echo "put $tarname private/travis/$tarname" >> ftp_vardir
+#    for i in 1 2 3 ; do
+#      echo "Attempt $i..."
+#      cat ftp_vardir | ftp -vnip ftp.askmonty.org
+#      if [ "$?" == "0" ] ; then
+#        echo "   succeeded."
+#        break
+#      else
+#        echo "   failed."
+#      fi
+#    done
+#    echo "-------------------"
+#    rm $tarname
   done
 done
 
