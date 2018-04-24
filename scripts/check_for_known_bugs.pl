@@ -91,8 +91,7 @@ MDEV-14762: has_stronger_or_equal_type
 MDEV-14743: Item_func_match::init_search
 MDEV-14825: col->ord_part
 MDEV-14829: protocol.cc:588: void Protocol::end_statement
-MDEV-14831: Can't find record in
-MDEV-14833: [Draft] Failing assertion: trx->error_state == DB_SUCCESS in file /home/travis/src/storage/innobase/que/que0que.cc line [0-9]+
+MDEV-14833: trx->error_state == DB_SUCCESS
 MDEV-14836: m_status == DA_ERROR
 MDEV-14846: prebuilt->trx, TRX_STATE_ACTIVE
 MDEV-14846: state == TRX_STATE_FORCED_ROLLBACK
@@ -103,10 +102,10 @@ MDEV-14894: tdc_remove_table
 MDEV-14894: table->in_use == thd
 MDEV-14905: purge_sys->state == PURGE_STATE_INIT
 MDEV-14906: index->is_instant
-MDEV-14932: in ha_partition::update_create_info
 MDEV-14943: type == PAGECACHE_LSN_PAGE
 MDEV-14994: join->best_read < double
 MDEV-14995: in ha_partition::update_create_info
+MDEV-14995: base_list_iterator::next
 MDEV-14996: int ha_maria::external_lock
 MDEV-14998: find_field_in_table_ref
 MDEV-15013: trx->state == TRX_STATE_NOT_STARTED
@@ -115,13 +114,7 @@ MDEV-15103: virtual ha_rows ha_partition::part_records
 MDEV-15130: table->s->null_bytes == 0
 MDEV-15130: static void PFS_engine_table::set_field_char_utf8
 MDEV-15115: dict_tf2_is_valid
-MDEV-15117: sequence_insert
-MDEV-15117: in is_temporary_table
 MDEV-15141: in Item::val_temporal_packed
-MDEV-15149: table_share->tmp_table != NO_TMP_TABLE
-MDEV-15149: table->in_use == _current_thd
-MDEV-15149: tables->table->pos_in_table_list == tables
-MDEV-15149: sequence_insert
 MDEV-15161: in get_addon_fields
 MDEV-15164: ikey_.type == kTypeValue
 MDEV-15167: in THD::binlog_write_row
@@ -151,7 +144,6 @@ MDEV-15465: Item_func_match::cleanup
 MDEV-15468: table_events_waits_common::make_row 
 MDEV-15470: TABLE::mark_columns_used_by_index_no_reset
 MDEV-15471: new_clustered == ctx->need_rebuild
-MDEV-15472: void Diagnostics_area::set_ok_status
 MDEV-15481: I_P_List_null_counter, I_P_List_fast_push_back
 MDEV-15482: Type_std_attributes::set
 MDEV-15484: element->m_flush_tickets.is_empty
@@ -164,6 +156,7 @@ MDEV-15537: in mysql_prepare_alter_table
 MDEV-15551: share->last_version
 MDEV-15576: item->null_value
 MDEV-15626: old_part_id == m_last_part
+MDEV-15657: file->inited == handler::NONE
 MDEV-15729: in Field::make_field
 MDEV-15729: Field::make_send_field
 MDEV-15738: in my_strcasecmp_utf8
@@ -174,3 +167,5 @@ MDEV-15797: thd->killed != 0
 MDEV-15812: virtual handler::~handler
 MDEV-15816: m_lock_rows == RDB_LOCK_WRITE
 MDEV-15828: num_fts_index <= 1
+MDEV-15970: m_status == DA_OK_BULK
+MDEV-15970: Can't find record in
