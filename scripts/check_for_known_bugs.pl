@@ -59,6 +59,7 @@ MDEV-5791:  in Field::is_real_null
 MDEV-6453:  int handler::ha_rnd_init
 MDEV-8203:  rgi->tables_to_lock
 MDEV-10130: share->in_trans == 0
+MDEV-10679: mysql_create_frm_image
 MDEV-11071: thd->transaction.stmt.is_empty
 MDEV-11071: mark_tmp_table_as_free_for_reuse
 MDEV-11539: mi_open.c:67: test_if_reopen
