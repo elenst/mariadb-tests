@@ -55,6 +55,7 @@ while (<DATA>) {
 __DATA__
 
 MDEV-654: share->now_transactional
+MDEV-4312: make_lock_and_pin
 MDEV-5791:  in Field::is_real_null
 MDEV-6453:  int handler::ha_rnd_init
 MDEV-8203:  rgi->tables_to_lock
@@ -87,7 +88,6 @@ MDEV-14693: clust_index->online_log
 MDEV-14695: n < m_size
 MDEV-14697: in TABLE::mark_default_fields_for_write
 MDEV-14711: fix_block->page.file_page_was_freed
-MDEV-14715: table->read_set, field_index
 MDEV-14762: has_stronger_or_equal_type
 MDEV-14743: Item_func_match::init_search
 MDEV-14825: col->ord_part
@@ -118,7 +118,6 @@ MDEV-15115: dict_tf2_is_valid
 MDEV-15141: in Item::val_temporal_packed
 MDEV-15161: in get_addon_fields
 MDEV-15164: ikey_.type == kTypeValue
-MDEV-15167: in THD::binlog_write_row
 MDEV-15175: Item_temporal_hybrid_func::val_str_ascii
 MDEV-15216: m_can_overwrite_status
 MDEV-15217: transaction.xid_state.xid.is_null
@@ -163,10 +162,12 @@ MDEV-15729: Field::make_send_field
 MDEV-15738: in my_strcasecmp_utf8
 MDEV-15744: derived->table
 MDEV-15742: m_lock_type == 1
-MDEV-15754: in fill_record_n_invoke_before_triggers
 MDEV-15797: thd->killed != 0
 MDEV-15812: virtual handler::~handler
 MDEV-15816: m_lock_rows == RDB_LOCK_WRITE
 MDEV-15828: num_fts_index <= 1
 MDEV-15970: m_status == DA_OK_BULK
 MDEV-15970: Can't find record in
+MDEV-16043: st_select_lex::fix_prepare_information
+MDEV-16043: thd->Item_change_list::is_empty
+MDEV-16078: in Item::delete_self
