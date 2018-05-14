@@ -90,6 +90,7 @@ MDEV-14697: in TABLE::mark_default_fields_for_write
 MDEV-14711: fix_block->page.file_page_was_freed
 MDEV-14762: has_stronger_or_equal_type
 MDEV-14743: Item_func_match::init_search
+MDEV-14815: in has_old_lock
 MDEV-14825: col->ord_part
 MDEV-14829: protocol.cc:588: void Protocol::end_statement
 MDEV-14833: trx->error_state == DB_SUCCESS
@@ -171,3 +172,4 @@ MDEV-15970: Can't find record in
 MDEV-16043: st_select_lex::fix_prepare_information
 MDEV-16043: thd->Item_change_list::is_empty
 MDEV-16078: in Item::delete_self
+MDEV-16153: Apc_target::disable
