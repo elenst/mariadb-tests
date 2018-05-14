@@ -158,6 +158,7 @@ MDEV-15551: share->last_version
 MDEV-15576: item->null_value
 MDEV-15626: old_part_id == m_last_part
 MDEV-15657: file->inited == handler::NONE
+MDEV-15658: expl_lock->trx == arg->impl_trx
 MDEV-15729: in Field::make_field
 MDEV-15729: Field::make_send_field
 MDEV-15738: in my_strcasecmp_utf8
