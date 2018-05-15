@@ -176,3 +176,4 @@ MDEV-16078: in Item::delete_self
 MDEV-16153: Apc_target::disable
 MDEV-16169: space->referenced
 MDEV-16170: Item_null_result::type_handler
+MDEV-16171: in setup_table_map
