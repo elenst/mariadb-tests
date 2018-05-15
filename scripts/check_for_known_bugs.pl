@@ -168,6 +168,7 @@ MDEV-15797: thd->killed != 0
 MDEV-15812: virtual handler::~handler
 MDEV-15816: m_lock_rows == RDB_LOCK_WRITE
 MDEV-15828: num_fts_index <= 1
+MDEV-15878: table->file->stats.records > 0
 MDEV-15970: m_status == DA_OK_BULK
 MDEV-15970: Can't find record in
 MDEV-16043: st_select_lex::fix_prepare_information
@@ -177,3 +178,4 @@ MDEV-16153: Apc_target::disable
 MDEV-16169: space->referenced
 MDEV-16170: Item_null_result::type_handler
 MDEV-16171: in setup_table_map
+MDEV-16184: nest->counter > 0
