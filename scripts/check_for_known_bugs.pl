@@ -174,3 +174,5 @@ MDEV-16043: st_select_lex::fix_prepare_information
 MDEV-16043: thd->Item_change_list::is_empty
 MDEV-16078: in Item::delete_self
 MDEV-16153: Apc_target::disable
+MDEV-16169: space->referenced
+MDEV-16170: Item_null_result::type_handler
