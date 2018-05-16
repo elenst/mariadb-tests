@@ -173,9 +173,10 @@ MDEV-15970: m_status == DA_OK_BULK
 MDEV-15970: Can't find record in
 MDEV-16043: st_select_lex::fix_prepare_information
 MDEV-16043: thd->Item_change_list::is_empty
-MDEV-16078: in Item::delete_self
 MDEV-16153: Apc_target::disable
+MDEV-16154: in myrocks::ha_rocksdb::load_auto_incr_value_from_index
 MDEV-16169: space->referenced
 MDEV-16170: Item_null_result::type_handler
 MDEV-16171: in setup_table_map
 MDEV-16184: nest->counter > 0
+MDEV-16190: in Item_null_result::field_type
