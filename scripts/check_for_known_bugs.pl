@@ -80,7 +80,6 @@ MDEV-14134: dberr_t row_upd_sec_index_entry
 MDEV-14407: trx_undo_rec_copy
 MDEV-14410: table->pos_in_locked_tables->table == table
 MDEV-14472: is_current_stmt_binlog_format_row
-MDEV-14551: Can't find record in
 MDEV-14557: m_sp == __null
 MDEV-14642: table->s->db_create_options == part_table->s->db_create_options
 MDEV-14669: file->trn == trn
@@ -109,7 +108,6 @@ MDEV-14994: join->best_read < double
 MDEV-14995: in ha_partition::update_create_info
 MDEV-14995: base_list_iterator::next
 MDEV-14996: int ha_maria::external_lock
-MDEV-14998: find_field_in_table_ref
 MDEV-15013: trx->state == TRX_STATE_NOT_STARTED
 MDEV-15060: row_log_table_apply_op
 MDEV-15103: virtual ha_rows ha_partition::part_records
@@ -127,6 +125,7 @@ MDEV-15243: in Field_blob::pack
 MDEV-15245: myrocks::ha_rocksdb::position
 MDEV-15255: m_lock_type == 2
 MDEV-15255: sequence_insert
+MDEV-15257: m_status == DA_OK_BULK
 MDEV-15308: ha_alter_info->alter_info->drop_list.elements > 0
 MDEV-15319: myrocks::ha_rocksdb::convert_record_from_storage_format
 MDEV-15329: in dict_table_check_for_dup_indexes
@@ -169,12 +168,13 @@ MDEV-15812: virtual handler::~handler
 MDEV-15816: m_lock_rows == RDB_LOCK_WRITE
 MDEV-15828: num_fts_index <= 1
 MDEV-15878: table->file->stats.records > 0
-MDEV-15970: m_status == DA_OK_BULK
-MDEV-15970: Can't find record in
+MDEV-15977: thd->in_sub_stmt
 MDEV-16043: st_select_lex::fix_prepare_information
 MDEV-16043: thd->Item_change_list::is_empty
+MDEV-16131: id == DICT_INDEXES_ID
 MDEV-16153: Apc_target::disable
 MDEV-16154: in myrocks::ha_rocksdb::load_auto_incr_value_from_index
+MDEV-16166: Can't find record in
 MDEV-16169: space->referenced
 MDEV-16170: Item_null_result::type_handler
 MDEV-16171: in setup_table_map
