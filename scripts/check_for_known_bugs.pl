@@ -168,6 +168,8 @@ MDEV-15812: virtual handler::~handler
 MDEV-15816: m_lock_rows == RDB_LOCK_WRITE
 MDEV-15828: num_fts_index <= 1
 MDEV-15878: table->file->stats.records > 0
+MDEV-15950: find_dup_table
+MDEV-15950: find_table_in_list
 MDEV-15977: thd->in_sub_stmt
 MDEV-16043: st_select_lex::fix_prepare_information
 MDEV-16043: thd->Item_change_list::is_empty
