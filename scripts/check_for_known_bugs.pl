@@ -105,8 +105,6 @@ MDEV-14905: purge_sys->state == PURGE_STATE_INIT
 MDEV-14906: index->is_instant
 MDEV-14943: type == PAGECACHE_LSN_PAGE
 MDEV-14994: join->best_read < double
-MDEV-14995: in ha_partition::update_create_info
-MDEV-14995: base_list_iterator::next
 MDEV-14996: int ha_maria::external_lock
 MDEV-15013: trx->state == TRX_STATE_NOT_STARTED
 MDEV-15060: row_log_table_apply_op
@@ -137,8 +135,6 @@ MDEV-15374: trx_undo_rec_copy
 MDEV-15380: is corrupt; try to repair it
 MDEV-15391: join->best_read < double
 MDEV-15401: Item_direct_view_ref::used_tables
-MDEV-15456: in get_part_name_from_elem
-MDEV-15456: in ha_partition::create_handler_file
 MDEV-15464: in TrxUndoRsegsIterator::set_next
 MDEV-15465: Item_func_match::cleanup
 MDEV-15468: table_events_waits_common::make_row 
@@ -184,3 +180,4 @@ MDEV-16171: in setup_table_map
 MDEV-16184: nest->counter > 0
 MDEV-16190: in Item_null_result::field_type
 MDEV-16286: Can't find record in
+MDEV-16292: Item_func::print
