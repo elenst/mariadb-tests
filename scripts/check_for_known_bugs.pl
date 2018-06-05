@@ -152,6 +152,7 @@ MDEV-15537: in mysql_prepare_alter_table
 MDEV-15551: share->last_version
 MDEV-15576: item->null_value
 MDEV-15626: old_part_id == m_last_part
+MDEV-15656: is_last_prefix <= 0
 MDEV-15657: file->inited == handler::NONE
 MDEV-15658: expl_lock->trx == arg->impl_trx
 MDEV-15729: in Field::make_field
@@ -182,5 +183,6 @@ MDEV-16184: nest->counter > 0
 MDEV-16190: in Item_null_result::field_type
 MDEV-16286: Can't find record in
 MDEV-16292: Item_func::print
+MDEV-16397: Can't find record in
 MDEV-16407: in MDL_key::mdl_key_init
 MDEV-16407: Error: Freeing overrun buffer
