@@ -67,7 +67,7 @@ TRIAL_STATUS=""
 
 function insert_result
 {
-  $MYSQL --host=$DB_HOST --port=$DB_PORT -u$DB_USER -p$DBP -e "INSERT INTO travis.result (build_id, job_id, trial_id, travis_branch, result, status, command_line, server_branch, server_revision, cmake_options, test_branch, test_revision, data) VALUES ($TRAVIS_BUILD_NUMBER, $TRAVIS_JOB, $TRIAL, \"$TRAVIS_BRANCH\", \"$TRIAL_RESULT\", \"$TRIAL_STATUS\", \"TRIAL_CMD\", \"$SERVER\", \"$REVISION\", \"$CMAKE_OPTIONS\", \"$TEST_BRANCH\", \"$TEST_REVISION\", LOAD_FILE(\"$LOGDIR/$ARCHDIR.tar.gz\"))"
+  $MYSQL --host=$DB_HOST --port=$DB_PORT -u$DB_USER -p$DBP -e "INSERT INTO travis.result (build_id, job_id, trial_id, travis_branch, result, status, command_line, server_branch, server_revision, cmake_options, test_branch, test_revision, data) VALUES ($TRAVIS_BUILD_NUMBER, $TRAVIS_JOB, $TRIAL, \"$TRAVIS_BRANCH\", \"$TRIAL_RESULT\", \"$TRIAL_STATUS\", \"TRIAL_CMD\", \"$SERVER\", \"$REVISION\", \"$CMAKE_OPTIONS\", \"$TEST_BRANCH\", \"$TEST_REVISION\", LOAD_FILE(\"$ARCHDIR.tar.gz\"))"
   if [ "$?" != "0" ] ; then
     echo "ERROR: Failed to insert the result"
   fi
