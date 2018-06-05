@@ -67,7 +67,9 @@ TRIAL_STATUS=""
 
 function insert_result
 {
-  $MYSQL --host=$DB_HOST --port=$DB_PORT -u$DB_USER -p$DBP -e "INSERT INTO travis.result (build_id, job_id, trial_id, travis_branch, result, status, command_line, server_branch, server_revision, cmake_options, test_branch, test_revision, data) VALUES ($TRAVIS_BUILD_NUMBER, $TRAVIS_JOB, $TRIAL, \"$TRAVIS_BRANCH\", \"$TRIAL_RESULT\", \"$TRIAL_STATUS\", \"$TRIAL_CMD\", \"$SERVER\", \"$REVISION\", \"$CMAKE_OPTIONS\", \"$TEST_BRANCH\", \"$TEST_REVISION\", LOAD_FILE(\"$ARCHDIR.tar.gz\"))"
+  $MYSQL --local-infile --host=$DB_HOST --port=$DB_PORT -u$DB_USER -p$DBP -e "LOAD DATA LOCAL INFILE \"$ARCHDIR.tar.gz\" INTO TABLE travis.result CHARACTER SET BINARY FIELDS TERMINATED BY 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' ESCAPED BY '' LINES TERMINATED BY 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' (data) SET build_id = $TRAVIS_BUILD_NUMBER, job_id = $TRAVIS_JOB, trial_id = $TRIAL, travis_branch = \"$TRAVIS_BRANCH\", result = \"$TRIAL_RESULT\", status = \"$TRIAL_STATUS\", command_line = \"$TRIAL_CMD\", server_branch = \"$SERVER\", server_revision = \"$REVISION\", cmake_options = \"$CMAKE_OPTIONS\", test_branch = \"$TEST_BRANCH\", test_revision = \"$TEST_REVISION\""
+
+
   if [ "$?" != "0" ] ; then
     echo "ERROR: Failed to insert the result"
   fi
