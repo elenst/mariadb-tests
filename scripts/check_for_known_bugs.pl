@@ -111,6 +111,7 @@ MDEV-15060: row_log_table_apply_op
 MDEV-15103: virtual ha_rows ha_partition::part_records
 MDEV-15130: table->s->null_bytes == 0
 MDEV-15130: static void PFS_engine_table::set_field_char_utf8
+MDEV-15114: mem_heap_dup
 MDEV-15115: dict_tf2_is_valid
 MDEV-15141: in Item::val_temporal_packed
 MDEV-15161: in get_addon_fields
@@ -143,7 +144,6 @@ MDEV-15471: new_clustered == ctx->need_rebuild
 MDEV-15481: I_P_List_null_counter, I_P_List_fast_push_back
 MDEV-15482: Type_std_attributes::set
 MDEV-15484: element->m_flush_tickets.is_empty
-MDEV-15485: read_sep_field
 MDEV-15486: String::needs_conversion
 MDEV-15490: in trx_update_mod_tables_timestamp
 MDEV-15493: lock_trx_table_locks_remove
@@ -156,6 +156,7 @@ MDEV-15657: file->inited == handler::NONE
 MDEV-15658: expl_lock->trx == arg->impl_trx
 MDEV-15729: in Field::make_field
 MDEV-15729: Field::make_send_field
+MDEV-15729: send_result_set_metadata
 MDEV-15738: in my_strcasecmp_utf8
 MDEV-15744: derived->table
 MDEV-15742: m_lock_type == 1
@@ -181,3 +182,5 @@ MDEV-16184: nest->counter > 0
 MDEV-16190: in Item_null_result::field_type
 MDEV-16286: Can't find record in
 MDEV-16292: Item_func::print
+MDEV-16407: in MDL_key::mdl_key_init
+MDEV-16407: Error: Freeing overrun buffer
