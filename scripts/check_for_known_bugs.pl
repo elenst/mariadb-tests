@@ -181,6 +181,7 @@ MDEV-16170: Item_null_result::type_handler
 MDEV-16171: in setup_table_map
 MDEV-16184: nest->counter > 0
 MDEV-16190: in Item_null_result::field_type
+MDEV-16242: Slave worker thread retried transaction
 MDEV-16286: Can't find record in
 MDEV-16292: Item_func::print
 MDEV-16397: Can't find record in
