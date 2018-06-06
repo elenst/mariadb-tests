@@ -27,6 +27,8 @@
 # - TEST_REVISION
 # - CMAKE_OPTIONS
 
+set -x
+
 OLDDIR=`pwd`
 res=0
 
@@ -107,9 +109,9 @@ function process_coredump
 
 if [ "$res" == "0" ] ; then
 
-  ARCHDIR=logs_$TRAVIS_JOB_NUMBER
   TRIAL="${TRIAL:-0}"
   TRIAL=$((TRIAL+1))
+  ARCHDIR="logs_${TRAVIS_JOB_NUMBER}.${TRIAL}"
   TRAVIS_JOB=`echo $TRAVIS_JOB_NUMBER | sed -e 's/.*\.//'`
 
   TRIAL_CMD=""
