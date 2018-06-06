@@ -28,47 +28,36 @@
 # - CMAKE_OPTIONS
 
 OLDDIR=`pwd`
-res=0
+abort=false
 
-function soft_exit
-{
-  cd $OLDDIR
-  exit $res
-}
-
-function exit_fail
-{
-  res=1
-  soft_exit
-}
+###### Initial checks
 
 if [ -z "$LOGDIR" ] ; then
   echo "ERROR: Logdir is not defined, cannot process logs"
-  exit_fail
-fi
-
-if [ -z "$BASEDIR" ] ; then
+  abort=1
+elif [ -z "$BASEDIR" ] ; then
   echo "ERROR: Basedir is not defined, cannot process logs"
-  exit_fail
-fi
-
-if [ -e "$BASEDIR/bin/mysql" ] ; then
+  abort=1
+elif [ -e "$BASEDIR/bin/mysql" ] ; then
   MYSQL=$BASEDIR/bin/mysql
 elif [ -e "$BASEDIR/client/mysql" ] ; then
   MYSQL=$BASEDIR/client/mysql
 else
   echo "ERROR: MySQL client not found, cannot process logs"
-  exit_fail
+  abort=1
 fi
 
-ARCHDIR=logs_$TRAVIS_JOB_NUMBER
-TRIAL="${TRIAL:-0}"
-TRIAL=$((TRIAL+1))
-TRAVIS_JOB=`echo $TRAVIS_JOB_NUMBER | sed -e 's/.*\.//'`
+###### Functions
 
-TRIAL_CMD=""
-TRIAL_RESULT=""
-TRIAL_STATUS=""
+function soft_exit
+{
+  cd $OLDDIR
+  if [ $abort ] ; then
+    return 1
+  else
+    return 0
+  fi
+}
 
 function insert_result
 {
@@ -83,37 +72,6 @@ function insert_result
     res=1
   fi
 }
-
-rm -rf $LOGDIR/$ARCHDIR && mkdir $LOGDIR/$ARCHDIR
-
-if [ -e $LOGDIR/trial.log ] ; then
-  TRIAL_STATUS=`grep 'will exit with exit status' $LOGDIR/trial.log | sed -e 's/.*will exit with exit status STATUS_\([A-Z_]*\).*/\1/'`
-  TRIAL_CMD=`grep -A 1 'Final command line:' $LOGDIR/trial.log`
-  mv $LOGDIR/trial.log $LOGDIR/$ARCHDIR/
-else
-  echo "$triallog does not exist"
-fi
-
-echo "=================== Trial $TRIAL results ============"
-echo
-echo "Status: $TRIAL_STATUS"
-echo
-
-if [[ "$TRIAL_STATUS" == "OK" ]] ; then
-  TRIAL_RESULT=PASS
-  insert_result
-  soft_exit
-fi
-
-perl $HOME/mariadb-tests/scripts/check_for_known_bugs.pl $LOGDIR/vardir*/mysql.err $LOGDIR/trial${trial}.log
-
-echo
-echo Server: $SERVER $REVISION
-echo Tests: $TEST_BRANCH $TEST_REVISION
-echo $cmd
-echo
-
-res=1
 
 function process_coredump
 {
@@ -141,57 +99,108 @@ function process_coredump
   cp $binary $datadir/
 }
 
-for dname in $LOGDIR/vardir*
-do
-  # Quoting bootstrap log all existing error logs
-  for fname in $dname/mysql.err* $dname/boot.log
-  do
-    if [ -e $fname ] ; then
-      echo "------------------- $fname -----------------------------"
-      cat $fname | grep -v "\[Note\]" | grep -v "\[Warning\]" | grep -v "^$" | cut -c 1-4096
-      echo "-------------------"
-    fi
-  done
+###### "main"
 
-  # Checking for coredump in the _orig datadir
-  if [ -e $dname/data_orig/core ] ; then
-    datadir=$dname/data_orig
-    coredump=$datadir/core
-    # Since it's in the _orig dir, it is definitely from the old server
-    bname=$HOME/old
-    process_coredump
+if ! $abort ; then
+
+  ARCHDIR=logs_$TRAVIS_JOB_NUMBER
+  TRIAL="${TRIAL:-0}"
+  TRIAL=$((TRIAL+1))
+  TRAVIS_JOB=`echo $TRAVIS_JOB_NUMBER | sed -e 's/.*\.//'`
+
+  TRIAL_CMD=""
+  TRIAL_RESULT=""
+  TRIAL_STATUS=""
+
+  rm -rf $LOGDIR/$ARCHDIR && mkdir $LOGDIR/$ARCHDIR
+
+  if [ -e $LOGDIR/trial.log ] ; then
+    TRIAL_STATUS=`grep 'will exit with exit status' $LOGDIR/trial.log | sed -e 's/.*will exit with exit status STATUS_\([A-Z_]*\).*/\1/'`
+    TRIAL_CMD=`grep -A 1 'Final command line:' $LOGDIR/trial.log`
+    mv $LOGDIR/trial.log $LOGDIR/$ARCHDIR/
+  else
+    echo "$triallog does not exist"
   fi
 
-  # Checking for coredump in the datadir
-  if [ -e $dname/data/core ] ; then
-    datadir=$dname/data
-    coredump=$datadir/core
-    
-    # It can be both from the old and the new server, depending on
-    # whether it is an upgrade test, and if it is, on when
-    # the test failed. If there is also 'data_orig', then 'data'
-    # belongs to the new server; if there is no 'data_orig' and 'old'
-    # server exists, then it's an upgrade test and the core belongs to
-    # the old server; otherwise it belongs to the new server
-    
-    if [ -e $dname/data_orig ] ; then
-      bname=$BASEDIR
-    elif [ -e $HOME/old ] ; then
-      bname=$HOME/old
-    else
-      bname=$BASEDIR
-    fi
-
-    process_coredump
-  fi
+  echo "============= Trial $TRIAL results =================="
+  echo "Status: $TRIAL_STATUS"
+  echo
   
-  mv $dname $LOGDIR/$ARCHDIR/
-done
+  # Success processing
+  if [[ "$TRIAL_STATUS" == "OK" ]] ; then
+    TRIAL_RESULT=PASS
+    insert_result
 
-cd $LOGDIR
-tar zcf logs_$ARCHDIR.tar.gz $ARCHDIR
-ls -l $ARCHDIR.tar.gz
-insert_result
-rm -rf ${ARCHDIR}*
+  # Failure processing
+  else
+
+    perl $HOME/mariadb-tests/scripts/check_for_known_bugs.pl $LOGDIR/vardir*/mysql.err $LOGDIR/trial${trial}.log
+
+    echo
+    echo Server: $SERVER $REVISION
+    echo Tests: $TEST_BRANCH $TEST_REVISION
+    echo $cmd
+    echo
+
+    res=1
+
+
+    for dname in $LOGDIR/vardir*
+    do
+      # Quoting bootstrap log all existing error logs
+      for fname in $dname/mysql.err* $dname/boot.log
+      do
+        if [ -e $fname ] ; then
+          echo "------------------- $fname -----------------------------"
+          cat $fname | grep -v "\[Note\]" | grep -v "\[Warning\]" | grep -v "^$" | cut -c 1-4096
+          echo "-------------------"
+        fi
+      done
+
+      # Checking for coredump in the _orig datadir
+      if [ -e $dname/data_orig/core ] ; then
+        datadir=$dname/data_orig
+        coredump=$datadir/core
+        # Since it's in the _orig dir, it is definitely from the old server
+        bname=$HOME/old
+        process_coredump
+      fi
+
+      # Checking for coredump in the datadir
+      if [ -e $dname/data/core ] ; then
+        datadir=$dname/data
+        coredump=$datadir/core
+        
+        # It can be both from the old and the new server, depending on
+        # whether it is an upgrade test, and if it is, on when
+        # the test failed. If there is also 'data_orig', then 'data'
+        # belongs to the new server; if there is no 'data_orig' and 'old'
+        # server exists, then it's an upgrade test and the core belongs to
+        # the old server; otherwise it belongs to the new server
+        
+        if [ -e $dname/data_orig ] ; then
+          bname=$BASEDIR
+        elif [ -e $HOME/old ] ; then
+          bname=$HOME/old
+        else
+          bname=$BASEDIR
+        fi
+
+        process_coredump
+      fi
+      
+      mv $dname $LOGDIR/$ARCHDIR/
+    done
+
+    cd $LOGDIR
+    tar zcf logs_$ARCHDIR.tar.gz $ARCHDIR
+    ls -l $ARCHDIR.tar.gz
+    insert_result
+    rm -rf ${ARCHDIR}*
+  fi
+
+  echo "=============End of trial $TRIAL results ============"
+fi
+
 
 soft_exit
