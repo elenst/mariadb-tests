@@ -40,8 +40,15 @@ if [ "$REVISION" != "$CACHED_REVISION" ] || [ -n "$REBUILD_OLD_SERVER" ] ; then
   echo "Cached revision $CACHED_REVISION, new revision $REVISION, build is required or requested"
   rm -rf $BASEDIR && mkdir $BASEDIR
   rm -rf $HOME/out-of-source && mkdir $HOME/out-of-source && cd $HOME/out-of-source
-  cmake $HOME/src $CMAKE_OPTIONS -DCMAKE_INSTALL_PREFIX=$BASEDIR
-  make -j6
+  if ! cmake $HOME/src $CMAKE_OPTIONS -DCMAKE_INSTALL_PREFIX=$BASEDIR > cmake.out 2>&1 ; then
+    cat cmake.out
+    echo "FATAL ERROR: cmake failed"
+    exit 1
+  fi
+  if ! make -j6 ; then
+    echo "FATAL ERROR: make failed"
+    exit 1
+  fi
   make install > /dev/null
   echo $REVISION > $BASEDIR/revno
   rm -rf $HOME/out-of-source
