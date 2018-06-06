@@ -27,11 +27,12 @@
 # - TEST_REVISION
 # - CMAKE_OPTIONS
 
+OLDDIR=`pwd`
+
 function soft_exit {
+  cd $OLDDIR
   return $res
 }
-
-set -x
 
 if [ -z "$LOGDIR" ] ; then
   echo "ERROR: Logdir is not defined, cannot process logs"
@@ -87,10 +88,10 @@ fi
 
 echo "=================== Trial $TRIAL ==================="
 echo
-echo "Status: $STATUS"
+echo "Status: $TRIAL_STATUS"
 echo
 
-if [[ "$status" == "OK" ]] ; then
+if [[ "$TRIAL_STATUS" == "OK" ]] ; then
   TRIAL_RESULT=PASS
   insert_result
   soft_exit
@@ -113,8 +114,6 @@ do
   for fname in $dname/mysql.err* $dname/boot.log
   do
     if [ -e $fname ] ; then
-      mkdir -p $ARCHDIR/$dname
-      cp $fname $ARCHDIR/$dname/
       echo "------------------- $fname -----------------------------"
       echo
       cat $fname | grep -v "\[Note\]" | grep -v "\[Warning\]" | grep -v "^$" | cut -c 1-4096
@@ -143,9 +142,7 @@ do
     echo
 
     gdb --batch --eval-command="thread apply all bt" $binary $coredump > $dname/data_orig/threads
-    mkdir -p $ARCHDIR/$dname
-    mv $dname/data_orig $ARCHDIR/$dname/
-    cp $binary $ARCHDIR/$dname/data_orig/
+    cp $binary $dname/data_orig/
     
   fi
 
@@ -184,18 +181,17 @@ do
     echo
 
     gdb --batch --eval-command="thread apply all bt" $binary $coredump > $dname/data/threads
-    mkdir -p $ARCHDIR/$dname
-    mv $dname/data $ARCHDIR/$dname/
-    cp $binary $ARCHDIR/$dname/data/
+    cp $binary $dname/data/
 
   fi
   
-  cd $LOGDIR
-  tar zcf $ARCHDIR.tar.gz $ARCHDIR
-  ls -l $ARCHDIR.tar.gz
-  insert_result
-  rm -rf ${ARCHDIR}*
-  
+  mv $dname $ARCHDIR/
 done
+
+cd $LOGDIR
+tar zcf $ARCHDIR.tar.gz $ARCHDIR
+ls -l $ARCHDIR.tar.gz
+insert_result
+rm -rf ${ARCHDIR}*
 
 soft_exit
