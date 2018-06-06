@@ -55,16 +55,22 @@ function soft_exit
   return $res
 }
 
-function insert_result
+function insert_success
 {
-  if [ -e $LOGDIR/$ARCHDIR.tar.gz ] ; then
-    $MYSQL --local-infile --host=$DB_HOST --port=$DB_PORT -u$DB_USER -p$DBP -e "LOAD DATA LOCAL INFILE \"$LOGDIR/$ARCHDIR.tar.gz\" INTO TABLE travis.result CHARACTER SET BINARY FIELDS TERMINATED BY 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' ESCAPED BY '' LINES TERMINATED BY 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' (data) SET build_id = $TRAVIS_BUILD_NUMBER, job_id = $TRAVIS_JOB, trial_id = $TRIAL, travis_branch = \"$TRAVIS_BRANCH\", result = \"$TRIAL_RESULT\", status = \"$TRIAL_STATUS\", command_line = \"$TRIAL_CMD\", server_branch = \"$SERVER\", server_revision = \"$REVISION\", cmake_options = \"$CMAKE_OPTIONS\", test_branch = \"$TEST_BRANCH\", test_revision = \"$TEST_REVISION\""
-  else
-     $MYSQL --host=$DB_HOST --port=$DB_PORT -u$DB_USER -p$DBP -e "INSERT INTO travis.result SET build_id = $TRAVIS_BUILD_NUMBER, job_id = $TRAVIS_JOB, trial_id = $TRIAL, travis_branch = \"$TRAVIS_BRANCH\", result = \"$TRIAL_RESULT\", status = \"$TRIAL_STATUS\", command_line = \"$TRIAL_CMD\", server_branch = \"$SERVER\", server_revision = \"$REVISION\", cmake_options = \"$CMAKE_OPTIONS\", test_branch = \"$TEST_BRANCH\", test_revision = \"$TEST_REVISION\""
-  fi
+   $MYSQL --host=$DB_HOST --port=$DB_PORT -u$DB_USER -p$DBP -e "INSERT INTO travis.result SET build_id = $TRAVIS_BUILD_NUMBER, job_id = $TRAVIS_JOB, trial_id = $TRIAL, travis_branch = \"$TRAVIS_BRANCH\", result = \"$TRIAL_RESULT\", status = \"$TRIAL_STATUS\", command_line = \"$TRIAL_CMD\", server_branch = \"$SERVER\", server_revision = \"$REVISION\", cmake_options = \"$CMAKE_OPTIONS\", test_branch = \"$TEST_BRANCH\", test_revision = \"$TEST_REVISION\""
 
   if [ "$?" != "0" ] ; then
     echo "ERROR: Failed to insert the result"
+    res=1
+  fi
+}
+
+function load_failure
+{
+  $MYSQL --local-infile --host=$DB_HOST --port=$DB_PORT -u$DB_USER -p$DBP -e "LOAD DATA LOCAL INFILE \"${LOGDIR}/${ARCHDIR}.tar.gz\" INTO TABLE travis.result CHARACTER SET BINARY FIELDS TERMINATED BY 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' ESCAPED BY '' LINES TERMINATED BY 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' (data) SET build_id = $TRAVIS_BUILD_NUMBER, job_id = $TRAVIS_JOB, trial_id = $TRIAL, travis_branch = \"$TRAVIS_BRANCH\", result = \"$TRIAL_RESULT\", status = \"$TRIAL_STATUS\", command_line = \"$TRIAL_CMD\", server_branch = \"$SERVER\", server_revision = \"$REVISION\", cmake_options = \"$CMAKE_OPTIONS\", test_branch = \"$TEST_BRANCH\", test_revision = \"$TEST_REVISION\""
+
+  if [ "$?" != "0" ] ; then
+    echo "ERROR: Failed to lad the result"
     res=1
   fi
 }
@@ -110,17 +116,18 @@ if [ "$res" == "0" ] ; then
   TRIAL_RESULT=""
   TRIAL_STATUS=""
 
-  rm -rf $LOGDIR/$ARCHDIR && mkdir $LOGDIR/$ARCHDIR
-
-  if [ -e $LOGDIR/trial.log ] ; then
-    TRIAL_STATUS=`grep 'will exit with exit status' $LOGDIR/trial.log | sed -e 's/.*will exit with exit status STATUS_\([A-Z_]*\).*/\1/'`
-    TRIAL_CMD=`grep -A 1 'Final command line:' $LOGDIR/trial.log`
-    mv $LOGDIR/trial.log $LOGDIR/$ARCHDIR/
-  else
-    echo "$triallog does not exist"
-  fi
+  rm -rf ${LOGDIR}/${ARCHDIR} && mkdir ${LOGDIR}/${ARCHDIR}
 
   echo "============= Trial $TRIAL results =================="
+
+  if [ -e ${LOGDIR}/trial.log ] ; then
+    TRIAL_STATUS=`grep 'will exit with exit status' $LOGDIR/trial.log | sed -e 's/.*will exit with exit status STATUS_\([A-Z_]*\).*/\1/'`
+    TRIAL_CMD=`grep -A 1 'Final command line:' $LOGDIR/trial.log`
+    mv ${LOGDIR}/trial.log ${LOGDIR}/${ARCHDIR}/
+  else
+    echo "trial.log does not exist"
+  fi
+
   echo "Status: $TRIAL_STATUS"
   echo
   
@@ -137,11 +144,9 @@ if [ "$res" == "0" ] ; then
     echo
     echo Server: $SERVER $REVISION
     echo Tests: $TEST_BRANCH $TEST_REVISION
-    echo $cmd
     echo
-
-    res=1
-
+    echo $TRIAL_CMD
+    echo
 
     for dname in $LOGDIR/vardir*
     do
@@ -193,10 +198,10 @@ if [ "$res" == "0" ] ; then
     cd $LOGDIR
     tar zcf logs_$ARCHDIR.tar.gz $ARCHDIR
     ls -l $ARCHDIR.tar.gz
-    insert_result
-    rm -rf ${ARCHDIR}*
+    load_failure
   fi
 
+  rm -rf ${LOGDIR}/${ARCHDIR}*
   echo "=============End of trial $TRIAL results ============"
 fi
 
