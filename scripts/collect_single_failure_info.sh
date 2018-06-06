@@ -28,23 +28,23 @@
 # - CMAKE_OPTIONS
 
 OLDDIR=`pwd`
-abort=false
+res=0
 
 ###### Initial checks
 
 if [ -z "$LOGDIR" ] ; then
   echo "ERROR: Logdir is not defined, cannot process logs"
-  abort=1
+  res=1
 elif [ -z "$BASEDIR" ] ; then
   echo "ERROR: Basedir is not defined, cannot process logs"
-  abort=1
+  res=1
 elif [ -e "$BASEDIR/bin/mysql" ] ; then
   MYSQL=$BASEDIR/bin/mysql
 elif [ -e "$BASEDIR/client/mysql" ] ; then
   MYSQL=$BASEDIR/client/mysql
 else
   echo "ERROR: MySQL client not found, cannot process logs"
-  abort=1
+  res=1
 fi
 
 ###### Functions
@@ -52,11 +52,7 @@ fi
 function soft_exit
 {
   cd $OLDDIR
-  if [ $abort ] ; then
-    return 1
-  else
-    return 0
-  fi
+  return $res
 }
 
 function insert_result
@@ -101,7 +97,9 @@ function process_coredump
 
 ###### "main"
 
-if ! $abort ; then
+# Only do the job if initial checks passed
+
+if [ "$res" == "0" ] ; then
 
   ARCHDIR=logs_$TRAVIS_JOB_NUMBER
   TRIAL="${TRIAL:-0}"
