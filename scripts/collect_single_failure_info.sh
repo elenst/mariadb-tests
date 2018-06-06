@@ -27,8 +27,6 @@
 # - TEST_REVISION
 # - CMAKE_OPTIONS
 
-set -x
-
 OLDDIR=`pwd`
 res=0
 
@@ -72,7 +70,7 @@ function load_failure
   $MYSQL --local-infile --host=$DB_HOST --port=$DB_PORT -u$DB_USER -p$DBP -e "LOAD DATA LOCAL INFILE \"${LOGDIR}/${ARCHDIR}.tar.gz\" REPLACE INTO TABLE travis.result CHARACTER SET BINARY FIELDS TERMINATED BY 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' ESCAPED BY '' LINES TERMINATED BY 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' (data) SET build_id = $TRAVIS_BUILD_NUMBER, job_id = $TRAVIS_JOB, trial_id = $TRIAL, travis_branch = \"$TRAVIS_BRANCH\", result = \"$TRIAL_RESULT\", status = \"$TRIAL_STATUS\", command_line = \"$TRIAL_CMD\", server_branch = \"$SERVER\", server_revision = \"$REVISION\", cmake_options = \"$CMAKE_OPTIONS\", test_branch = \"$TEST_BRANCH\", test_revision = \"$TEST_REVISION\""
 
   if [ "$?" != "0" ] ; then
-    echo "ERROR: Failed to lad the result"
+    echo "ERROR: Failed to load the result"
     res=1
   fi
 }
