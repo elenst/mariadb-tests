@@ -196,7 +196,7 @@ if [ "$res" == "0" ] ; then
     done
 
     cd $LOGDIR
-    tar zcf logs_$ARCHDIR.tar.gz $ARCHDIR
+    tar zcf $ARCHDIR.tar.gz $ARCHDIR
     ls -l $ARCHDIR.tar.gz
     load_failure
   fi
