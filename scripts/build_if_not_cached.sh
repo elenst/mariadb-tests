@@ -40,7 +40,7 @@ if [ "$REVISION" != "$CACHED_REVISION" ] || [ -n "$REBUILD_OLD_SERVER" ] ; then
   echo "Cached revision $CACHED_REVISION, new revision $REVISION, build is required or requested"
   rm -rf $BASEDIR && mkdir $BASEDIR
   rm -rf $HOME/out-of-source && mkdir $HOME/out-of-source && cd $HOME/out-of-source
-  if ! cmake $HOME/src $CMAKE_OPTIONS -DCMAKE_INSTALL_PREFIX=$BASEDIR > cmake.out 2>&1 ; then
+  if ! cmake $HOME/src $CMAKE_OPTIONS -DCMAKE_INSTALL_PREFIX=$BASEDIR > cmake.out ; then
     cat cmake.out
     echo "FATAL ERROR: cmake failed"
     exit 1
