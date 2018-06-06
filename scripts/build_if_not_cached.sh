@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 #
-#  Copyright (c) 2017, MariaDB
+#  Copyright (c) 2017, 2018, MariaDB
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -40,7 +40,8 @@ if [ "$REVISION" != "$CACHED_REVISION" ] || [ -n "$REBUILD_OLD_SERVER" ] ; then
   echo "Cached revision $CACHED_REVISION, new revision $REVISION, build is required or requested"
   rm -rf $BASEDIR && mkdir $BASEDIR
   rm -rf $HOME/out-of-source && mkdir $HOME/out-of-source && cd $HOME/out-of-source
-  if ! cmake $HOME/src $CMAKE_OPTIONS -DCMAKE_INSTALL_PREFIX=$BASEDIR > cmake.out ; then
+  cmake $HOME/src $CMAKE_OPTIONS -DCMAKE_INSTALL_PREFIX=$BASEDIR > cmake.out 2>&1
+  if [ "$?" != "0" ] ; then
     cat cmake.out
     echo "FATAL ERROR: cmake failed"
     exit 1
