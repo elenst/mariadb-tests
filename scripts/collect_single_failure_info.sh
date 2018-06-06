@@ -136,7 +136,7 @@ if [ "$res" == "0" ] ; then
   # Success processing
   if [[ "$TRIAL_STATUS" == "OK" ]] ; then
     TRIAL_RESULT=PASS
-    insert_result
+    insert_success
 
   # Failure processing
   else
