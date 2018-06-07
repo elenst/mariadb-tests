@@ -118,7 +118,8 @@ if [ "$res" == "0" ] ; then
 
   rm -rf ${LOGDIR}/${ARCHDIR} && mkdir ${LOGDIR}/${ARCHDIR}
 
-  echo "============= Trial $TRIAL results =================="
+  echo ""
+  echo "============================= Trial $TRIAL results ============================="
 
   if [ -e ${LOGDIR}/trial.log ] ; then
     TRIAL_STATUS=`grep 'will exit with exit status' $LOGDIR/trial.log | sed -e 's/.*will exit with exit status STATUS_\([A-Z_]*\).*/\1/'`
@@ -129,7 +130,6 @@ if [ "$res" == "0" ] ; then
   fi
 
   echo "Status: $TRIAL_STATUS"
-  echo
   
   # Success processing
   if [[ "$TRIAL_STATUS" == "OK" ]] ; then
@@ -139,9 +139,10 @@ if [ "$res" == "0" ] ; then
   # Failure processing
   else
 
-    perl $HOME/mariadb-tests/scripts/check_for_known_bugs.pl $LOGDIR/vardir*/mysql.err $LOGDIR/trial${trial}.log
+    perl $HOME/mariadb-tests/scripts/check_for_known_bugs.pl $LOGDIR/vardir*/mysql.err $LOGDIR/trial.log
 
     echo
+    echo '#' ${TRAVIS_BUILD_NUMBER}, ${TRAVIS_JOB}, ${TRIAL}
     echo Server: $SERVER $REVISION
     echo Tests: $TEST_BRANCH $TEST_REVISION
     echo
@@ -202,7 +203,7 @@ if [ "$res" == "0" ] ; then
   fi
 
   rm -rf ${LOGDIR}/${ARCHDIR}*
-  echo "=============End of trial $TRIAL results ============"
+  echo "============================= End of trial $TRIAL results ======================="
 fi
 
 
