@@ -2,11 +2,13 @@
 
 use strict;
 
+my @files= glob "@ARGV";
+
 while (<DATA>) {
   next unless /^\s*(MDEV-\d+):\s*(.*)/;
   my ($mdev, $pattern)= ($1, $2);
   chomp $pattern;
-  system("grep -h -E \"$pattern\" @ARGV > /dev/null 2>&1");
+  system("grep -h -E \"$pattern\" @files > /dev/null 2>&1");
   unless ($?) {
     unless (-e "/tmp/$mdev.resolution") {
       system("wget https://jira.mariadb.org//rest/api/2/issue/$mdev?fields=resolution -O /tmp/$mdev.resolution -o /dev/null");
