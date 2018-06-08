@@ -12,7 +12,7 @@ foreach my $f (@files) {
   } else {
     print "DEBUG: File $f does not exist\n";
   }
-
+}
 
 while (<DATA>) {
   next unless /^\s*(MDEV-\d+):\s*(.*)/;
