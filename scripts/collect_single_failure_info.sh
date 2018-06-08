@@ -141,7 +141,7 @@ if [ "$res" == "0" ] ; then
   # Failure processing
   else
 
-    perl $HOME/mariadb-tests/scripts/check_for_known_bugs.pl $LOGDIR/vardir*/mysql.err $LOGDIR/trial.log
+    perl $HOME/mariadb-tests/scripts/check_for_known_bugs.pl $LOGDIR/vardir*/mysql.err ${LOGDIR}/${ARCHDIR}/trial*.log
 
     echo
     echo '#' ${TRAVIS_BUILD_NUMBER},${TRAVIS_JOB},${TRIAL} / ${TRAVIS_BUILD_NUMBER}.${TRAVIS_JOB}.${TRIAL}
