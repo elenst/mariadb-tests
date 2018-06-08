@@ -4,6 +4,8 @@ use strict;
 
 my @files= glob "@ARGV";
 
+print "DEBUG: Checking @files for known bugs\n";
+
 while (<DATA>) {
   next unless /^\s*(MDEV-\d+):\s*(.*)/;
   my ($mdev, $pattern)= ($1, $2);
