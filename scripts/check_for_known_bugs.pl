@@ -6,6 +6,14 @@ my @files= glob "@ARGV";
 
 print "DEBUG: Checking @files for known bugs\n";
 
+foreach my $f (@files) {
+  if (-e $f) {
+    print "DEBUG: File $f exists\n";
+  } else {
+    print "DEBUG: File $f does not exist\n";
+  }
+
+
 while (<DATA>) {
   next unless /^\s*(MDEV-\d+):\s*(.*)/;
   my ($mdev, $pattern)= ($1, $2);
