@@ -7,7 +7,7 @@ use strict;
 
 my @expected_files= glob "@ARGV";
 my @files;
-map { push @files, $_ if -e $f } @expected_files;
+map { push @files, $_ if -e $_ } @expected_files;
 
 while (<DATA>) {
   next unless /^\s*(MDEV-\d+):\s*(.*)/;
