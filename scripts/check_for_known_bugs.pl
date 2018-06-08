@@ -10,6 +10,7 @@ while (<DATA>) {
   next unless /^\s*(MDEV-\d+):\s*(.*)/;
   my ($mdev, $pattern)= ($1, $2);
   chomp $pattern;
+  print "DEBUG: Running grep -h -E \"$pattern\" @files > /dev/null 2>&1\n";
   system("grep -h -E \"$pattern\" @files > /dev/null 2>&1");
   unless ($?) {
     unless (-e "/tmp/$mdev.resolution") {
