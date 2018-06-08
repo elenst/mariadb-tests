@@ -67,7 +67,9 @@ function insert_success
 
 function load_failure
 {
-  $MYSQL --local-infile --host=$DB_HOST --port=$DB_PORT -u$DB_USER -p$DBP -e "LOAD DATA LOCAL INFILE \"${LOGDIR}/${ARCHDIR}.tar.gz\" REPLACE INTO TABLE travis.result CHARACTER SET BINARY FIELDS TERMINATED BY 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' ESCAPED BY '' LINES TERMINATED BY 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' (data) SET build_id = $TRAVIS_BUILD_NUMBER, job_id = $TRAVIS_JOB, trial_id = $TRIAL, travis_branch = \"$TRAVIS_BRANCH\", result = \"$TRIAL_RESULT\", status = \"$TRIAL_STATUS\", command_line = \"$TRIAL_CMD\", server_branch = \"$SERVER\", server_revision = \"$REVISION\", cmake_options = \"$CMAKE_OPTIONS\", test_branch = \"$TEST_BRANCH\", test_revision = \"$TEST_REVISION\""
+  ls -l ${LOGDIR}/${ARCHDIR}.tar.gz
+
+  $MYSQL --local-infile --host=$DB_HOST --port=$DB_PORT -u$DB_USER -p$DBP -e "LOAD DATA LOCAL INFILE \"${LOGDIR}/${ARCHDIR}.tar.gz\" REPLACE INTO TABLE travis.result CHARACTER SET BINARY FIELDS TERMINATED BY 'xxxxxthisxxlinexxxshouldxxneverxxeverxxappearxxinxxanyxxfilexxxxxxxxxxxxxxxxxxxxxxxx' ESCAPED BY '' LINES TERMINATED BY 'XXXTHISXXLINEXXSHOULDXXNEVERXXEVERXXAPPEARXXINXXANYXXFILEXXXXXXXXXXXXXXXXXXXX' (data) SET build_id = $TRAVIS_BUILD_NUMBER, job_id = $TRAVIS_JOB, trial_id = $TRIAL, travis_branch = \"$TRAVIS_BRANCH\", result = \"$TRIAL_RESULT\", status = \"$TRIAL_STATUS\", command_line = \"$TRIAL_CMD\", server_branch = \"$SERVER\", server_revision = \"$REVISION\", cmake_options = \"$CMAKE_OPTIONS\", test_branch = \"$TEST_BRANCH\", test_revision = \"$TEST_REVISION\""
 
   if [ "$?" != "0" ] ; then
     echo "ERROR: Failed to load the result"
@@ -142,7 +144,7 @@ if [ "$res" == "0" ] ; then
     perl $HOME/mariadb-tests/scripts/check_for_known_bugs.pl $LOGDIR/vardir*/mysql.err $LOGDIR/trial.log
 
     echo
-    echo '#' ${TRAVIS_BUILD_NUMBER}, ${TRAVIS_JOB}, ${TRIAL}
+    echo '#' ${TRAVIS_BUILD_NUMBER},${TRAVIS_JOB},${TRIAL} / ${TRAVIS_BUILD_NUMBER}.${TRAVIS_JOB}.${TRIAL}
     echo Server: $SERVER $REVISION
     echo Tests: $TEST_BRANCH $TEST_REVISION
     echo
@@ -198,7 +200,6 @@ if [ "$res" == "0" ] ; then
 
     cd $LOGDIR
     tar zcf $ARCHDIR.tar.gz $ARCHDIR
-    ls -l $ARCHDIR.tar.gz
     load_failure
   fi
 
