@@ -2,23 +2,17 @@
 
 use strict;
 
-my @files= glob "@ARGV";
+# If a file with an exact name does not exist, it will prevent grep from working.
+# So, we want to exclude such files
 
-print "DEBUG: Checking @files for known bugs\n";
-
-foreach my $f (@files) {
-  if (-e $f) {
-    print "DEBUG: File $f exists\n";
-  } else {
-    print "DEBUG: File $f does not exist\n";
-  }
-}
+my @expected_files= glob "@ARGV";
+my @files;
+map { push @files, $_ if -e $f } @expected_files;
 
 while (<DATA>) {
   next unless /^\s*(MDEV-\d+):\s*(.*)/;
   my ($mdev, $pattern)= ($1, $2);
   chomp $pattern;
-  print "DEBUG: Running grep -h -E \"$pattern\" @files > /dev/null 2>&1\n";
   system("grep -h -E \"$pattern\" @files > /dev/null 2>&1");
   unless ($?) {
     unless (-e "/tmp/$mdev.resolution") {
