@@ -111,6 +111,8 @@ if [ "$res" == "0" ] ; then
 
   TRIAL="${TRIAL:-0}"
   TRIAL=$((TRIAL+1))
+  VARDIR="${VARDIR:-$LOGDIR/vardir}"
+  TRIAL_LOG="${TRIAL_LOG:-$LOGDIR/trial.log}"
   ARCHDIR="logs_${TRAVIS_JOB_NUMBER}.${TRIAL}"
   TRAVIS_JOB=`echo $TRAVIS_JOB_NUMBER | sed -e 's/.*\.//'`
 
@@ -123,12 +125,12 @@ if [ "$res" == "0" ] ; then
   echo ""
   echo "============================= Trial $TRIAL results ============================="
 
-  if [ -e ${LOGDIR}/trial.log ] ; then
-    TRIAL_STATUS=`grep 'will exit with exit status' $LOGDIR/trial.log | sed -e 's/.*will exit with exit status STATUS_\([A-Z_]*\).*/\1/'`
-    TRIAL_CMD=`grep -A 1 'Final command line:' $LOGDIR/trial.log`
-    mv ${LOGDIR}/trial.log ${LOGDIR}/${ARCHDIR}/
+  if [ -e $TRIAL_LOG ] ; then
+    TRIAL_STATUS=`grep 'will exit with exit status' $TRIAL_LOG | sed -e 's/.*will exit with exit status STATUS_\([A-Z_]*\).*/\1/'`
+    TRIAL_CMD=`grep -A 1 'Final command line:' $TRIAL_LOG
+    cp $TRIAL_LOG ${LOGDIR}/${ARCHDIR}/
   else
-    echo "trial.log does not exist"
+    echo "$TRIAL_LOG does not exist"
   fi
 
   echo "Status: $TRIAL_STATUS"
@@ -141,7 +143,7 @@ if [ "$res" == "0" ] ; then
   # Failure processing
   else
 
-    perl $HOME/mariadb-tests/scripts/check_for_known_bugs.pl $LOGDIR/vardir*/mysql.err ${LOGDIR}/${ARCHDIR}/trial*.log
+    perl $HOME/mariadb-tests/scripts/check_for_known_bugs.pl ${VARDIR}*/mysql.err $TRIAL_LOG
 
     echo
     echo '#' ${TRAVIS_BUILD_NUMBER},${TRAVIS_JOB},${TRIAL} / ${TRAVIS_BUILD_NUMBER}.${TRAVIS_JOB}.${TRIAL}
@@ -151,7 +153,7 @@ if [ "$res" == "0" ] ; then
     echo $TRIAL_CMD
     echo
 
-    for dname in $LOGDIR/vardir*
+    for dname in ${VARDIR}*
     do
       # Quoting bootstrap log all existing error logs
       for fname in $dname/mysql.err* $dname/boot.log
