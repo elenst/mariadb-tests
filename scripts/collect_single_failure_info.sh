@@ -127,7 +127,7 @@ if [ "$res" == "0" ] ; then
 
   if [ -e $TRIAL_LOG ] ; then
     TRIAL_STATUS=`grep 'will exit with exit status' $TRIAL_LOG | sed -e 's/.*will exit with exit status STATUS_\([A-Z_]*\).*/\1/'`
-    TRIAL_CMD=`grep -A 1 'Final command line:' $TRIAL_LOG
+    TRIAL_CMD=`grep -A 1 'Final command line:' $TRIAL_LOG`
     cp $TRIAL_LOG ${LOGDIR}/${ARCHDIR}/
   else
     echo "$TRIAL_LOG does not exist"
