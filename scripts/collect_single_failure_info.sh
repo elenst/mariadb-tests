@@ -201,6 +201,11 @@ if [ "$res" == "0" ] ; then
 
     cd $LOGDIR
     tar zcf $ARCHDIR.tar.gz $ARCHDIR
+    if [[ "$TRIAL_STATUS" == "CUSTOM_OUTCOME" ]] ; then
+      TRIAL_RESULT=UNKNOWN
+    else
+      TRIAL_RESULT=FAIL
+    fi
     load_failure
   fi
 
