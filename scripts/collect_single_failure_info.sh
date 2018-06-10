@@ -109,8 +109,7 @@ function process_coredump
 
 if [ "$res" == "0" ] ; then
 
-  TRIAL="${TRIAL:-0}"
-  TRIAL=$((TRIAL+1))
+  TRIAL="${TRIAL:-1}"
   VARDIR="${VARDIR:-$LOGDIR/vardir}"
   TRIAL_LOG="${TRIAL_LOG:-$LOGDIR/trial.log}"
   ARCHDIR="logs_${TRAVIS_JOB_NUMBER}.${TRIAL}"
