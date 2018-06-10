@@ -63,6 +63,7 @@ __DATA__
 
 MDEV-654: share->now_transactional
 MDEV-4312: make_lock_and_pin
+MDEV-5628: in Diagnostics_area::set_ok_status
 MDEV-5791:  in Field::is_real_null
 MDEV-6453:  int handler::ha_rnd_init
 MDEV-8203:  rgi->tables_to_lock
