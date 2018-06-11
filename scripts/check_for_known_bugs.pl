@@ -71,6 +71,7 @@ MDEV-10130: share->in_trans == 0
 MDEV-10679: mysql_create_frm_image
 MDEV-11071: thd->transaction.stmt.is_empty
 MDEV-11071: mark_tmp_table_as_free_for_reuse
+MDEV-11167: Can't find record
 MDEV-11539: mi_open.c:67: test_if_reopen
 MDEV-11779: void Diagnostics_area::set_ok_status
 MDEV-12466: Open_tables_state::BACKUPS_AVAIL
@@ -190,7 +191,7 @@ MDEV-16171: in setup_table_map
 MDEV-16184: nest->counter > 0
 MDEV-16190: in Item_null_result::field_type
 MDEV-16242: Slave worker thread retried transaction
-MDEV-16286: Can't find record in
+MDEV-16242: Can't find record
 MDEV-16292: Item_func::print
 MDEV-16397: Can't find record in
 MDEV-16407: in MDL_key::mdl_key_init
