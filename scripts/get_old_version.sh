@@ -31,12 +31,12 @@ if [ -n "$OLD" ] ; then
       fi
       echo "MySQL version $ver"
       fname=mysql-${ver}-linux-glibc2.12-x86_64
-      wget https://dev.mysql.com/get/Downloads/MySQL-${major_ver}/${fname}.tar.gz
+      wget -nv https://dev.mysql.com/get/Downloads/MySQL-${major_ver}/${fname}.tar.gz
     ;;
     10.*)
       wget https://downloads.mariadb.com/MariaDB/mariadb-${OLD}/bintar-linux-glibc_214-x86_64/
       fname=`grep "\"mariadb-.*tar.gz\"" index.html | sed -e 's/.*\(mariadb-.*\)\.tar\.gz.*/\1/'`
-      wget https://downloads.mariadb.com/MariaDB/mariadb-${OLD}/bintar-linux-glibc_214-x86_64/${fname}.tar.gz
+      wget -nv https://downloads.mariadb.com/MariaDB/mariadb-${OLD}/bintar-linux-glibc_214-x86_64/${fname}.tar.gz
     ;;
     *)
     ;;
