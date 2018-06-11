@@ -109,11 +109,16 @@ function process_coredump
 
 ###### "main"
 
+TRIAL_COUNT="${TRIAL_COUNT:-0}"
+TRIAL_COUNT=$((TRIAL_COUNT+1))
+
+# Use external value if exists, or internal counter otherwise
+TRIAL="${TRIAL:-$TRIAL_COUNT}"
+
 # Only do the job if initial checks passed
 
 if [ "$res" == "0" ] ; then
 
-  TRIAL="${TRIAL:-1}"
   VARDIR="${VARDIR:-$LOGDIR/vardir}"
   TRIAL_LOG="${TRIAL_LOG:-$LOGDIR/trial.log}"
   ARCHDIR="logs_${TRAVIS_JOB_NUMBER}.${TRIAL}"
