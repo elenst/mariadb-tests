@@ -112,8 +112,10 @@ function process_coredump
 TRIAL_COUNT="${TRIAL_COUNT:-0}"
 TRIAL_COUNT=$((TRIAL_COUNT+1))
 
-# Use external value if exists, or internal counter otherwise
-TRIAL="${TRIAL:-$TRIAL_COUNT}"
+# Only use the internal counter if the external value doesn't exist or doesn't get updated
+if [[ "$TRIAL" -lt "$TRIAL_COUNT" ]] ; then
+    TRIAL=$TRIAL_COUNT
+fi
 
 # Only do the job if initial checks passed
 
