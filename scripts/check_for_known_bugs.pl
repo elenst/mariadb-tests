@@ -63,7 +63,7 @@ __DATA__
 
 MDEV-654: share->now_transactional
 MDEV-4312: make_lock_and_pin
-MDEV-5628: in Diagnostics_area::set_ok_status
+MDEV-5628: Diagnostics_area::set_ok_status
 MDEV-5791:  in Field::is_real_null
 MDEV-6453:  int handler::ha_rnd_init
 MDEV-8203:  rgi->tables_to_lock
@@ -73,7 +73,7 @@ MDEV-11071: thd->transaction.stmt.is_empty
 MDEV-11071: mark_tmp_table_as_free_for_reuse
 MDEV-11167: Can't find record
 MDEV-11539: mi_open.c:67: test_if_reopen
-MDEV-11779: void Diagnostics_area::set_ok_status
+MDEV-11779: Diagnostics_area::set_ok_status
 MDEV-12466: Open_tables_state::BACKUPS_AVAIL
 MDEV-13024: in multi_delete::send_data
 MDEV-13103: fil0pagecompress.cc:[0-9]+: void fil_decompress_page
