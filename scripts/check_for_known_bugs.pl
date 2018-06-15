@@ -196,3 +196,6 @@ MDEV-16292: Item_func::print
 MDEV-16397: Can't find record in
 MDEV-16407: in MDL_key::mdl_key_init
 MDEV-16407: Error: Freeing overrun buffer
+MDEV-16499: from the internal data dictionary of InnoDB though the .frm file for the table exists
+MDEV-16500: user_table->n_def > table->s->fields
+MDEV-16501: in dict_mem_table_col_rename
