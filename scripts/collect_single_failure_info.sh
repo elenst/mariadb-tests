@@ -104,6 +104,7 @@ function process_coredump
   echo
   
   gdb --batch --eval-command="thread apply all bt" $binary $coredump > $datadir/threads
+  gdb --batch --eval-command="thread apply all bt full" $binary $coredump > $datadir/threads_full
   cp $binary $datadir/
 }
 
