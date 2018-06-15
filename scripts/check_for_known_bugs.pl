@@ -67,6 +67,7 @@ MDEV-5628: Diagnostics_area::set_ok_status
 MDEV-5791:  in Field::is_real_null
 MDEV-6453:  int handler::ha_rnd_init
 MDEV-8203:  rgi->tables_to_lock
+MDEV-9137:  in _ma_ck_real_write_btree
 MDEV-10130: share->in_trans == 0
 MDEV-10679: mysql_create_frm_image
 MDEV-11071: thd->transaction.stmt.is_empty
