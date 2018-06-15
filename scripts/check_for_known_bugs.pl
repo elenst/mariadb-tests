@@ -74,7 +74,6 @@ MDEV-11071: thd->transaction.stmt.is_empty
 MDEV-11071: mark_tmp_table_as_free_for_reuse
 MDEV-11167: Can't find record
 MDEV-11539: mi_open.c:67: test_if_reopen
-MDEV-11779: Diagnostics_area::set_ok_status
 MDEV-12466: Open_tables_state::BACKUPS_AVAIL
 MDEV-13024: in multi_delete::send_data
 MDEV-13103: fil0pagecompress.cc:[0-9]+: void fil_decompress_page
