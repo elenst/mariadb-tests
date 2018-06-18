@@ -122,7 +122,6 @@ MDEV-15130: table->s->null_bytes == 0
 MDEV-15130: static void PFS_engine_table::set_field_char_utf8
 MDEV-15114: mem_heap_dup
 MDEV-15115: dict_tf2_is_valid
-MDEV-15141: in Item::val_temporal_packed
 MDEV-15161: in get_addon_fields
 MDEV-15164: ikey_.type == kTypeValue
 MDEV-15175: Item_temporal_hybrid_func::val_str_ascii
@@ -139,7 +138,6 @@ MDEV-15319: myrocks::ha_rocksdb::convert_record_from_storage_format
 MDEV-15329: in dict_table_check_for_dup_indexes
 MDEV-15330: table->insert_values
 MDEV-15336: ha_partition::print_error
-MDEV-15338: table->read_set, field_index
 MDEV-15347: in fill_schema_table_by_open
 MDEV-15374: trx_undo_rec_copy
 MDEV-15380: is corrupt; try to repair it
@@ -191,6 +189,7 @@ MDEV-16170: Item_null_result::type_handler
 MDEV-16171: in setup_table_map
 MDEV-16184: nest->counter > 0
 MDEV-16190: in Item_null_result::field_type
+MDEV-16217: table->read_set, field_index
 MDEV-16242: Slave worker thread retried transaction
 MDEV-16242: Can't find record
 MDEV-16292: Item_func::print
