@@ -176,6 +176,7 @@ MDEV-15816: m_lock_rows == RDB_LOCK_WRITE
 MDEV-15828: num_fts_index <= 1
 MDEV-15855: innobase_get_computed_value
 MDEV-15878: table->file->stats.records > 0
+MDEV-15912: purge_sys.tail.commit <= purge_sys.rseg->last_commi
 MDEV-15950: find_dup_table
 MDEV-15950: find_table_in_list
 MDEV-15977: thd->in_sub_stmt
