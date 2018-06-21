@@ -72,6 +72,7 @@ MDEV-10130: share->in_trans == 0
 MDEV-10679: mysql_create_frm_image
 MDEV-11071: thd->transaction.stmt.is_empty
 MDEV-11071: mark_tmp_table_as_free_for_reuse
+MDEV-11080: table->n_waiting_or_granted_auto_inc_locks > 0
 MDEV-11167: Can't find record
 MDEV-11539: mi_open.c:67: test_if_reopen
 MDEV-12466: Open_tables_state::BACKUPS_AVAIL
@@ -199,3 +200,4 @@ MDEV-16407: Error: Freeing overrun buffer
 MDEV-16499: from the internal data dictionary of InnoDB though the .frm file for the table exists
 MDEV-16500: user_table->n_def > table->s->fields
 MDEV-16501: in dict_mem_table_col_rename
+MDEV-16549: Item_direct_view_ref::fix_fields
