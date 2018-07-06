@@ -174,8 +174,10 @@ MDEV-15812: virtual handler::~handler
 MDEV-15816: m_lock_rows == RDB_LOCK_WRITE
 MDEV-15828: num_fts_index <= 1
 MDEV-15855: innobase_get_computed_value
+MDEV-15855: innobase_allocate_row_for_vcol
 MDEV-15878: table->file->stats.records > 0
 MDEV-15912: purge_sys.tail.commit <= purge_sys.rseg->last_commi
+MDEV-15947: Error: Freeing overrun buffer
 MDEV-15950: find_dup_table
 MDEV-15950: find_table_in_list
 MDEV-15977: thd->in_sub_stmt
@@ -201,3 +203,4 @@ MDEV-16499: from the internal data dictionary of InnoDB though the .frm file for
 MDEV-16500: user_table->n_def > table->s->fields
 MDEV-16501: in dict_mem_table_col_rename
 MDEV-16549: Item_direct_view_ref::fix_fields
+MDEV-16635: sequence_insert
