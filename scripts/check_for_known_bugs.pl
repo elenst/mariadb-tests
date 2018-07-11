@@ -69,12 +69,16 @@ MDEV-6453:  int handler::ha_rnd_init
 MDEV-8203:  rgi->tables_to_lock
 MDEV-9137:  in _ma_ck_real_write_btree
 MDEV-10130: share->in_trans == 0
-MDEV-10679: mysql_create_frm_image
 MDEV-11071: thd->transaction.stmt.is_empty
 MDEV-11071: mark_tmp_table_as_free_for_reuse
 MDEV-11080: table->n_waiting_or_granted_auto_inc_locks > 0
 MDEV-11167: Can't find record
 MDEV-11539: mi_open.c:67: test_if_reopen
+MDEV-11741: table->s->all_set
+MDEV-11741: in ha_heap::rnd_next
+MDEV-11741: in handler::ha_reset
+MDEV-11741: mi_reset
+MDEV-11741: old_top == initial_top
 MDEV-12466: Open_tables_state::BACKUPS_AVAIL
 MDEV-13024: in multi_delete::send_data
 MDEV-13103: fil0pagecompress.cc:[0-9]+: void fil_decompress_page
@@ -176,6 +180,7 @@ MDEV-15828: num_fts_index <= 1
 MDEV-15855: innobase_get_computed_value
 MDEV-15855: innobase_allocate_row_for_vcol
 MDEV-15878: table->file->stats.records > 0
+MDEV-15907: in fill_effective_table_privileges
 MDEV-15912: purge_sys.tail.commit <= purge_sys.rseg->last_commi
 MDEV-15947: Error: Freeing overrun buffer
 MDEV-15950: find_dup_table
