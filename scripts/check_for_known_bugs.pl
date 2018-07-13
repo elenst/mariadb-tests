@@ -69,8 +69,6 @@ MDEV-6453:  int handler::ha_rnd_init
 MDEV-8203:  rgi->tables_to_lock
 MDEV-9137:  in _ma_ck_real_write_btree
 MDEV-10130: share->in_trans == 0
-MDEV-11071: thd->transaction.stmt.is_empty
-MDEV-11071: mark_tmp_table_as_free_for_reuse
 MDEV-11080: table->n_waiting_or_granted_auto_inc_locks > 0
 MDEV-11167: Can't find record
 MDEV-11539: mi_open.c:67: test_if_reopen
@@ -209,3 +207,4 @@ MDEV-16500: user_table->n_def > table->s->fields
 MDEV-16501: in dict_mem_table_col_rename
 MDEV-16549: Item_direct_view_ref::fix_fields
 MDEV-16635: sequence_insert
+MDEV-16745: thd->transaction.stmt.is_empty
