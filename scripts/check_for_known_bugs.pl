@@ -77,12 +77,10 @@ MDEV-11741: in ha_heap::rnd_next
 MDEV-11741: in handler::ha_reset
 MDEV-11741: mi_reset
 MDEV-11741: old_top == initial_top
-MDEV-12466: Open_tables_state::BACKUPS_AVAIL
 MDEV-13024: in multi_delete::send_data
 MDEV-13103: fil0pagecompress.cc:[0-9]+: void fil_decompress_page
 MDEV-13202: ltime->neg == 0
 MDEV-13231: in _ma_unique_hash
-MDEV-13553: Open_tables_state::BACKUPS_AVAIL
 MDEV-13644: prev != 0 && next != 0
 MDEV-13699: == new_field->field_name.length
 MDEV-13828: in handler::ha_index_or_rnd_end
@@ -141,7 +139,6 @@ MDEV-15319: myrocks::ha_rocksdb::convert_record_from_storage_format
 MDEV-15329: in dict_table_check_for_dup_indexes
 MDEV-15330: table->insert_values
 MDEV-15336: ha_partition::print_error
-MDEV-15347: in fill_schema_table_by_open
 MDEV-15374: trx_undo_rec_copy
 MDEV-15380: is corrupt; try to repair it
 MDEV-15391: join->best_read < double
@@ -181,6 +178,7 @@ MDEV-15878: table->file->stats.records > 0
 MDEV-15907: in fill_effective_table_privileges
 MDEV-15912: purge_sys.tail.commit <= purge_sys.rseg->last_commi
 MDEV-15947: Error: Freeing overrun buffer
+MDEV-15949: space->n_pending_ops == 0
 MDEV-15950: find_dup_table
 MDEV-15950: find_table_in_list
 MDEV-15977: thd->in_sub_stmt
@@ -205,6 +203,9 @@ MDEV-16407: Error: Freeing overrun buffer
 MDEV-16499: from the internal data dictionary of InnoDB though the .frm file for the table exists
 MDEV-16500: user_table->n_def > table->s->fields
 MDEV-16501: in dict_mem_table_col_rename
+MDEV-16523: level_and_file.second->being_compacted
 MDEV-16549: Item_direct_view_ref::fix_fields
+MDEV-16523: level_and_file.second->being_compacted
 MDEV-16635: sequence_insert
 MDEV-16745: thd->transaction.stmt.is_empty
+MDEV-16779: rw_lock_own
