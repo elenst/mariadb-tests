@@ -207,5 +207,10 @@ MDEV-16523: level_and_file.second->being_compacted
 MDEV-16549: Item_direct_view_ref::fix_fields
 MDEV-16523: level_and_file.second->being_compacted
 MDEV-16635: sequence_insert
+MDEV-16659: anc_page->org_size == anc_page->size
 MDEV-16745: thd->transaction.stmt.is_empty
 MDEV-16779: rw_lock_own
+MDEV-16783: in mysql_delete
+MDEV-16788: ls->length == strlen
+MDEV-16789: in insert_fields
+MDEV-16792: in Diagnostics_area::sql_errno
