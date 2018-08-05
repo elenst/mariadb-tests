@@ -168,6 +168,7 @@ MDEV-15729: send_result_set_metadata
 MDEV-15738: in my_strcasecmp_utf8
 MDEV-15744: derived->table
 MDEV-15742: m_lock_type == 1
+MDEV-15753: thd->is_error
 MDEV-15797: thd->killed != 0
 MDEV-15812: virtual handler::~handler
 MDEV-15816: m_lock_rows == RDB_LOCK_WRITE
@@ -214,3 +215,4 @@ MDEV-16783: in mysql_delete
 MDEV-16788: ls->length == strlen
 MDEV-16789: in insert_fields
 MDEV-16792: in Diagnostics_area::sql_errno
+MDEV-16794: thd->transaction.stmt.is_empty
