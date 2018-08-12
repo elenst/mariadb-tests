@@ -38,6 +38,7 @@ while (<DATA>) {
       unless (-e "/tmp/$mdev.resolutiondate") {
         system("wget https://jira.mariadb.org//rest/api/2/issue/$mdev?fields=resolutiondate -O /tmp/$mdev.resolutiondate -o /dev/null");
       }
+      $resolution= uc($resolution);
       $resolutiondate= `cat /tmp/$mdev.resolutiondate`;
       unless ($resolutiondate=~ s/.*\"resolutiondate\":\"(\d\d\d\d-\d\d-\d\d).*/$1/) {
         $resolutiondate= '';
@@ -69,6 +70,7 @@ MDEV-6453:  int handler::ha_rnd_init
 MDEV-8203:  rgi->tables_to_lock
 MDEV-9137:  in _ma_ck_real_write_btree
 MDEV-10130: share->in_trans == 0
+MDEV-10130: file->trn == trn
 MDEV-11080: table->n_waiting_or_granted_auto_inc_locks > 0
 MDEV-11167: Can't find record
 MDEV-11539: mi_open.c:67: test_if_reopen
@@ -92,7 +94,6 @@ MDEV-14410: table->pos_in_locked_tables->table == table
 MDEV-14472: is_current_stmt_binlog_format_row
 MDEV-14557: m_sp == __null
 MDEV-14642: table->s->db_create_options == part_table->s->db_create_options
-MDEV-14669: file->trn == trn
 MDEV-14693: clust_index->online_log
 MDEV-14695: n < m_size
 MDEV-14697: in TABLE::mark_default_fields_for_write
@@ -175,6 +176,8 @@ MDEV-15816: m_lock_rows == RDB_LOCK_WRITE
 MDEV-15828: num_fts_index <= 1
 MDEV-15855: innobase_get_computed_value
 MDEV-15855: innobase_allocate_row_for_vcol
+MDEV-15872: row_log_table_get_pk_col
+MDEV-15872: in mem_heap_dup
 MDEV-15878: table->file->stats.records > 0
 MDEV-15907: in fill_effective_table_privileges
 MDEV-15912: purge_sys.tail.commit <= purge_sys.rseg->last_commi
@@ -216,3 +219,11 @@ MDEV-16788: ls->length == strlen
 MDEV-16789: in insert_fields
 MDEV-16792: in Diagnostics_area::sql_errno
 MDEV-16794: thd->transaction.stmt.is_empty
+MDEV-16940: in unsafe_key_update
+
+# Fixed:
+
+MDEV-11071: thd->transaction.stmt.is_empty
+MDEV-11071: in THD::mark_tmp_table_as_free_for_reuse
+MDEV-14100: dict_index_get_n_unique_in_tree_nonleaf
+MDEV-16512: in find_field_in_tables
