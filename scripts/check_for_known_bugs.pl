@@ -63,7 +63,6 @@ while (<DATA>) {
 __DATA__
 
 MDEV-654: share->now_transactional
-MDEV-4312: make_lock_and_pin
 MDEV-5628: Diagnostics_area::set_ok_status
 MDEV-5791:  in Field::is_real_null
 MDEV-6453:  int handler::ha_rnd_init
@@ -91,6 +90,7 @@ MDEV-14041: in String::length
 MDEV-14134: dberr_t row_upd_sec_index_entry
 MDEV-14407: trx_undo_rec_copy
 MDEV-14410: table->pos_in_locked_tables->table == table
+MDEV-14440: inited==RND
 MDEV-14472: is_current_stmt_binlog_format_row
 MDEV-14557: m_sp == __null
 MDEV-14642: table->s->db_create_options == part_table->s->db_create_options
@@ -198,6 +198,7 @@ MDEV-16171: in setup_table_map
 MDEV-16184: nest->counter > 0
 MDEV-16190: in Item_null_result::field_type
 MDEV-16217: table->read_set, field_index
+MDEV-16241: inited==RND
 MDEV-16242: Slave worker thread retried transaction
 MDEV-16242: Can't find record
 MDEV-16292: Item_func::print
@@ -207,23 +208,26 @@ MDEV-16407: Error: Freeing overrun buffer
 MDEV-16499: from the internal data dictionary of InnoDB though the .frm file for the table exists
 MDEV-16500: user_table->n_def > table->s->fields
 MDEV-16501: in dict_mem_table_col_rename
+MDEV-16516: inited==RND
 MDEV-16523: level_and_file.second->being_compacted
 MDEV-16549: Item_direct_view_ref::fix_fields
 MDEV-16523: level_and_file.second->being_compacted
 MDEV-16635: sequence_insert
 MDEV-16659: anc_page->org_size == anc_page->size
 MDEV-16745: thd->transaction.stmt.is_empty
-MDEV-16779: rw_lock_own
 MDEV-16783: in mysql_delete
 MDEV-16788: ls->length == strlen
 MDEV-16789: in insert_fields
 MDEV-16792: in Diagnostics_area::sql_errno
 MDEV-16794: thd->transaction.stmt.is_empty
 MDEV-16940: in unsafe_key_update
+MDEV-16957: Field_iterator_natural_join::next
 
 # Fixed:
 
+MDEV-4312: make_lock_and_pin
 MDEV-11071: thd->transaction.stmt.is_empty
 MDEV-11071: in THD::mark_tmp_table_as_free_for_reuse
 MDEV-14100: dict_index_get_n_unique_in_tree_nonleaf
 MDEV-16512: in find_field_in_tables
+MDEV-16779: rw_lock_own
